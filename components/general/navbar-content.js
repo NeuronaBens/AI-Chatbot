@@ -5,10 +5,10 @@ const NavbarContent = () => {
   return (
     <div className="flex items-center">
       <Link href="/about">
-        <p className="mx-4">About</p>
+        <p className="mx-4">Ayuda</p>
       </Link>
       <Link href="/contact">
-        <p>Contact</p>
+        <p>Contacto</p>
       </Link>
     </div>
   );
