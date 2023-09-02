@@ -4,7 +4,7 @@ import Link from "next/link";
 const NavbarContentUser = () => {
   return (
     <div className="flex items-center">
-      <Link href="/chat">
+      <Link href="user/chat">
         <p className="ml-4">
           <b>Chat</b>
         </p>
@@ -12,16 +12,16 @@ const NavbarContentUser = () => {
       <Link href="/ayuda">
         <p className="ml-4">Ayuda</p>
       </Link>
-      <Link href="/marcadores">
+      <Link href="user/marcadores">
         <p className="ml-4">Marcadores</p>
       </Link>
-      <Link href="/notificaciones">
+      <Link href="user/notificaciones">
         <p className="ml-4">Notificaciones</p>
       </Link>
-      <Link href="/configuracion">
+      <Link href="user/configuracion">
         <p className="ml-4">Configuración</p>
       </Link>
-      <Link href="/cerrar-sesion">
+      <Link href="user/cerrar-sesion">
         <p className="ml-4 text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
