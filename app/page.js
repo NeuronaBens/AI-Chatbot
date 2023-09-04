@@ -1,5 +1,6 @@
 import Navbar from "@/components/general/navbar";
 import NavbarContentAuthentication from "@/components/authentication/navbar-content";
+import Footer from "@/components/general/footer";
 
 export default function Home() {
   return (
@@ -89,6 +90,7 @@ export default function Home() {
         </p>
       </div>
       <div className="m-4"></div>
+      <Footer></Footer>
     </div>
   );
 }
