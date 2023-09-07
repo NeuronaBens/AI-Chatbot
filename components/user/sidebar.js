@@ -13,7 +13,7 @@ const SidebarUser = () => {
   }
 
   return (
-    <div className={closed ? "" : "shadow-lg h-screen overflow-clip"}>
+    <div className={closed ? "fixed" : "fixed shadow-lg h-screen"}>
       <div className="h-1/4 flex">
         <Link href="/">
           <div className="m-4">
