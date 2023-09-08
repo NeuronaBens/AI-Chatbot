@@ -4,40 +4,50 @@ import TextInput from "./text-input";
 
 const ChatContainer = () => {
   return (
-    <div className="w-full">
-      <div className="grow">
-        <div className="h-5/6 mb-32">
-          <TextBubble text={"Hello dear friend"} aiResponse={true}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-          <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+    <div className="grow">
+      <div className="h-5/6 mb-32">
+        <div className="w-5/6 mx-auto justify-center items-center">
+          <h1 className="mt-5 text-4xl text-center font-bold">
+            Bienvenido a <span className="text-orange-400">Calmbot!</span>
+          </h1>
+          <p className="text-center text-lg my-4">
+            Tu chatbot de autoayuda y manejo del estrés y la ansiedad.
+          </p>
+          <p className="text-center mb-5 text-gray-500">
+            Inicia tu conversación con un saludo.
+          </p>
+          <hr className="m-5"></hr>
         </div>
-        <div className="w-full resize-none">
-          <TextInput></TextInput>
-        </div>
+        <TextBubble text={"Hello dear friend"} aiResponse={true}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+      </div>
+      <div className="w-full resize-none">
+        <TextInput></TextInput>
       </div>
     </div>
   );
