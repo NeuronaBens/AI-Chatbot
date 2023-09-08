@@ -19,12 +19,18 @@ const Footer = () => {
         <div className="px-8 py-4">
           <ul className="flex flex-wrap space-x-4 sm:space-x-8 md:space-x-12">
             <li>
-              <a href="#" className="underline text-orange-500">
+              <a
+                href="/general/legal/politica-de-privacidad"
+                className="underline text-orange-500"
+              >
                 Política de privacidad
               </a>
             </li>
             <li>
-              <a href="#" className="underline text-orange-500">
+              <a
+                href="/general/legal/terminos-y-condiciones"
+                className="underline text-orange-500"
+              >
                 Términos de uso
               </a>
             </li>

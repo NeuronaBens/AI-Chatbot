@@ -1,5 +1,6 @@
 import Navbar from "@/components/general/navbar";
 import NavbarContentAuthentication from "@/components/authentication/navbar-content";
+import Footer from "@/components/general/footer";
 
 export default function Layout({ children }) {
   return (
@@ -8,6 +9,7 @@ export default function Layout({ children }) {
         <NavbarContentAuthentication></NavbarContentAuthentication>
       </Navbar>
       {children}
+      <Footer></Footer>
     </div>
   );
 }
