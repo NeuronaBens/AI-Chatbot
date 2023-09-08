@@ -1,19 +1,14 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
-import { useState } from "react";
 
-const SidebarUser = () => {
-  const [closed, setClosed] = useState(false);
-
-  function toggle() {
-    setClosed(!closed);
-  }
-
+const SidebarUser = ({ closed, toggle }) => {
   return (
-    <div className={closed ? "" : "shadow-lg h-screen overflow-clip"}>
+    <div
+      className={
+        closed ? "fixed z-50" : "fixed shadow-lg h-screen bg-white z-50"
+      }
+    >
       <div className="h-1/4 flex">
         <Link href="/">
           <div className="m-4">

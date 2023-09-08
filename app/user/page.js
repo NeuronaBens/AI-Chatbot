@@ -1,3 +1,5 @@
+import ChatContainer from "@/components/user/chat/chat-container";
+
 export default function Home() {
-  return <p>HOLAAA</p>;
+  return <ChatContainer></ChatContainer>;
 }

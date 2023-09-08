@@ -3,6 +3,8 @@ import NavbarContentAdmin from "@/components/admin/navbar-content";
 import NavbarContentAuthentication from "@/components/authentication/navbar-content";
 import NavbarContent from "@/components/general/navbar-content";
 
+import SidebarUser from "@/components/user/sidebar";
+
 export default function Home() {
   return (
     <div>
@@ -15,6 +17,7 @@ export default function Home() {
       <Navbar>
         <NavbarContentAuthentication></NavbarContentAuthentication>
       </Navbar>
+      <SidebarUser></SidebarUser>
     </div>
   );
 }
