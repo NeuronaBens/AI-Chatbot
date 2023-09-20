@@ -1,8 +1,25 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import TextBubble from "./text-bubble";
 import TextInput from "./text-input";
 
 const ChatContainer = () => {
+  const [messages, setMessages] = useState([
+    { text: "Buen día Amigo", aiResponse: true },
+    { text: "¿Cuál es tu nombre?", aiResponse: true },
+    // Add any initial messages here
+  ]);
+
+  const handleUserMessage = (text) => {
+    // Add the user's message to the chat
+    setMessages([...messages, { text, aiResponse: false }]);
+
+    // Handle AI's response here and add it to the chat as well if needed
+    // You can make an API call or use a chatbot library to get the AI's response
+    // and then add it to the chat using setMessages.
+  };
+
   return (
     <div className="grow">
       <div className="h-5/6 mb-32">
@@ -18,36 +35,16 @@ const ChatContainer = () => {
           </p>
           <hr className="m-5"></hr>
         </div>
-        <TextBubble text={"Hello dear friend"} aiResponse={true}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
-        <TextBubble text={"Hello AI chatbot"} aiResponse={false}></TextBubble>
+        {messages.map((message, index) => (
+          <TextBubble
+            key={index}
+            text={message.text}
+            aiResponse={message.aiResponse}
+          />
+        ))}
       </div>
       <div className="w-full resize-none">
-        <TextInput></TextInput>
+        <TextInput onUserMessage={handleUserMessage} />
       </div>
     </div>
   );
