@@ -42,7 +42,7 @@ const ChatContainer = () => {
       const data = await response.json();
 
       // Handle the AI's response and add it to the chat
-      const aiResponse = data.response;
+      const aiResponse = data;
       handleAddMessage(aiResponse, "AI");
     } catch (error) {
       console.error("API call error:", error);
