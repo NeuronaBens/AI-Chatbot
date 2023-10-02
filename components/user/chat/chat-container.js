@@ -12,7 +12,11 @@ const ChatContainer = () => {
   //////////////////////////////////
   const [messages, setMessages] = useState(
     new MessageList([
-      new Message("Hola, ¿en qué puedo ayudarte hoy?", "AI", 1),
+      new Message(
+        "Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
+        "AI",
+        1
+      ),
       // Add any initial messages here
     ])
   );

@@ -36,8 +36,29 @@ export class MessageList {
     }
     return this.messages[this.messages.length - 1];
   }
-  getFormattedForOpenai() {
+  getFormattedForOpenai(
+    systemRole = "Greeting Physologist",
+    userProfile = "estudiante de la universidad peruana de ciencias aplicadas, tiene 18 años y se llama Juan."
+  ) {
     let formattedMessages = [];
+
+    if (systemRole == "Greeting Physologist") {
+      formattedMessages.push({
+        role: "system",
+        content:
+          "Actúa como un psicólogo terapeútico, que es capaz de conversar con el usuario, brindarle feedback sobre sus problemas," +
+          " además de tecnicas de diferente tipo para tratar sus problemas de estrés y ansiedad." +
+          " Tambien procura ser asertivo y seguir la conversación con el usuario," +
+          " utilizando técnicas de la terápia cognitiva conductual." +
+          " Recuerda nunca decirle que busco apoyo psicológico, dado que tu eres esa persona, tu eres su apoyo psicológico." +
+          " Se una persona bastante llevadera y jovial para ayudar a la mejoría psicológica del estrés o ansiedad que pueda estar sufriendo el este paciente." +
+          " No respondas con preguntas demasiado largas." +
+          " El usuario es un estudiante universitario, ten eso en cuenta." +
+          "considera esto sobre el usuario: " +
+          userProfile,
+      });
+    }
+
     for (let i = 0; i < this.messages.length; i++) {
       formattedMessages.push(this.messages[i].getFormattedForOpenai());
     }
