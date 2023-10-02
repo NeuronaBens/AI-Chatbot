@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 
-const TextInput = ({ onSend }) => {
+const TextInput = ({ onUserMessage }) => {
   const [text, setText] = useState("");
 
   const handleSend = () => {
-    onSend(text);
+    onUserMessage(text);
     setText("");
   };
 
