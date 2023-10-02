@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import TextBubble from "./text-bubble";
+import TextBubble from "./textBubbles/text-bubble";
 import TextInput from "./text-input";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import ChatWelcome from "./chat-welcome";
@@ -67,11 +67,7 @@ const ChatContainer = () => {
       <div className="h-5/6 mb-32">
         <ChatWelcome />
         {messages.getAsMessageList().map((message, index) => (
-          <TextBubble
-            key={index}
-            text={message.text}
-            aiResponse={message.sender === "AI"}
-          />
+          <TextBubble key={index} chatMessage={message} />
         ))}
       </div>
       <div className="w-full resize-none">
