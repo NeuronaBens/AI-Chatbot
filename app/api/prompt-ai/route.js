@@ -5,7 +5,7 @@ export async function POST(request) {
   try {
     // Replace this with your AI response generation logic
     const data = await request.json();
-    let aiResponse = generateResponseCohere(data.text);
+    let aiResponse = generateResponseOpenAI(data);
     return aiResponse;
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
@@ -18,11 +18,29 @@ export async function POST(request) {
 }
 
 //////////////////////////////////////////////////////////////////////////
-/*
-    const data = await request.json();
-    let aiResponse = generateResponseCohere(data.text);
-    return aiResponse;
-*/
+// Function to generate responses based on the message, using open AI
+//messages: [{ role: "user", content: "Say this is a test!" }],
+async function generateResponseOpenAI(messages) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + process.env.OPENAI_API_KEY,
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: messages,
+      temperature: 0.7,
+    }),
+  });
+  const data = await res.json();
+  return Response.json(data.choices[0].message.content);
+}
+
+//////////////////////////////////////////////////////////////////////////
+//   const data = await request.json();
+//    let aiResponse = generateResponseCohere(data.text);
+//    return aiResponse;
 async function generateResponseCohere(message) {
   const response = await Cohere.generate({
     model: "command",

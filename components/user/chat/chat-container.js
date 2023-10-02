@@ -12,7 +12,7 @@ const ChatContainer = () => {
   //////////////////////////////////
   const [messages, setMessages] = useState(
     new MessageList([
-      new Message("Buen día Amigo", "AI", 1),
+      new Message("Hola, ¿en qué puedo ayudarte hoy?", "AI", 1),
       // Add any initial messages here
     ])
   );
@@ -25,14 +25,14 @@ const ChatContainer = () => {
     setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
   };
 
-  const handleAIMessage = async (prompt) => {
+  const handleAIMessage = async (inputData) => {
     try {
       const response = await fetch("/api/prompt-ai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(prompt), // Send the prompt as 'text' property
+        body: JSON.stringify(inputData), // Send the required input
       });
 
       if (!response.ok) {
@@ -50,9 +50,9 @@ const ChatContainer = () => {
   };
 
   const handleUserMessage = (text) => {
+    // You can add a console.log here to see what is being sent to api.
     handleAddMessage(text, "User");
-    handleAIMessage(messages.getLastMessage());
-    console.log(messages);
+    handleAIMessage(messages.getFormattedForOpenai());
   };
 
   //////////////////////////////////
