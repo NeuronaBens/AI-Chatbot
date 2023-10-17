@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id
+  name        String
+  email       String    @unique
+  password    String
+  image       String?
+  deleted     Boolean
+  description Json?
+  role        String
+  notifications UserNotification[]
+  anxiety_stress_levels AnxietyStressLevels[]
+  messages Message[]
+  settings Settings?
+  tasks Task[]
+}
+
+model Admin {
+  id        String  @id
+  name      String  
+  email     String  @unique
+  password  String
+  role      String
+  notifications Notification[]
+}
+
+model AnxietyStressLevels {
+  id        String    @id
+  anxiety   Int
+  stress    Int
+  date      DateTime  @default(now())
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   String    
+}
+
+model Message {
+  id          String    @id
+  session     Int
+  position    Int
+  sender      Boolean
+  erased      Boolean
+  bookmarked  Boolean
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id     String
+  complaints Complaint[]    
+}
+
+model Complaint {
+  id          String    @id
+  content     String
+  date        DateTime  @default(now())
+  message     Message   @relation(fields: [message_id], references: [id])
+  message_id  String    
+}
+
+model Notification {
+  id           String    @id
+  name         String
+  content      String
+  date_sent    DateTime  @default(now())
+  admin        Admin     @relation(fields: [admin_id], references: [id])
+  admin_id     String 
+  users UserNotification[]  
+}
+
+model Settings {
+  id             String  @id
+  data_collection Boolean
+  theme          String
+  user           User    @relation(fields: [user_id], references: [id])
+  user_id        String  @unique
+}
+
+model Task {
+  id         String    @id
+  name       String
+  content    String
+  completed  Float
+  user       User      @relation(fields: [user_id], references: [id])
+  user_id    String    
+}
+
+model UserNotification {
+  id             String    @id
+  user           User      @relation(fields: [user_id], references: [id])
+  user_id        String    
+  notification   Notification @relation(fields: [notification_id], references: [id])
+  notification_id String    
+  date_received  DateTime
+  read           Boolean
+}
