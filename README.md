@@ -4,7 +4,26 @@ You are currently on the development branch.
 
 ## Getting Started
 
-First, run the development server:
+First, install the necesary dependencies:
+
+```bash
+npm i
+npx prisma generate
+npm i @prisma/client
+npm install prisma --save-dev
+```
+
+Also add the necessary elements to .env and .env.local
+
+#### .env
+
+DATABASE_URL =
+
+#### .env.local
+
+OPENAI_API_KEY =
+
+Second, run the development server:
 
 ```bash
 npm run dev
