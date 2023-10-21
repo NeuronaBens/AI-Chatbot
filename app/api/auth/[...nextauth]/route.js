@@ -59,8 +59,13 @@ export const authOptions = {
         }
       }
     },
-    async jwt({ token, user, session }) {
+    async jwt({ token, user, session, trigger }) {
       console.log('JWT Callback', { token, user, session })
+      
+      if(trigger === "update" && session?.name){
+        token.name = session.name;
+      }
+
       if (user) {
         return {
           ...token,
