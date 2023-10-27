@@ -46,21 +46,9 @@ export const authOptions = {
     })
   ],
   callbacks: {
-    session({ session, token, user }) {
-      console.log('Session Callback', { session, token, user })
-      return {
-        ...session,
-        user: {
-          ...session.user,                     
-          id: token.id,                     
-          deleted: token.deleted,
-          description: token.description,
-          role: token.role
-        }
-      }
-    },
+  
     async jwt({ token, user, session, trigger }) {
-      console.log('JWT Callback', { token, user, session })
+      //console.log('JWT Callback', { token, user, session })
       
       if(trigger === "update" && session?.name){
         token.name = session.name;
@@ -71,12 +59,23 @@ export const authOptions = {
           ...token,
           id: user.id,
           deleted: user.deleted,
-          description: user.description,
-          role: user.role
+          role_id: user.role_id
         }
       }
       return token;
-    }
+    },
+    session({ session, token, user }) {
+      //console.log('Session Callback', { session, token, user })
+      return {
+        ...session,
+        user: {
+          ...session.user,                     
+          id: token.id,                     
+          deleted: token.deleted,
+          role_id: token.role_id
+        }
+      }
+    },
   }
 }
 
