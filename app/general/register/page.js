@@ -22,7 +22,6 @@ export default function Register() {
           email,
           password,
           image,
-          deleted:false,
         }),
         headers: {
           "Content-Type": "application/json",

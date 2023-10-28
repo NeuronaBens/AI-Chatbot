@@ -17,12 +17,12 @@ export async function POST(req) {
     const hashed = await hash(password, 12)
 
     const role = await prisma.role.findUnique({
-        where: {name : "User"}
+        where: {name : "Student"}
     });
 
     const user = await prisma.user.create({
         data: {
-            id:IdManager.userId(), name, email, password: hashed, image, deleted, role_id: role.id
+            id:IdManager.userId(), name, email, password: hashed, image, role_id: role.id
         }
     })
 
