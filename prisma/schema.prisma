@@ -16,6 +16,8 @@ model User {
   email       String    @unique @db.VarChar(50)
   password    String    @db.VarChar(100)
   image       String?   @db.VarChar(250)
+  age Int
+  sex String @db.VarChar(30)
   deleted_at  DateTime?
   role        Role @relation(fields: [role_id], references: [id])
   role_id String @db.Char(25)
