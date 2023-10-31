@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
+import { signOut} from "next-auth/react";
 
 const SidebarUser = ({ closed, toggle }) => {
   return (
@@ -58,7 +59,7 @@ const SidebarUser = ({ closed, toggle }) => {
       )}
       {!closed && (
         <div className="h-1/4">
-          <Link href="/user/cerrar-sesion">
+          <Link onClick={() => { signOut({callbackUrl: "/",});}} href="/">
             <p className="m-4 text-gray-400 flex">
               Cerrar Sesion{" "}
               <svg

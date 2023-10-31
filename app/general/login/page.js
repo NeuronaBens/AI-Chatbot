@@ -1,15 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Login() {
+  const session = useSession()
+  const router = useRouter()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle login logic here
+    await signIn('credentials', {
+      redirect:false,
+      email, password,
+    })
   };
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      //console.log(session.data)
+      router.push('/user') 
+    }
+  })
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-2 px-4 sm:px-6 lg:px-8">
@@ -21,11 +36,9 @@ export default function Login() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
+              <label htmlFor="email-address" className="sr-only"> Email address </label>
               <input
                 id="email-address"
                 name="email"
@@ -39,9 +52,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
+              <label htmlFor="password" className="sr-only"> Password </label>
               <input
                 id="password"
                 name="password"

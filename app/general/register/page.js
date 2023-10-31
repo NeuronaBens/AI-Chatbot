@@ -1,15 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [image, setImage] = useState("");
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle registration logic here
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          image,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.ok) {
+        router.push("/general/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -22,11 +45,23 @@ export default function Register() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
+              <label htmlFor="name" className="sr-only"> Name </label>
+              <input
+                id="name"
+                name="name"
+                type="name"
+                autoComplete="name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Name"
+              />
+            </div>
+            <div>
+              <label htmlFor="email-address" className="sr-only"> Email address </label>
               <input
                 id="email-address"
                 name="email"
@@ -40,9 +75,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
+              <label htmlFor="password" className="sr-only"> Password </label>
               <input
                 id="password"
                 name="password"
@@ -56,9 +89,7 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="confirm-password" className="sr-only">
-                Confirm password
-              </label>
+              <label htmlFor="confirm-password" className="sr-only"> Confirm password </label>
               <input
                 id="confirm-password"
                 name="confirm-password"
@@ -71,6 +102,21 @@ export default function Register() {
                 placeholder="Confirm password"
               />
             </div>
+            <div>
+              <label htmlFor="image" className="sr-only"> Image </label>
+              <input
+                id="image"
+                name="image"
+                type="url"
+                autoComplete="image"
+                required
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Image URL"
+              />
+            </div>
+            
           </div>
 
           <div>
