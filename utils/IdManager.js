@@ -116,4 +116,7 @@ export class IdManager {
   static complaintId() {
     return IdManager.generate({ prefix: "COM" });
   }
+  static sexId(){
+    return IdManager.generate({ prefix: "SEX" });
+  }
 }

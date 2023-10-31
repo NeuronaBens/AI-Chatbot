@@ -16,8 +16,6 @@ model User {
   email       String    @unique @db.VarChar(50)
   password    String    @db.VarChar(100)
   image       String?   @db.VarChar(250)
-  age Int
-  sex String @db.VarChar(30)
   deleted_at  DateTime?
   role        Role @relation(fields: [role_id], references: [id])
   role_id String @db.Char(25)
@@ -29,6 +27,9 @@ model Student {
   user User @relation(fields: [student_id], references: [id])
   student_id String @id @db.Char(25)
   description String @db.VarChar(2000)
+  date_of_birth DateTime @db.Date
+  sex Sex @relation(fields: [sex_id], references: [id])
+  sex_id String @db.Char(25)
   career Career @relation(fields: [career_id], references: [id])
   career_id String @db.Char(25)
   notifications StudentNotification[]
@@ -137,5 +138,11 @@ model Career{
   id String @id @db.Char(25)
   name String @unique @db.VarChar(50)
   description String @db.VarChar(100)
+  students Student[]
+}
+
+model Sex{
+  id String @id @db.Char(25)
+  name String @unique @db.VarChar(30)
   students Student[]
 }
