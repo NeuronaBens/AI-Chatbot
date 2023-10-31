@@ -7,6 +7,8 @@ export default function Register() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [sex, setSex] = useState(""); 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState("");
@@ -22,6 +24,8 @@ export default function Register() {
           email,
           password,
           image,
+          age,
+          sex,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -75,6 +79,30 @@ export default function Register() {
               />
             </div>
             <div>
+              <label htmlFor="age" className="sr-only"> Age </label>
+              <input
+                id="age"
+                name="age"
+                type="age"
+                autoComplete="age"
+                required
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Age"
+              />
+            </div>
+            <div>
+              <label htmlFor="sex" className="sr-only"> Sex </label>
+              <select id ="sex" required
+              name="sex" value={sex} onChange={(e)=> setSex(e.target.value)}
+              className=" rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                <option value={""} disabled >Elige tu sexo</option>
+                <option value={"Masculino"} >Masculino</option>
+                <option value={"Femenino"} >Femenino</option>
+              </select>
+            </div>
+            <div>
               <label htmlFor="password" className="sr-only"> Password </label>
               <input
                 id="password"
@@ -109,16 +137,13 @@ export default function Register() {
                 name="image"
                 type="url"
                 autoComplete="image"
-                required
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Image URL"
               />
             </div>
-            
           </div>
-
           <div>
             <button
               type="submit"

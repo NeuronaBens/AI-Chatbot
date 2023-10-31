@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import { IdManager } from '@/utils/IdManager'
 
 export async function POST(req) {
-    const { name, email, password, image } = await req.json()
+    const { name, email, password, image, age, sex } = await req.json()
 
     const exist = await prisma.user.findUnique({
         where:{email:email}
@@ -14,6 +14,8 @@ export async function POST(req) {
         throw new Error("Email already exists")
     }
 
+    const ageInt = parseInt(age);
+
     const hashed = await hash(password, 12)
 
     const role = await prisma.role.findUnique({
@@ -22,7 +24,7 @@ export async function POST(req) {
 
     const user = await prisma.user.create({
         data: {
-            id:IdManager.userId(), name, email, password: hashed, image, 
+            id:IdManager.userId(), name, email, password: hashed, image, age:ageInt, sex,
             role:{
                 connect:{
                     id: role.id
