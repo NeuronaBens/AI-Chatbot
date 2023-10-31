@@ -9,14 +9,20 @@ export async function GET() {
 }
 
 export async function POST(req) {
-    const { description, career_id, user_id } = await req.json()
-
+    const { description, date_of_birth, sex_id, career_id, user_id } = await req.json()
+    
     const student = await prisma.student.create({
         data: {
-            description,
+            description:  description,
+            date_of_birth: date_of_birth,
             user: {
                 connect:{
                     id: user_id,
+                }
+            },
+            sex: {
+                connect:{
+                    id: sex_id,
                 }
             },
             career: {
