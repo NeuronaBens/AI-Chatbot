@@ -36,16 +36,11 @@ export default async function Home() {
     }
 
     return false;
-    //if(res.status == "404"){
-      //showModal = true;
-      //redirect("/user/?showDialog=y")
-    //}
   }
 
   return(
   <div>
-    <Dialog title="Example Modal" user= {session.user.id} showDialog = {loadModal()} onClose={onClose} onOk={onOk}>
-      <p>Modal ejemplo</p>
+    <Dialog title="Student Information" user= {session.user.id} type = "form" width = "1200px" showDialog = {loadModal()} lenght={0} onClose={onClose} onOk={onOk}>
     </Dialog>
     <ChatContainer></ChatContainer>
   </div>);

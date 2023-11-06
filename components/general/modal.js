@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-export default function Dialog({ title, user, showDialog, onClose, onOk, children }) {
+ 
+export default function Dialog({ title, user, showDialog, type, onClose, onOk, children, length, width }) {
     const dialogRef = useRef(null);
     const [startDate, setStartDate] = useState(new Date());
     const [description, setDescription] = useState("");
@@ -12,6 +12,14 @@ export default function Dialog({ title, user, showDialog, onClose, onOk, childre
     const [career, setCareer] = useState("");
     const [sexes, setSexes] = useState([]);
     const [sex, setSex] = useState("");
+    const [myArray, setMyArray] = useState( Array(length).fill(0));
+
+    const handleUpdate = (index, value) => {
+        const newArray = myArray;
+        newArray[index] = parseInt(value);
+        setMyArray(newArray);
+        //console.log(myArray)
+    };
 
 
     useEffect(() => {
@@ -20,8 +28,10 @@ export default function Dialog({ title, user, showDialog, onClose, onOk, childre
         } else {
             dialogRef.current?.close()
         }
-        fetch('/api/database/careers').then((response) => response.json()).then((data) => setCareers(data));
-        fetch('/api/database/sexes').then((response) => response.json()).then((data) => setSexes(data));
+        if(type == "form"){
+            fetch('/api/database/careers').then((response) => response.json()).then((data) => setCareers(data));
+            fetch('/api/database/sexes').then((response) => response.json()).then((data) => setSexes(data));
+        }
     }, [showDialog])
 
     const closeDialog = () => {
@@ -31,26 +41,51 @@ export default function Dialog({ title, user, showDialog, onClose, onOk, childre
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const res = await fetch("/api/database/students", {
-            method: "POST",
-            body: JSON.stringify({
-              description:description,
-              date_of_birth:startDate,
-              sex_id:sex,
-              career_id:career,
-              user_id:user,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (res.ok) {
-            onOk()
-            closeDialog()
-          }
-        } catch (error) {
-          console.error(error);
+        if(type == "form"){
+            try {
+                const res = await fetch("/api/database/students", {
+                method: "POST",
+                body: JSON.stringify({
+                description:description,
+                date_of_birth:startDate,
+                sex_id:sex,
+                career_id:career,
+                user_id:user,
+                }),
+                headers: {
+                "Content-Type": "application/json",
+                },
+            });
+            if (res.ok) {
+                onOk()
+                closeDialog()
+            }
+            } catch (error) {
+            console.error(error);
+            }
+        }
+        if(type == "questions"){
+            try {
+                const url = title == "GAD-7" ? "/api/database/anxiety-levels" : "/api/database/stress-levels";
+                const result = myArray.reduce((accumulator, currentValue) => accumulator + currentValue,0,);
+
+                const res = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify({
+                result:result,
+                user_id:user,
+                }),
+                headers: {
+                "Content-Type": "application/json",
+                },
+            });
+            if (res.ok) {
+                onOk()
+                closeDialog()
+            }
+            } catch (error) {
+            console.error(error);
+            }
         }
     };
     
@@ -58,11 +93,42 @@ export default function Dialog({ title, user, showDialog, onClose, onOk, childre
     const dialog = showDialog === true
         ? (
             <dialog ref={dialogRef} className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50">
-                <div className="w-[800px] max-w-fullbg-gray-200 flex flex-col">
+                <div className={`w-[${width}] max-w-fullbg-gray-200 flex flex-col`}>
                     <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-indigo-600">
                         <h1 className="group relative w-full flex justify-center py-2 px-4 text-4xl font-medium text-white">{title}</h1>
+                        {type == "questions" &&<button
+                            onClick={closeDialog}
+                            className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold bg-red-600 text-white"
+                        >x</button>}
                     </div>
-                    <div className="px-5 pb-6">
+
+                    {type == "questions" &&<form className="mt-8 space-y-6 text-xl" onSubmit={handleSubmit}>
+                        <div className={`grid grid-cols-${children[0].values.length} grid-rows-${children.length} gap-4 px-4 py-4 text-xl`}>
+                            {children.map((item1,index1) =>(
+                                item1.values.map((item2,index2) =>(
+                                    <div>
+                                        {(index1 == 0 || index2==0) ?  <div className="flex justify-center items-center">{item2}</div>:
+                                        <div className=" flex justify-center items-center">
+                                            <input required type="radio" name={index1} value={item2} className='w-4 h-4' 
+                                            onChange={(e) => handleUpdate(index1-1, e.target.value)}/>
+                                        </div>}
+                                    </div>
+                                ))
+                            ))}
+                        </div>
+                        <div className='flex justify-center items-center py-4'>
+                            <button type="submit"
+                            className=" w-1/5  py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Enviar
+                            </button>
+                        </div>
+                    </form>
+                        
+                    }
+
+                    
+                    {type == "form" && <div className="px-5 pb-6">
                         <form className="mt-8 space-y-6 text-xl" onSubmit={handleSubmit}>
                             <input type="hidden" name="remember" defaultValue="true" />
                             <div className="rounded-md shadow-sm space-y-4">
@@ -124,11 +190,11 @@ export default function Dialog({ title, user, showDialog, onClose, onOk, childre
                                         />
                                     </svg>
                                 </span>
-                                    Register
+                                    Enviar
                                 </button>
                             </div>
                         </form>
-                    </div>
+                    </div>}
                 </div>
             </dialog>
         ) : null
