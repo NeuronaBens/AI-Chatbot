@@ -20,6 +20,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions)
   const data = await getData(session.user.id)
 
+
   async function onClose() {
     "use server"
     console.log("Modal has closed")
@@ -38,10 +39,21 @@ export default async function Home() {
     return false;
   }
 
+  const modalProps = {
+    title: "PSS-14",
+    user: session.user.id,
+    type: "questions",
+    showDialog: loadModal(),
+    width: "800px",
+    rows: 6,
+    cols: 6,
+    onClose: onClose,
+    onOk: onOk,
+  };
+
   return(
   <div>
-    <Dialog title="Student Information" user= {session.user.id} type = "form" width = "1200px" showDialog = {loadModal()} lenght={0} onClose={onClose} onOk={onOk}>
-    </Dialog>
+    <Dialog props = {modalProps}></Dialog>
     <ChatContainer></ChatContainer>
   </div>);
 }
