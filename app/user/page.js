@@ -43,9 +43,7 @@ export default async function Home() {
     title: "Student Information",
     type: "form",
     showDialog: loadModal(),
-    width: "800px",
-    rows: 6,
-    cols: 6,
+    stringStylesWidth: "w-[800px] max-w-fullbg-gray-200 flex flex-col",
     onClose: onClose,
     onOk: onOk,
   };

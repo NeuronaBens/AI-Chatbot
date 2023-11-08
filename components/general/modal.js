@@ -14,15 +14,13 @@ export default function Dialog({props, children}) {
     const [career, setCareer] = useState("");
     const [sexes, setSexes] = useState([]);
     const [sex, setSex] = useState("");
-    const [myArray, setMyArray] = useState( Array(props.rows-1).fill(0));
-
+    const [myArray, setMyArray] = props.type == "questions"? useState( Array(children.length-2).fill(0)):[];
 
 
     const handleUpdate = (index, value) => {
         const newArray = myArray;
         newArray[index] = parseInt(value);
         setMyArray(newArray);
-        //console.log(myArray)
     };
 
 
@@ -97,9 +95,9 @@ export default function Dialog({props, children}) {
     const dialog = props.showDialog === true
         ? (
             <dialog ref={dialogRef} className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50">
-                <div className={`w-[${props.width}] max-w-fullbg-gray-200 flex flex-col`}>
+                <div className={props.stringStylesWidth}>
                     <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-indigo-600">
-                        <h1 className="group relative w-full flex justify-center py-2 px-4 text-xs font-medium text-white">{props.title}</h1>
+                        <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">{props.title}</h1>
                         {props.type == "questions" &&<button
                             onClick={closeDialog}
                             className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold bg-red-600 text-white"
@@ -107,7 +105,7 @@ export default function Dialog({props, children}) {
                     </div>
 
                     {props.type == "questions" &&<form className="mt-8 space-y-6 text-xs" onSubmit={handleSubmit}>
-                        <div className={`grid grid-cols-${props.cols} grid-rows-${props.rows} gap-2 px-2 py-2 text-xs`}>
+                        <div className={props.stringStylesGrid}>
                           {children.map((item1,index1) =>(
                                 item1.values.map((item2,index2) =>(
                                     <div key={(index1,index2)}>
@@ -178,10 +176,10 @@ export default function Dialog({props, children}) {
                                 </div>
                             </div>
                             
-                            <div>
+                            <div className='flex justify-center items-center py-4'>
                                 <button
                                 type="submit"
-                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
                                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                                     <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg"

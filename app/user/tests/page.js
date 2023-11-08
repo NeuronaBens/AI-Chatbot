@@ -7,6 +7,9 @@ import { useState } from "react";
 export default function Home(){
   const [showModalGAD, setShowModalGAD] = useState(false);
   const [showModalPSS, setShowModalPSS] = useState(false);
+  const stringStylesWidth = "w-[1200px] max-w-fullbg-gray-200 flex flex-col";
+  const stringStylesGridGAD7 = "grid grid-cols-5 grid-rows-8 gap-2 px-2 py-2 text-xs";
+  const stringStylesGridPSS14 = "grid grid-cols-6 grid-rows-15 gap-2 px-2 py-2 text-xs";
 
   async function onClose() {
     console.log("Modal has closed")
@@ -17,7 +20,6 @@ export default function Home(){
   async function onOk() {
     console.log("Ok was clicked")
   }
-
 
   return(
     <div>
@@ -44,7 +46,7 @@ export default function Home(){
         </button>
       </Card>
       <div>
-        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,width: "1200px",rows: 8,cols: 5,onClose: onClose,onOk: onOk}}>
+        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridGAD7}}>
           {{values: ["Pregunta", "Nunca", "Varios dias", "La mitad de los dias", "Casi cada dia"],}}
           {{values: ["Sentirse nervioso, ansioso, notar que se le ponen los nervios de punta.", 0, 1, 2, 3],}}
           {{values: ["No ser capaz de parar o controlar sus preocupaciones.	", 0, 1, 2, 3],}}
@@ -54,7 +56,7 @@ export default function Home(){
           {{values: ["Sentirse fácilmente disgustado o irritable.	", 0, 1, 2, 3],}}
           {{values: ["Sentirse asustado como si algo horrible pudiese pasar.	", 0, 1, 2, 3],}}        
         </Dialog>
-        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS, width: "1200px",rows: 15,cols: 6,onClose: onClose,onOk: onOk,}}>
+        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridPSS14}}>
           {{values: ["Pregunta", "Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido afectado por algo que ocurrió inesperadamente?", 0, 1, 2, 3, 4],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido incapaz de controlar las cosas importantes en tu vida?", 0, 1, 2, 3, 4],}}
