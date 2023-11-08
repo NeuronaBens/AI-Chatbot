@@ -24,6 +24,13 @@ const OptionsMenu = ({ handleOptionClick }) => {
           >
             Guardar
           </button>
+          <button
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+            role="menuitem"
+            onClick={() => handleOptionClick("Denunciar")}
+          >
+            Denunciar
+          </button>
         </div>
       </div>
     </div>

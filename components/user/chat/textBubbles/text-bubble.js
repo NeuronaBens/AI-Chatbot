@@ -7,11 +7,59 @@ const TextBubble = ({ chatMessage }) => {
   const bubblePosition = chatMessage.sender == "AI" ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
-      // Handle delete option
+      try {
+        const res = await fetch("/api/database/messages/", {
+        method: "PUT",
+        body: JSON.stringify({
+        deleted: true,
+        }),
+        headers: {
+        "Content-Type": "application/json",
+        },
+        });
+        if (res.ok) {
+          console.log("Successful");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     } else if (option === "Guardar") {
-      // Handle save option
+      try {
+        const res = await fetch("/api/database/messages/", {
+        method: "PUT",
+        body: JSON.stringify({
+        bookmarked: true,
+        }),
+        headers: {
+        "Content-Type": "application/json",
+        },
+        });
+        if (res.ok) {
+          console.log("Successful");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }else if (option === "Denunciar") {
+      try {
+        const res = await fetch("/api/database/complaints", {
+        method: "POST",
+        body: JSON.stringify({
+        content: true,
+        message_id:
+        }),
+        headers: {
+        "Content-Type": "application/json",
+        },
+        });
+        if (res.ok) {
+          console.log("Successful");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
     setShowOptions(false);
   };
