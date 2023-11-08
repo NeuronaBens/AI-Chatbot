@@ -10,7 +10,7 @@ export default function Layout({ children }) {
     setClosed(!closed);
   }
 
-  const mainClass = closed ? "w-full" : "w-11/12 ml-auto";
+  const mainClass = closed ? "w-11/12 ml-auto" : "w-10/12 ml-auto";
 
   return (
     <div className="flex">

@@ -7,7 +7,7 @@ const SidebarUser = ({ closed, toggle }) => {
   return (
     <div
       className={
-        closed ? "fixed z-50" : "fixed shadow-lg h-screen bg-white z-50"
+        closed ? " fixed z-50 h-screen bg-gray-200 " : "fixed shadow-lg h-screen bg-gray-200 z-50 "
       }
     >
       <div className="h-1/4 flex">
@@ -38,22 +38,25 @@ const SidebarUser = ({ closed, toggle }) => {
       </div>
       {!closed && (
         <div className="h-2/4">
-          <Link href="/user/chat">
+          <Link href="/user">
             <p className="m-4">
               <b>Chat</b>
             </p>
           </Link>
-          <Link href="/user/ayuda">
-            <p className="m-4">Ayuda</p>
+          <Link href="/user/historial">
+            <p className="m-4">Historial</p>
           </Link>
           <Link href="/user/marcadores">
             <p className="m-4">Marcadores</p>
           </Link>
+          <Link href="/user/tests">
+            <p className="m-4">Tests</p>
+          </Link>
           <Link href="/user/notificaciones">
             <p className="m-4">Notificaciones</p>
           </Link>
-          <Link href="/user/configuracion">
-            <p className="m-4">Configuración</p>
+          <Link href="/user/ayuda">
+            <p className="m-4">Ayuda</p>
           </Link>
         </div>
       )}
