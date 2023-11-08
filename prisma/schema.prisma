@@ -65,6 +65,7 @@ model StressLevels {
 
 model Message {
   id          String    @id @db.Char(25)
+  text  String @db.VarChar(1000)
   session     Int
   position    Int
   sender      Boolean

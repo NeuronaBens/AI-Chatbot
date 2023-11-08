@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const TextInput = ({ onUserMessage }) => {
   const [text, setText] = useState("");
 
-  const handleSend = () => {
+  const handleSend = async () => {
     onUserMessage(text);
     setText("");
   };

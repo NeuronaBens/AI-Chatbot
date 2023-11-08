@@ -1,8 +1,10 @@
 export class Message {
-  constructor(text, sender, order) {
+  constructor(id, text, sender, order, session) {
+    this.id = id;
     this.text = text;
     this.sender = sender;
     this.order = order;
+    this.session = session;
   }
   //messages: [{ role: "user", content: "Say this is a test!" }],
   getFormattedForOpenai() {
@@ -19,11 +21,11 @@ export class MessageList {
   fromMessageList(messageList) {
     this.messages = messageList;
   }
-  addMessage(text, sender) {
+  addMessage(id, text, sender) {
     // Calculate the order for the new message
     const order = this.messages.length + 1;
     // Create a new message object and add it to the list
-    const newMessage = new Message(text, sender, order);
+    const newMessage = new Message(id, text, sender, order);
     this.messages.push(newMessage);
     return newMessage; // return the newly added message
   }

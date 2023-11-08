@@ -7,11 +7,12 @@ export async function GET() {
 }
 
 export async function POST(req){
-  const {session, position, sender, deleted, bookmarked, student_id} = await req.json()
+  const {text, session, position, sender, deleted, bookmarked, student_id} = await req.json()
 
   const message = await prisma.message.create({
     data:{
       id: IdManager.messageId(),
+      text: text,
       session: session,
       position: position,
       sender: sender,

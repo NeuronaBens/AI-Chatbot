@@ -1,18 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextBubble from "./textBubbles/text-bubble";
 import TextInput from "./text-input";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import ChatWelcome from "./chat-welcome";
+import { useSession } from "next-auth/react";
 
 const ChatContainer = () => {
   //////////////////////////////////
   ////////////////////// variables /
   //////////////////////////////////
+  const session = useSession().data;
+  const [student, setStudent] = useState();
+  
   const [messages, setMessages] = useState(
     new MessageList([
       new Message(
+        "1",
         "Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
         "AI",
         1
@@ -21,11 +26,29 @@ const ChatContainer = () => {
     ])
   );
 
+  useEffect(() => {
+
+    fetch(`/api/database/students/${session.user.id}`).then((response) => response.json()).then((data) => setStudent(data));
+    console.log("student",student);
+    fetch(`/api/database/students/${session.user.id}/messages`)
+      .then(response => response.json())
+      .then(data => {
+        //const messageList = new MessageList();
+
+        data.forEach(item => {
+          messages.addMessage(new Message(item.id, item.text, item.sender, item.position));
+          //console.log(item);
+        });
+
+        setMessages(new MessageList([...messages.messages]));
+      });
+  }, []);
+
   //////////////////////////////////
   /////////////////////// handlers /
   //////////////////////////////////
-  const handleAddMessage = (text, sender) => {
-    messages.addMessage(text, sender);
+  const handleAddMessage = (id, text, sender, ) => {
+    messages.addMessage(id, text, sender );
     setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
   };
 
@@ -53,10 +76,33 @@ const ChatContainer = () => {
     }
   };
 
-  const handleUserMessage = (text) => {
+  const handleUserMessage = async (text) => {
     // You can add a console.log here to see what is being sent to api.
-    handleAddMessage(text, "User");
-    handleAIMessage(messages.getFormattedForOpenai());
+    try {
+      const res = await fetch("/api/database/messages", {
+      method: "POST",
+      body: JSON.stringify({
+        session: session,
+        position: position,
+        sender: sender,
+        deleted: deleted,
+        bookmarked:bookmarked,
+        student_id:session.user.id,
+      }),
+      headers: {
+      "Content-Type": "application/json",
+      },});
+
+      if (!response.ok) {
+        throw new Error(`API call failed with status: ${response.status}`);
+      }
+
+
+    } catch (error) {
+      console.error(error);
+    }
+    handleAddMessage(session.user.id, text, "User");
+    handleAIMessage(messages.getFormattedForOpenai(userProfile = student.description));
   };
 
   //////////////////////////////////
