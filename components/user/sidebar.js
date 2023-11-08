@@ -7,7 +7,7 @@ const SidebarUser = ({ closed, toggle }) => {
   return (
     <div
       className={
-        closed ? "fixed z-50" : "fixed shadow-lg h-screen bg-white z-50"
+        closed ? " fixed z-50 h-screen bg-gray-200 " : "fixed shadow-lg h-screen bg-gray-200 z-50 "
       }
     >
       <div className="h-1/4 flex">

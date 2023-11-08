@@ -40,9 +40,8 @@ export default async function Home() {
   }
 
   const modalProps = {
-    title: "PSS-14",
-    user: session.user.id,
-    type: "questions",
+    title: "Student Information",
+    type: "form",
     showDialog: loadModal(),
     width: "800px",
     rows: 6,

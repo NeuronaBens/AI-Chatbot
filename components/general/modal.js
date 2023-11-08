@@ -3,8 +3,10 @@
 import { useRef, useEffect, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSession } from "next-auth/react";
  
 export default function Dialog({props, children}) {
+    const session = useSession()
     const dialogRef = useRef(null);
     const [startDate, setStartDate] = useState(new Date());
     const [description, setDescription] = useState("");
@@ -13,6 +15,7 @@ export default function Dialog({props, children}) {
     const [sexes, setSexes] = useState([]);
     const [sex, setSex] = useState("");
     const [myArray, setMyArray] = useState( Array(props.rows-1).fill(0));
+
 
 
     const handleUpdate = (index, value) => {
@@ -51,7 +54,7 @@ export default function Dialog({props, children}) {
                 date_of_birth:startDate,
                 sex_id:sex,
                 career_id:career,
-                user_id:props.user,
+                user_id:session.data.user.id,
                 }),
                 headers: {
                 "Content-Type": "application/json",
@@ -74,7 +77,7 @@ export default function Dialog({props, children}) {
                 method: "POST",
                 body: JSON.stringify({
                 result:result,
-                user_id:props.user,
+                user_id:session.data.user.id,
                 }),
                 headers: {
                 "Content-Type": "application/json",
@@ -104,13 +107,13 @@ export default function Dialog({props, children}) {
                     </div>
 
                     {props.type == "questions" &&<form className="mt-8 space-y-6 text-xs" onSubmit={handleSubmit}>
-                        <div className={`grid grid-cols-${children[0].values.length} grid-rows-${children.length} gap-2 px-2 py-2 text-xs`}>
+                        <div className={`grid grid-cols-${props.cols} grid-rows-${props.rows} gap-2 px-2 py-2 text-xs`}>
                           {children.map((item1,index1) =>(
                                 item1.values.map((item2,index2) =>(
-                                    <div>
+                                    <div key={(index1,index2)}>
                                         {(index1 == 0 || index2==0) ?  <div className="flex justify-center items-center">{item2}</div>:
                                         <div className=" flex justify-center items-center">
-                                            <input required type="radio" name={index1} value={item2} className='w-2 h-2' 
+                                            <input required type="radio" name={index1} value={item2} className='w-3 h-3' 
                                             onChange={(e) => handleUpdate(index1-1, e.target.value)}/>
                                         </div>}
                                     </div>
