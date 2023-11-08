@@ -17,5 +17,5 @@ export async function POST(req) {
         }
     })
 
-    return Response.json({anxietyLevel})
+    return Response.json(anxietyLevel)
 }

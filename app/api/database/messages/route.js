@@ -25,5 +25,5 @@ export async function POST(req){
     }
   })
 
-  return Response.json({message});
+  return Response.json(message);
 }

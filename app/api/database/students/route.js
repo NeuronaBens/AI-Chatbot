@@ -33,5 +33,5 @@ export async function POST(req) {
         }
     })
 
-    return NextResponse.json({student})
+    return NextResponse.json(student)
 }

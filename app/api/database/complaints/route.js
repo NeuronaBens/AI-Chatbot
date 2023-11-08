@@ -21,5 +21,5 @@ export async function POST(req){
     }
   })
 
-  return Response.json({complaint});
+  return Response.json(complaint);
 }

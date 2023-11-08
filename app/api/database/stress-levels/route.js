@@ -17,5 +17,5 @@ export async function POST(req) {
         }
     })
 
-    return Response.json({stressLevel})
+    return Response.json(stressLevel)
 }

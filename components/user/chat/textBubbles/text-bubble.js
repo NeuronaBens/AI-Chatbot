@@ -48,7 +48,7 @@ const TextBubble = ({ chatMessage }) => {
         method: "POST",
         body: JSON.stringify({
         content: true,
-        message_id:
+        message_id:1
         }),
         headers: {
         "Content-Type": "application/json",
