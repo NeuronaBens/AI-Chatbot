@@ -15,7 +15,7 @@ const ChatContainer = (session) => {
   const [chatSession, setChatSession] = useState();
   const [messages, setMessages] = useState(new MessageList([]));
   //console.log(session);
-  
+
   const fetchData = async () => {
     try {
       const lastMessageResponse = await fetch(`/api/database/students/${session.user.id}/messages/last-message`);
@@ -29,7 +29,7 @@ const ChatContainer = (session) => {
       const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages`);
       const messagesData = await messagesResponse.json();
 
-      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender == false?"AI":"User", item.position));
+      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender == false?"AI":"User", item.position, chatSession));
       setMessages(new MessageList(newMessages));
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -43,9 +43,35 @@ const ChatContainer = (session) => {
   //////////////////////////////////
   /////////////////////// handlers /
   //////////////////////////////////
-  const handleAddMessage = (id, text, sender, ) => {
-    messages.addMessage(id, text, sender );
-    setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
+  const handleAddMessage = async ( text, sender ) => {
+    try {
+      const res = await fetch("/api/database/messages", {
+      method: "POST",
+      body: JSON.stringify({
+        text: text,
+        session: chatSession,
+        position: messages.getAsMessageList().length,
+        sender: sender == "User"?true:false,
+        deleted: false,
+        bookmarked: false,
+        student_id: session.user.id,
+      }),
+      headers: {
+      "Content-Type": "application/json",
+      },});
+
+      if (!res.ok) {
+        throw new Error(`API call failed with status: ${res.status}`);
+      }
+      const newMessageData = await res.json();
+      console.log(newMessageData);
+
+      messages.addMessage(newMessageData.id, text, sender, chatSession );
+      setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
+    } catch (error) {
+      console.error(error);
+    }
+    
   };
 
   const handleAIMessage = async (inputData) => {
@@ -66,7 +92,7 @@ const ChatContainer = (session) => {
 
       // Handle the AI's response and add it to the chat
       const aiResponse = data;
-      handleAddMessage(aiResponse, "AI");
+      await handleAddMessage(aiResponse, "AI");
     } catch (error) {
       console.error("API call error:", error);
     }
@@ -74,31 +100,9 @@ const ChatContainer = (session) => {
 
   const handleUserMessage = async (text) => {
     // You can add a console.log here to see what is being sent to api.
-    try {
-      const res = await fetch("/api/database/messages", {
-      method: "POST",
-      body: JSON.stringify({
-        session: session,
-        position: position,
-        sender: sender,
-        deleted: deleted,
-        bookmarked:bookmarked,
-        student_id:session.user.id,
-      }),
-      headers: {
-      "Content-Type": "application/json",
-      },});
 
-      if (!response.ok) {
-        throw new Error(`API call failed with status: ${response.status}`);
-      }
-
-
-    } catch (error) {
-      console.error(error);
-    }
-    handleAddMessage(session.user.id, text, "User");
-    handleAIMessage(messages.getFormattedForOpenai(userProfile = student.description));
+    await handleAddMessage( text, "User");
+    handleAIMessage(messages.getFormattedForOpenai("Greeting Physologist", "Mi nombre es " + session.user.name + ". " + student.description));
   };
 
   //////////////////////////////////

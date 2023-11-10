@@ -21,11 +21,11 @@ export class MessageList {
   fromMessageList(messageList) {
     this.messages = messageList;
   }
-  addMessage(id, text, sender) {
+  addMessage(id, text, sender, session) {
     // Calculate the order for the new message
-    const order = this.messages.length + 1;
+    const order = this.messages.length;
     // Create a new message object and add it to the list
-    const newMessage = new Message(id, text, sender, order);
+    const newMessage = new Message(id, text, sender, order, session);
     this.messages.push(newMessage);
     return newMessage; // return the newly added message
   }
