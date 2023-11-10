@@ -24,15 +24,15 @@ export default function Dialog({props, children}) {
     };
 
 
-    useEffect(() => {
+    useEffect( () => {
         if (props.showDialog === true) {
             dialogRef.current?.showModal()
         } else {
             dialogRef.current?.close()
         }
         if(props.type == "form"){
-            fetch('/api/database/careers').then((response) => response.json()).then((data) => setCareers(data));
-            fetch('/api/database/sexes').then((response) => response.json()).then((data) => setSexes(data));
+          fetch('/api/database/careers').then((response) => response.json()).then((data) => setCareers(data));
+          fetch('/api/database/sexes').then((response) => response.json()).then((data) => setSexes(data));
         }
     }, [props.showDialog])
 

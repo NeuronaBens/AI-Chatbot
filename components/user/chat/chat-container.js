@@ -5,45 +5,41 @@ import TextBubble from "./textBubbles/text-bubble";
 import TextInput from "./text-input";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import ChatWelcome from "./chat-welcome";
-import { useSession } from "next-auth/react";
 
-const ChatContainer = () => {
+
+const ChatContainer = (session) => {
   //////////////////////////////////
   ////////////////////// variables /
   //////////////////////////////////
-  const session = useSession().data;
   const [student, setStudent] = useState();
+  const [chatSession, setChatSession] = useState();
+  const [messages, setMessages] = useState(new MessageList([]));
+  //console.log(session);
   
-  const [messages, setMessages] = useState(
-    new MessageList([
-      new Message(
-        "1",
-        "Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
-        "AI",
-        1
-      ),
-      // Add any initial messages here
-    ])
-  );
+  const fetchData = async () => {
+    try {
+      const lastMessageResponse = await fetch(`/api/database/students/${session.user.id}/messages/last-message`);
+      const lastMessageData = await lastMessageResponse.json();
+      setChatSession(lastMessageData.session);
+
+      const studentResponse = await fetch(`/api/database/students/${session.user.id}`);
+      const studentData = await studentResponse.json();
+      setStudent(studentData);
+
+      const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages`);
+      const messagesData = await messagesResponse.json();
+
+      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender == false?"AI":"User", item.position));
+      setMessages(new MessageList(newMessages));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle error appropriately, e.g., show an error message to the user
+    }
+  };
 
   useEffect(() => {
-
-    fetch(`/api/database/students/${session.user.id}`).then((response) => response.json()).then((data) => setStudent(data));
-    console.log("student",student);
-    fetch(`/api/database/students/${session.user.id}/messages`)
-      .then(response => response.json())
-      .then(data => {
-        //const messageList = new MessageList();
-
-        data.forEach(item => {
-          messages.addMessage(new Message(item.id, item.text, item.sender, item.position));
-          //console.log(item);
-        });
-
-        setMessages(new MessageList([...messages.messages]));
-      });
-  }, []);
-
+    fetchData();
+  }, [session.user.id]);
   //////////////////////////////////
   /////////////////////// handlers /
   //////////////////////////////////

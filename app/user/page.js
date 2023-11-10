@@ -48,9 +48,12 @@ export default async function Home() {
     onOk: onOk,
   };
 
+  //console.log(session)
+  
+
   return(
   <div>
     <Dialog props = {modalProps}></Dialog>
-    <ChatContainer></ChatContainer>
+    <ChatContainer {...session}></ChatContainer>
   </div>);
 }

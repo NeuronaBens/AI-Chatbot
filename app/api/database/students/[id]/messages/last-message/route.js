@@ -11,6 +11,7 @@ export async function GET(req, { params }){
       date_send: 'desc'
     }
   })
+  console.log("MENSAJE MANDADO",message)
 
   return Response.json(message)
 }
