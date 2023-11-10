@@ -9,6 +9,9 @@ export async function POST(req,{ params }){
       student_id: id,
       session:session,
     },
+    orderBy: {
+      position: 'asc'
+    }
   })
 
   return Response.json(messages)

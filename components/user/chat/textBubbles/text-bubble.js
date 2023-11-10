@@ -10,7 +10,7 @@ const TextBubble = ({ chatMessage }) => {
   const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
       try {
-        const res = await fetch("/api/database/messages/", {
+        const res = await fetch(`/api/database/messages/${chatMessage.id}`, {
         method: "PUT",
         body: JSON.stringify({
         deleted: true,
@@ -19,15 +19,15 @@ const TextBubble = ({ chatMessage }) => {
         "Content-Type": "application/json",
         },
         });
-        if (res.ok) {
-          console.log("Successful");
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
         }
       } catch (error) {
         console.error(error);
       }
     } else if (option === "Guardar") {
       try {
-        const res = await fetch("/api/database/messages/", {
+        const res = await fetch(`/api/database/messages/${chatMessage.id}`, {
         method: "PUT",
         body: JSON.stringify({
         bookmarked: true,
@@ -36,8 +36,8 @@ const TextBubble = ({ chatMessage }) => {
         "Content-Type": "application/json",
         },
         });
-        if (res.ok) {
-          console.log("Successful");
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
         }
       } catch (error) {
         console.error(error);
@@ -48,14 +48,14 @@ const TextBubble = ({ chatMessage }) => {
         method: "POST",
         body: JSON.stringify({
         content: true,
-        message_id:1
+        message_id: chatMessage.id
         }),
         headers: {
         "Content-Type": "application/json",
         },
         });
-        if (res.ok) {
-          console.log("Successful");
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
         }
       } catch (error) {
         console.error(error);

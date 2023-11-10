@@ -26,7 +26,14 @@ const ChatContainer = (session) => {
       const studentData = await studentResponse.json();
       setStudent(studentData);
 
-      const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages`);
+      const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages/session`, {
+        method: "POST",
+        body: JSON.stringify({
+          session: chatSession,
+        }),
+        headers: {
+        "Content-Type": "application/json",
+        },});
       const messagesData = await messagesResponse.json();
 
       const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender == false?"AI":"User", item.position, chatSession));
