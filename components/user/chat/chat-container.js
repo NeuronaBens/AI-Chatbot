@@ -36,7 +36,7 @@ const ChatContainer = (session) => {
         },});
       const messagesData = await messagesResponse.json();
 
-      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender == false?"AI":"User", item.position, chatSession));
+      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender, item.position, chatSession));
       setMessages(new MessageList(newMessages));
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -58,7 +58,7 @@ const ChatContainer = (session) => {
         text: text,
         session: chatSession,
         position: messages.getAsMessageList().length,
-        sender: sender == "User"?true:false,
+        sender: sender,
         deleted: false,
         bookmarked: false,
         student_id: session.user.id,
@@ -99,7 +99,7 @@ const ChatContainer = (session) => {
 
       // Handle the AI's response and add it to the chat
       const aiResponse = data;
-      await handleAddMessage(aiResponse, "AI");
+      await handleAddMessage(aiResponse, false);
     } catch (error) {
       console.error("API call error:", error);
     }
@@ -108,7 +108,7 @@ const ChatContainer = (session) => {
   const handleUserMessage = async (text) => {
     // You can add a console.log here to see what is being sent to api.
 
-    await handleAddMessage( text, "User");
+    await handleAddMessage( text, true);
     handleAIMessage(messages.getFormattedForOpenai("Greeting Physologist", "Mi nombre es " + session.user.name + ". " + student.description));
   };
 

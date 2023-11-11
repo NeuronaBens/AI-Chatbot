@@ -5,7 +5,7 @@ import Dialog from "@/components/general/modal";
 const TextBubble = ({ chatMessage }) => {
   const bubbleColor =
     chatMessage.sender == false ? "bg-orange-300" : "bg-gray-300";
-  const bubblePosition = chatMessage.sender == "AI" ? "mr-auto" : "ml-auto";
+  const bubblePosition = chatMessage.sender == false ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
   const [showDialogComplaint, setShowDialogComplaint] = useState(false);
   const stringStylesWidth = "w-[500px] max-w-fullbg-gray-200 flex flex-col";

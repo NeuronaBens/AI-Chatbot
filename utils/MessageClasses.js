@@ -9,7 +9,7 @@ export class Message {
   //messages: [{ role: "user", content: "Say this is a test!" }],
   getFormattedForOpenai() {
     //current possibles are User and AI. must transform to user and assistant
-    const role = this.sender.toLowerCase() === "user" ? "user" : "assistant";
+    const role = this.sender === true ? "user" : "assistant";
     return { role, content: this.text };
   }
 }
