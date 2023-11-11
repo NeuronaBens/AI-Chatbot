@@ -20,7 +20,11 @@ const ChatContainer = (session) => {
     try {
       const lastMessageResponse = await fetch(`/api/database/students/${session.user.id}/messages/last-message`);
       const lastMessageData = await lastMessageResponse.json();
-      setChatSession(lastMessageData.session);
+      if(lastMessageData){
+        setChatSession(lastMessageData.session);
+      }else{
+        setChatSession(1);
+      }
 
       const studentResponse = await fetch(`/api/database/students/${session.user.id}`);
       const studentData = await studentResponse.json();
@@ -33,11 +37,15 @@ const ChatContainer = (session) => {
         }),
         headers: {
         "Content-Type": "application/json",
-        },});
+        },}
+      );
       const messagesData = await messagesResponse.json();
-
-      const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender, item.position, chatSession));
-      setMessages(new MessageList(newMessages));
+      if(messagesData.length > 0){
+        const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender, item.position, chatSession));
+        setMessages(new MessageList(newMessages));
+      }else{
+        handleAddMessage("Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?", false);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
       // Handle error appropriately, e.g., show an error message to the user
@@ -46,7 +54,15 @@ const ChatContainer = (session) => {
 
   useEffect(() => {
     fetchData();
-  }, [session.user.id]);
+  }, [session.user.id, chatSession]);
+
+  const deleteMessage = async (index) => {
+    const newMessages = messages.getAsMessageList();
+    newMessages.splice(index,1); // Remove the message from the array
+
+    setMessages(new MessageList([...newMessages]));
+  }
+
   //////////////////////////////////
   /////////////////////// handlers /
   //////////////////////////////////
@@ -57,7 +73,7 @@ const ChatContainer = (session) => {
       body: JSON.stringify({
         text: text,
         session: chatSession,
-        position: messages.getAsMessageList().length,
+        position: messages.getLastMessage()? messages.getLastMessage().order + 1 : 0,
         sender: sender,
         deleted: false,
         bookmarked: false,
@@ -120,11 +136,12 @@ const ChatContainer = (session) => {
       <div className="h-5/6 mb-32">
         <ChatWelcome />
         {messages.getAsMessageList().map((message, index) => (
-          <TextBubble key={index} chatMessage={message} />
+          <TextBubble key={index} chatMessage={message} onDelete={deleteMessage}/>
         ))}
       </div>
       <div className="w-full resize-none">
         <TextInput onUserMessage={handleUserMessage} />
+        
       </div>
     </div>
   );

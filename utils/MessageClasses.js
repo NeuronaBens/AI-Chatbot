@@ -23,7 +23,10 @@ export class MessageList {
   }
   addMessage(id, text, sender, session) {
     // Calculate the order for the new message
-    const order = this.messages.length;
+    let order = 0;
+    if(this.messages.length > 0){
+      order = this.messages[this.messages.length -1].order + 1;
+    }
     // Create a new message object and add it to the list
     const newMessage = new Message(id, text, sender, order, session);
     this.messages.push(newMessage);

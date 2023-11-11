@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OptionsMenu from "./options-menu";
 import Dialog from "@/components/general/modal";
 
-const TextBubble = ({ chatMessage }) => {
+const TextBubble = ({ chatMessage, onDelete }) => {
   const bubbleColor =
     chatMessage.sender == false ? "bg-orange-300" : "bg-gray-300";
   const bubblePosition = chatMessage.sender == false ? "mr-auto" : "ml-auto";
@@ -34,6 +34,8 @@ const TextBubble = ({ chatMessage }) => {
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
+
+        await onDelete(chatMessage.order);
       } catch (error) {
         console.error(error);
       }

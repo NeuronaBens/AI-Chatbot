@@ -8,6 +8,7 @@ export async function POST(req,{ params }){
     where: {
       student_id: id,
       session:session,
+      deleted:false
     },
     orderBy: {
       position: 'asc'
