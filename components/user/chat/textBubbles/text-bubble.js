@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import OptionsMenu from "./options-menu";
+import Dialog from "@/components/general/modal";
 
 const TextBubble = ({ chatMessage }) => {
   const bubbleColor =
-    chatMessage.sender == "AI" ? "bg-orange-300" : "bg-gray-300";
+    chatMessage.sender == false ? "bg-orange-300" : "bg-gray-300";
   const bubblePosition = chatMessage.sender == "AI" ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
+  const [showDialogComplaint, setShowDialogComplaint] = useState(false);
+  const stringStylesWidth = "w-[500px] max-w-fullbg-gray-200 flex flex-col";
+
+  async function onClose() {
+    console.log("Modal has closed")
+    setShowDialogComplaint(false)
+  }
+
+  async function onOk() {
+    console.log("Ok was clicked")
+  }
 
   const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
@@ -43,23 +55,7 @@ const TextBubble = ({ chatMessage }) => {
         console.error(error);
       }
     }else if (option === "Denunciar") {
-      try {
-        const res = await fetch("/api/database/complaints", {
-        method: "POST",
-        body: JSON.stringify({
-        content: true,
-        message_id: chatMessage.id
-        }),
-        headers: {
-        "Content-Type": "application/json",
-        },
-        });
-        if (!res.ok) {
-          throw new Error(`API call failed with status: ${res.status}`);
-        }
-      } catch (error) {
-        console.error(error);
-      }
+      setShowDialogComplaint(true);
     }
     setShowOptions(false);
   };
@@ -81,6 +77,7 @@ const TextBubble = ({ chatMessage }) => {
           {showOptions && <OptionsMenu handleOptionClick={handleOptionClick} />}
         </div>
       </div>
+      <Dialog props={{title: "¿Deseas denunciar este mensaje?", type: "complaint", showDialog: showDialogComplaint ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, message_id: chatMessage.id }}/>
     </div>
   );
 };
