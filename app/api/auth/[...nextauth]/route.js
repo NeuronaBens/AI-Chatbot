@@ -25,7 +25,10 @@ export const authOptions = {
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
-          }
+          },
+          include:{
+            role: true,
+          },
         })
 
         if (!user) {
@@ -58,8 +61,8 @@ export const authOptions = {
         return {
           ...token,
           id: user.id,
-          deleted: user.deleted,
-          role_id: user.role_id
+          deleted: user.deleted_at,
+          role: user.role.name
         }
       }
       return token;
@@ -72,7 +75,7 @@ export const authOptions = {
           ...session.user,                     
           id: token.id,                     
           deleted: token.deleted,
-          role_id: token.role_id
+          role: token.role
         }
       }
     },

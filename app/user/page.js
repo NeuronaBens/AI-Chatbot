@@ -8,7 +8,6 @@ async function getData(id) {
     cache:'no-cache',
   })
 
-  //console.log(res.status)
   if(res.status == "404"){
     return null;
   }
@@ -47,9 +46,6 @@ export default async function Home() {
     onClose: onClose,
     onOk: onOk,
   };
-
-  //console.log(session)
-  
 
   return(
   <div>

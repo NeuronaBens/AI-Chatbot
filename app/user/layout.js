@@ -1,21 +1,14 @@
-"use client";
 import SidebarUser from "@/components/user/sidebar";
-import { useState } from "react";
 import React from "react";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
-export default function Layout({ children }) {
-  const [closed, setClosed] = useState(false);
-
-  function toggle() {
-    setClosed(!closed);
-  }
-
-  const mainClass = closed ? "w-11/12 ml-auto" : "w-10/12 ml-auto";
+export default async function Layout({ children }) {
+  const session = await getServerSession(authOptions);
 
   return (
-    <div className="flex">
-      <SidebarUser closed={closed} toggle={toggle}></SidebarUser>
-      <div className={mainClass}>{children}</div>
-    </div>
+      <SidebarUser session={...session} >
+        {children}
+      </SidebarUser>
   );
 }
