@@ -4,13 +4,13 @@ import Link from "next/link";
 const NavbarContentAdmin = () => {
   return (
     <div className="flex items-center">
-      <Link href="/admin/dashboards">
+      <Link href="/admin/admin-space/dashboards">
         <p className="mx-4">Dashboards</p>
       </Link>
-      <Link href="/admin/enviar-notificaciones">
+      <Link href="/admin/admin-space/notificaciones">
         <p>Notificaciones</p>
       </Link>
-      <Link href="/admin/cerrar-sesion">
+      <Link href="/">
         <p className="ml-4 text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
