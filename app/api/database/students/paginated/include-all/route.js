@@ -9,6 +9,8 @@ export async function GET(req) {
     take: pageSize,
     include: {
       user: true,
+      career: true,
+      sex: true,
     },
   });
   const count = await prisma.student.count();
