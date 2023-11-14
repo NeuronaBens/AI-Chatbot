@@ -6,15 +6,15 @@ export async function GET(req) {
   const skip = (page - 1) * pageSize;
 
   try {
-    const students = await prisma.student.findMany({
+    const studentTasks = await prisma.studentTask.findMany({
       skip,
       take: pageSize,
     });
 
-    const count = await prisma.student.count();
+    const count = await prisma.studentTask.count();
     const totalPages = Math.ceil(count / pageSize);
 
-    return new Response(JSON.stringify({ students, totalPages }));
+    return new Response(JSON.stringify({ studentTasks, totalPages }));
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,

@@ -8,6 +8,7 @@ import MessageTable from "@/components/admin/dashboards/messages-table";
 import SexTable from "@/components/admin/dashboards/sex-table";
 import CareerTable from "@/components/admin/dashboards/career-table";
 import TaskTable from "@/components/admin/dashboards/task-table";
+import StudentTaskTable from "@/components/admin/dashboards/student-task-table";
 
 const AdminHome = () => {
   const real = (
@@ -20,12 +21,13 @@ const AdminHome = () => {
       <SexTable></SexTable>
       <CareerTable></CareerTable>
       <TaskTable></TaskTable>
+      <StudentTaskTable></StudentTaskTable>
     </div>
   );
 
   const test = (
     <div>
-      <SexTable></SexTable>
+      <StudentTaskTable></StudentTaskTable>
     </div>
   );
 
