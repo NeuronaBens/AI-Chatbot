@@ -52,11 +52,10 @@ const NotificacionesForm = ({ session }) => {
           const studentNotificationData = {
             student_id: userId,
             notification_id: notification.id,
-            read: false, // Assuming initially all notifications are unread
           };
 
           const studentNotificationResponse = await fetch(
-            "http://localhost:3000/api/database/studentNotifications",
+            "http://localhost:3000/api/database/student-notifications",
             {
               method: "POST",
               headers: {
@@ -81,11 +80,10 @@ const NotificacionesForm = ({ session }) => {
         const studentNotificationData = {
           student_id: recipient,
           notification_id: notification.id,
-          read: false, // Assuming initially all notifications are unread
         };
 
         const studentNotificationResponse = await fetch(
-          "http://localhost:3000/api/database/studentNotifications",
+          "http://localhost:3000/api/database/student-notifications",
           {
             method: "POST",
             headers: {
