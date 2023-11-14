@@ -5,6 +5,9 @@ import AnxietyLevelsTable from "@/components/admin/dashboards/anxiety-levels-tab
 import StressLevelsTable from "@/components/admin/dashboards/stress-levels-table";
 import ComplaintTable from "@/components/admin/dashboards/complaints-table";
 import MessageTable from "@/components/admin/dashboards/messages-table";
+import SexTable from "@/components/admin/dashboards/sex-table";
+import CareerTable from "@/components/admin/dashboards/career-table";
+import TaskTable from "@/components/admin/dashboards/task-table";
 
 const AdminHome = () => {
   const real = (
@@ -14,12 +17,15 @@ const AdminHome = () => {
       <StressLevelsTable></StressLevelsTable>
       <ComplaintTable></ComplaintTable>
       <MessageTable></MessageTable>
+      <SexTable></SexTable>
+      <CareerTable></CareerTable>
+      <TaskTable></TaskTable>
     </div>
   );
 
   const test = (
     <div>
-      <MessageTable></MessageTable>
+      <SexTable></SexTable>
     </div>
   );
 
