@@ -3,15 +3,15 @@
 import { useSession } from 'next-auth/react';
 import { useRef, useEffect, useState } from 'react'
  
-export default function ConfigDialog({session, title, onClose, showDialog , children}) {
+export default function ConfigDialog({title, onClose, showDialog , children}) {
   const dialogRef = useRef(null);
   const [showProfile, setShowProfile] = useState(true);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showGeneral, setShowGeneral] = useState(false);
+  const [theme, setTheme] = useState("Claro");
+  const {data:session, status, update} = useSession(); 
   const [name, setName] = useState(session.user.name);
   const [email, setEmail] = useState(session.user.email);
-  const [theme, setTheme] = useState("Claro");
-  const {update} = useSession(); 
   //const [password, setPassword] = useState("");
 
 
@@ -50,7 +50,8 @@ export default function ConfigDialog({session, title, onClose, showDialog , chil
             <button onClick={closeDialog} className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold bg-red-600 text-white">x</button>
           </div>
           <hr className=" bg-blue-500 mx-2 py-2"></hr>
-          {session.user.role == "Student" &&
+          {status ==="loading"?<div></div> : 
+          <div>{session.user.role == "Student" &&
             <div className="config-structure grid grid-cols-4 gap-6 mx-4">
               <div className="side-bar flex flex-col col-span-1">
                 <a href='#' className={showProfile?"bg-black rounded-lg my-2 p-2":"p-2 my-2"} 
@@ -126,7 +127,6 @@ export default function ConfigDialog({session, title, onClose, showDialog , chil
                   </div>
                 </div>}
               </div>
-
             </div>
           }
           {session.user.role == "Admin" &&
@@ -162,7 +162,7 @@ export default function ConfigDialog({session, title, onClose, showDialog , chil
                 </form>
               </div>
             </div>
-          }
+          }</div>}
         </div>
       </dialog>
     ) : null

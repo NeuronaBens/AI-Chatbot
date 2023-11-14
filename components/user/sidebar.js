@@ -5,7 +5,7 @@ import Logo from "../general/logo";
 import UserProfile from "../general/profile";
 import { useState,useEffect } from "react";
 
-const SidebarUser =  ({session,children}) => {
+const SidebarUser =  ({children}) => {
   const [closed, setClosed] = useState(false);
   function toggle() {
     setClosed(!closed);
@@ -70,7 +70,7 @@ const SidebarUser =  ({session,children}) => {
       )}
       {!closed && (
         <div >
-          <UserProfile {...session}></UserProfile>
+          <UserProfile ></UserProfile>
         </div>
       )}
     </div>

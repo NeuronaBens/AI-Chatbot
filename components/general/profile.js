@@ -1,15 +1,18 @@
 "use client"
 import ConfigDialog from "./config-dialog";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
 
-const UserProfile = (session) => {
+const UserProfile = () => {
+  const {data: session, status} = useSession();
   const [showMenu, setShowMenu] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
 
   return (
-    <div className="relative m-4 w-36">
+    <div>
+      {status ==="loading"?<div className="relative m-4 w-36"></div>:
+      <div className="relative m-4 w-36">
       <button className="flex items-center gap-4" onClick={()=>setShowMenu(!showMenu)}>
         <img className="w-10 h-10 rounded-full w-1/5" src={session.user.image} alt=""/>
         <div className="font-medium dark:text-white w-4/5">
@@ -22,7 +25,7 @@ const UserProfile = (session) => {
             Configuración
           </button>
           {showDialog &&
-            <ConfigDialog session = {...session} title={"Configuración"} onClose={()=>setShowDialog(false)} showDialog={true}/>
+            <ConfigDialog title={"Configuración"} onClose={()=>setShowDialog(false)} showDialog={true}/>
           }
           <button onClick={() => { signOut({callbackUrl: "/",});}}>
             <p className="text-gray-400 flex py-2">
@@ -45,8 +48,8 @@ const UserProfile = (session) => {
           </button>
         </div>
       )}
-  </div>
-   
+    </div>}
+    </div>
   );
 };
 
