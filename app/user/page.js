@@ -10,9 +10,10 @@ async function getData(id) {
 
   if(res.status == "404"){
     return null;
+  }else {
+    const data = await res.json()
+    return data;
   }
-  const data = await res.json()
-  return data
 }
 
 export default async function Home() {
