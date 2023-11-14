@@ -24,8 +24,6 @@ const AnxietyLevelsTable = () => {
         `api/database/anxiety-levels/paginated?pageSize=${pageSize}&page=${page}`
       );
       const data = await response.json();
-      console.log(data); //test
-      alert(data); //test
       setAnxietyLevels(data.anxietyLevels);
       setTotalPages(data.totalPages);
     };

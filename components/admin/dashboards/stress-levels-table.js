@@ -24,7 +24,6 @@ const StressLevelsTable = () => {
         `api/database/stress-levels/paginated?pageSize=${pageSize}&page=${page}`
       );
       const data = await response.json();
-      console.log(data); // Test - Check fetched data in console
       setStressLevels(data.stressLevels);
       setTotalPages(data.totalPages);
     };

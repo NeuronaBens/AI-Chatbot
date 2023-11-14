@@ -3,6 +3,7 @@
 import UserTable from "@/components/admin/dashboards/user-table";
 import AnxietyLevelsTable from "@/components/admin/dashboards/anxiety-levels-table";
 import StressLevelsTable from "@/components/admin/dashboards/stress-levels-table";
+import ComplaintTable from "@/components/admin/dashboards/complaints-table";
 
 const AdminHome = () => {
   const real = (
@@ -10,16 +11,17 @@ const AdminHome = () => {
       <UserTable></UserTable>
       <AnxietyLevelsTable></AnxietyLevelsTable>
       <StressLevelsTable></StressLevelsTable>
+      <ComplaintTable></ComplaintTable>
     </div>
   );
 
   const test = (
     <div>
-      <StressLevelsTable></StressLevelsTable>
+      <ComplaintTable></ComplaintTable>
     </div>
   );
 
-  return test;
+  return real;
 };
 
 export default AdminHome;
