@@ -4,11 +4,11 @@ export async function GET() {
   try {
     const studentIds = await prisma.student.findMany({
       select: {
-        id: true,
+        student_id: true,
       },
     });
 
-    const ids = studentIds.map((student) => student.id);
+    const ids = studentIds.map((student) => student.student_id);
     return new Response(JSON.stringify(ids));
   } catch (error) {
     return new Response(

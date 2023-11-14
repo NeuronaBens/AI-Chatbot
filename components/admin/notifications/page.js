@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const NotificacionesForm = () => {
+const NotificacionesForm = ({ session }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [sendToAll, setSendToAll] = useState(false);
@@ -10,12 +10,15 @@ const NotificacionesForm = () => {
   const handleSubmit = async () => {
     const notificationData = {
       name: name,
-      description: description,
-      recipient: sendToAll ? "all" : userId,
+      content: description,
+      admin_id: session.user.id, // Get current admin id
     };
 
+    const recipient = sendToAll ? "all" : userId;
+
     try {
-      const response = await fetch(
+      // Create the Notification record
+      const notificationResponse = await fetch(
         "http://localhost:3000/api/database/notifications",
         {
           method: "POST",
@@ -26,13 +29,83 @@ const NotificacionesForm = () => {
         }
       );
 
-      if (response.ok) {
-        // Handle success
-      } else {
-        // Handle error
+      if (!notificationResponse.ok) {
+        throw new Error("Failed to create notification");
       }
+
+      const notification = await notificationResponse.json();
+
+      if (recipient === "all") {
+        // Send notification to all users
+        const allUsersResponse = await fetch(
+          "http://localhost:3000/api/database/students/get-all-ids"
+        );
+
+        if (!allUsersResponse.ok) {
+          throw new Error("Failed to get all user IDs");
+        }
+
+        const allUsers = await allUsersResponse.json();
+
+        // Create StudentNotification records for all users
+        const studentNotificationsPromises = allUsers.map(async (userId) => {
+          const studentNotificationData = {
+            student_id: userId,
+            notification_id: notification.id,
+            read: false, // Assuming initially all notifications are unread
+          };
+
+          const studentNotificationResponse = await fetch(
+            "http://localhost:3000/api/database/studentNotifications",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(studentNotificationData),
+            }
+          );
+
+          if (!studentNotificationResponse.ok) {
+            throw new Error(
+              `Failed to create student notification for user ${userId}`
+            );
+          }
+
+          return studentNotificationResponse.json();
+        });
+
+        await Promise.all(studentNotificationsPromises);
+      } else {
+        // Create StudentNotification record for the specific user
+        const studentNotificationData = {
+          student_id: recipient,
+          notification_id: notification.id,
+          read: false, // Assuming initially all notifications are unread
+        };
+
+        const studentNotificationResponse = await fetch(
+          "http://localhost:3000/api/database/studentNotifications",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(studentNotificationData),
+          }
+        );
+
+        if (!studentNotificationResponse.ok) {
+          throw new Error(
+            `Failed to create student notification for user ${recipient}`
+          );
+        }
+      }
+
+      // Handle success
     } catch (error) {
       // Handle error
+      console.error(error);
     }
   };
 
