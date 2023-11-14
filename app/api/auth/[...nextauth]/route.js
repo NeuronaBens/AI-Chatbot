@@ -53,8 +53,9 @@ export const authOptions = {
     async jwt({ token, user, session, trigger }) {
       //console.log('JWT Callback', { token, user, session })
       
-      if(trigger === "update" && session?.name){
-        token.name = session.name;
+      if(trigger === "update" && session){
+        token.name = session.name
+        token.email = session.email
       }
 
       if (user) {
@@ -75,7 +76,9 @@ export const authOptions = {
           ...session.user,                     
           id: token.id,                     
           deleted: token.deleted,
-          role: token.role
+          role: token.role,
+          name: token.name,
+          email:  token.email
         }
       }
     },

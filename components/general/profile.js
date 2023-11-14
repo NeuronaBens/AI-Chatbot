@@ -1,26 +1,29 @@
 "use client"
-import Link from "next/link";
+import ConfigDialog from "./config-dialog";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
 
 const UserProfile = (session) => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const [showDialog, setShowDialog] = useState(false);
 
   return (
-    <button className="relative m-4 w-36">
-      <div className="flex items-center gap-4" onClick={()=>setShowMenu(!showMenu)}>
+    <div className="relative m-4 w-36">
+      <button className="flex items-center gap-4" onClick={()=>setShowMenu(!showMenu)}>
         <img className="w-10 h-10 rounded-full w-1/5" src={session.user.image} alt=""/>
         <div className="font-medium dark:text-white w-4/5">
           <div>{session.user.name}</div>
         </div>
-      </div>
+      </button>
       {showMenu && (
         <div className="absolute bottom-10 left-0 z-10 w-36 px-2 py-4 bg-white rounded-md shadow-lg">
-          <button className="block text-sm text-gray-700 py-2 hover:bg-gray-100">
+          <button className="block text-sm text-gray-700 py-2 hover:bg-gray-100" onClick={()=> setShowDialog(true)}>
             Configuración
           </button>
+          {showDialog &&
+            <ConfigDialog session = {...session} title={"Configuración"} onClose={()=>setShowDialog(false)} showDialog={true}/>
+          }
           <button onClick={() => { signOut({callbackUrl: "/",});}}>
             <p className="text-gray-400 flex py-2">
               Cerrar Sesion
@@ -42,7 +45,7 @@ const UserProfile = (session) => {
           </button>
         </div>
       )}
-  </button>
+  </div>
    
   );
 };
