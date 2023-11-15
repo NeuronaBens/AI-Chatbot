@@ -3,9 +3,9 @@ import React from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
 import UserProfile from "../general/profile";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
-const SidebarAdmin = ({ session, children }) => {
+const SidebarAdmin = ({ children }) => {
   const [closed, setClosed] = useState(false);
   function toggle() {
     setClosed(!closed);
@@ -60,7 +60,7 @@ const SidebarAdmin = ({ session, children }) => {
         )}
         {!closed && (
           <div>
-            <UserProfile {...session}></UserProfile>
+            <UserProfile></UserProfile>
           </div>
         )}
       </div>
