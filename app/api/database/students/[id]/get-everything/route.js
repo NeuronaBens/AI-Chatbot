@@ -9,6 +9,11 @@ export async function GET(req, context) {
       user: true,
       career: true,
       sex: true,
+      notifications: true,
+      anxiety_levels: true,
+      stress_levels: true,
+      settings: true,
+      tasks:true,
     },
   });
 
@@ -16,35 +21,5 @@ export async function GET(req, context) {
     return new Response("Error occurred", { status: 404 });
   }
 
-  const anxietyLevels = await prisma.anxietyLevels.findMany({
-    where: { student_id: id },
-  });
-
-  const settings = await prisma.settings.findMany({
-    where: { student_id: id },
-  });
-
-  const stressLevels = await prisma.stressLevels.findMany({
-    where: { student_id: id },
-  });
-
-  const studentNotifications = await prisma.studentNotification.findMany({
-    where: { student_id: id },
-  });
-
-  const studentTasks = await prisma.studentTask.findMany({
-    where: { student_id: id },
-  });
-
-  // Construct a comprehensive student object
-  const comprehensiveStudent = {
-    ...student,
-    anxietyLevels,
-    settings,
-    stressLevels,
-    studentNotifications,
-    studentTasks,
-  };
-
-  return new Response(JSON.stringify(comprehensiveStudent));
+  return new Response(JSON.stringify(student));
 }
