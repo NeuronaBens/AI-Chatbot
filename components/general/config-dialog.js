@@ -3,22 +3,32 @@
 import { useSession } from 'next-auth/react';
 import { useRef, useEffect, useState } from 'react'
  
-export default function ConfigDialog({title, onClose, showDialog , children}) {
+export default function ConfigDialog({title, onClose, showDialog}) {
   const dialogRef = useRef(null);
   const [showProfile, setShowProfile] = useState(true);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showGeneral, setShowGeneral] = useState(false);
-  const [theme, setTheme] = useState("Claro");
+  const [theme, setTheme] = useState("");
   const {data:session, status, update} = useSession(); 
   const [name, setName] = useState(session.user.name);
   const [email, setEmail] = useState(session.user.email);
   const [data, setData] = useState(true);
   //const [password, setPassword] = useState("");
 
+  const fetchSettings = async () => {
+    const res = await fetch(`api/database/student/${session.user.id}/settings`);
+    const settings = await res.json();
+    setTheme(settings.theme);
+    setData(settings.data_collection);
+    console.log(settings)
+  };
 
   useEffect(() => {
     if (showDialog === true) {
       dialogRef.current?.showModal()
+      if(session.user.role == "Student"){
+        fetchSettings();
+      }
     } else {
       dialogRef.current?.close()
     }
@@ -47,13 +57,79 @@ export default function ConfigDialog({title, onClose, showDialog , children}) {
       if (!res.ok) {
         throw new Error(`API call failed with status: ${res.status}`);
       }
-      console.log(session)
+
+    }catch(error){
+      console.error(error);
+    }       
+  };
+
+  const handleUpdate = async (option, value) => {
+    try{
+      if(option == "data"){
+        const res = await fetch(`/api/database/students/${session.user.id}/settings`, {
+          method: "PUT",
+          body: JSON.stringify({
+            data_collection: value,
+          }),
+          headers: {
+          "Content-Type": "application/json",
+          },
+        });
+  
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+  
+      }else if(option == "theme"){
+        const res = await fetch(`/api/database/students/${session.user.id}/settings`, {
+          method: "PUT",
+          body: JSON.stringify({
+            theme: value,
+          }),
+          headers: {
+          "Content-Type": "application/json",
+          },
+        });
+  
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+      }else if(option == "delete account"){
+        const res = await fetch(`/api/database/user/${session.user.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            deleted_at: Date.now(),
+          }),
+          headers: {
+          "Content-Type": "application/json",
+          },
+        });
+  
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+  
+      }else if(option == "delete history"){
+        const res = await fetch(`/api/database/students/${session.user.id}/messages/session`, {
+          method: "PUT",
+          body: JSON.stringify({
+            deleted:true,
+          }),
+          headers: {
+          "Content-Type": "application/json",
+          },
+        });
+  
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+  
+      }
 
     }catch(error){
       console.error(error);
     }
-        
-  };
+  }
     
 
   const dialog = showDialog === true
@@ -103,7 +179,7 @@ export default function ConfigDialog({title, onClose, showDialog , children}) {
                     <div className='flex justify-center items-center py-4'>
                       <button type="submit"
                       className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Enviar
+                        Actualizar
                       </button>
                     </div>
                   </form>

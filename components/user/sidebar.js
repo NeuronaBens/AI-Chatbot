@@ -63,6 +63,9 @@ const SidebarUser =  ({children}) => {
           <Link href="/user/notificaciones">
             <p className="m-4">Notificaciones</p>
           </Link>
+          <Link href="/user/actividades">
+            <p className="m-4">Actividades</p>
+          </Link>
           <Link href="/user/ayuda">
             <p className="m-4">Ayuda</p>
           </Link>
