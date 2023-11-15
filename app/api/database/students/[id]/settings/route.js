@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(req,{ params }){
   const id = params.id
 
-  const settings = await prisma.settings.findMany({
+  const settings = await prisma.settings.findUnique({
     where: {
       student_id: id
     },

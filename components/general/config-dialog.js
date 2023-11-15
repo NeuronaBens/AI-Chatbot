@@ -1,7 +1,9 @@
 "use client"
 
-import { useSession } from 'next-auth/react';
-import { useRef, useEffect, useState } from 'react'
+import { useState, useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
+import {Button} from "@chakra-ui/react";
+
  
 export default function ConfigDialog({title, onClose, showDialog}) {
   const dialogRef = useRef(null);
@@ -13,14 +15,14 @@ export default function ConfigDialog({title, onClose, showDialog}) {
   const [name, setName] = useState(session.user.name);
   const [email, setEmail] = useState(session.user.email);
   const [data, setData] = useState(true);
+  const [history, setHistory] = useState(false);
   //const [password, setPassword] = useState("");
 
   const fetchSettings = async () => {
-    const res = await fetch(`api/database/student/${session.user.id}/settings`);
+    const res = await fetch(`/api/database/students/${session.user.id}/settings`);
     const settings = await res.json();
     setTheme(settings.theme);
     setData(settings.data_collection);
-    console.log(settings)
   };
 
   useEffect(() => {
@@ -32,7 +34,10 @@ export default function ConfigDialog({title, onClose, showDialog}) {
     } else {
       dialogRef.current?.close()
     }
-  }, [showDialog])
+    if(history){
+      location.reload();
+    }
+  }, [showDialog, history])
 
   const closeDialog = () => {
     dialogRef.current?.close()
@@ -43,7 +48,7 @@ export default function ConfigDialog({title, onClose, showDialog}) {
     e.preventDefault();
     try{
       update({name,email});
-      const res = await fetch(`/api/database/user/${session.user.id}`, {
+      const res = await fetch(`/api/database/users/${session.user.id}`, {
         method: "PUT",
         body: JSON.stringify({
           name: name,
@@ -63,13 +68,13 @@ export default function ConfigDialog({title, onClose, showDialog}) {
     }       
   };
 
-  const handleUpdate = async (option, value) => {
+  const handleUpdate = async (option, value = null) => {
     try{
       if(option == "data"){
         const res = await fetch(`/api/database/students/${session.user.id}/settings`, {
           method: "PUT",
           body: JSON.stringify({
-            data_collection: value,
+            data_collection: !data,
           }),
           headers: {
           "Content-Type": "application/json",
@@ -79,6 +84,8 @@ export default function ConfigDialog({title, onClose, showDialog}) {
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
+
+        setData(!data);
   
       }else if(option == "theme"){
         const res = await fetch(`/api/database/students/${session.user.id}/settings`, {
@@ -95,10 +102,11 @@ export default function ConfigDialog({title, onClose, showDialog}) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
       }else if(option == "delete account"){
-        const res = await fetch(`/api/database/user/${session.user.id}`, {
+        const currentTimestamp = new Date().toISOString();
+        const res = await fetch(`/api/database/users/${session.user.id}`, {
           method: "PUT",
           body: JSON.stringify({
-            deleted_at: Date.now(),
+            deleted_at: currentTimestamp,
           }),
           headers: {
           "Content-Type": "application/json",
@@ -123,6 +131,7 @@ export default function ConfigDialog({title, onClose, showDialog}) {
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
+        setHistory(true);
   
       }
 
@@ -177,10 +186,10 @@ export default function ConfigDialog({title, onClose, showDialog}) {
                       placeholder="Email"/>
                     </div>
                     <div className='flex justify-center items-center py-4'>
-                      <button type="submit"
-                      className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <Button type="submit" className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white "
+                      colorScheme='facebook'>
                         Actualizar
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </div>}
@@ -188,33 +197,30 @@ export default function ConfigDialog({title, onClose, showDialog}) {
                   <div className="space-y-4 flex flex-row justify-between">
                     <label htmlFor='data' className=' pt-3'> Recopilación de Datos </label>
                     <label class="relative inline-flex items-center cursor-pointer">
-                      <input id="data" type="checkbox" class="sr-only peer" onChange={()=>setData(!data)} checked={data}/>
+                      <input id="data" type="checkbox" class="sr-only peer" onChange={()=>handleUpdate("data")} checked={data}/>
                       <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                     </label>
                   </div>
                   <div className="space-y-4 flex flex-row justify-between">
-                    <label htmlFor='eliminate-account' className=' pt-3'> Borrar cuenta </label>
-                    <button id='eliminate-account'
-                      className="group relative w-1/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500">
-                        Borrar
-                    </button>
+                    <div className=' pt-3'> Borrar cuenta </div>
+                    <Button className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
+                    onClick={()=>handleUpdate("delete account")} colorScheme='red'>Borrar</Button>
+                    
                   </div>
                 </div>}
                 {showGeneral && <div className='grid gap-4'>
                   <div className="space-y-4 flex flex-row justify-between">
                     <label htmlFor='theme' className=' pt-3'> Tema </label>
-                    <select id ="theme" name="theme" value={theme} onChange={(e) => setTheme(e.target.value)}
+                    <select id ="theme" name="theme" value={theme} onChange={() => handleUpdate("theme", e.target.value)}
                       className=" w-2/6 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10  ">
                         <option value="Claro" > Claro </option>
                         <option value="Oscuro" > Oscuro </option>
                     </select>
                   </div>
                   <div className="space-y-4 flex flex-row justify-between">
-                    <label htmlFor='clear-history' className=' pt-3'> Borrar historial de conversacion </label>
-                    <button id='clear-history'
-                      className="group relative w-1/5 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500">
-                        Borrar
-                    </button>
+                    <div className=' pt-3'> Borrar historial de conversacion </div>
+                    <Button className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
+                    onClick={()=>handleUpdate("delete history")} colorScheme='red'>Borrar</Button>
                   </div>
                 </div>}
               </div>
@@ -245,10 +251,10 @@ export default function ConfigDialog({title, onClose, showDialog}) {
                     placeholder="Email"/>
                   </div>
                   <div className='flex justify-center items-center py-4'>
-                    <button type="submit"
-                    className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                      Enviar
-                    </button>
+                    <Button type="submit" className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white "
+                     colorScheme='facebook'>
+                        Actualizar
+                    </Button>
                   </div>
                 </form>
               </div>
