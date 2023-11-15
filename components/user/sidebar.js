@@ -1,11 +1,19 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
-import { signOut} from "next-auth/react";
+import UserProfile from "../general/profile";
+import { useState,useEffect } from "react";
 
-const SidebarUser = ({ closed, toggle }) => {
+const SidebarUser =  ({children}) => {
+  const [closed, setClosed] = useState(false);
+  function toggle() {
+    setClosed(!closed);
+  }
+
   return (
-    <div
+    <div className="flex">
+      <div
       className={
         closed ? " fixed z-50 h-screen bg-gray-200 " : "fixed shadow-lg h-screen bg-gray-200 z-50 "
       }
@@ -26,7 +34,7 @@ const SidebarUser = ({ closed, toggle }) => {
             className={`w-6 h-6 cursor-pointer ${
               closed ? "transform rotate-180" : ""
             }`}
-            onClick={toggle}
+            onClick={()=>toggle()}
           >
             <path
               strokeLinecap="round"
@@ -55,35 +63,25 @@ const SidebarUser = ({ closed, toggle }) => {
           <Link href="/user/notificaciones">
             <p className="m-4">Notificaciones</p>
           </Link>
+          <Link href="/user/actividades">
+            <p className="m-4">Actividades</p>
+          </Link>
           <Link href="/user/ayuda">
             <p className="m-4">Ayuda</p>
           </Link>
         </div>
       )}
       {!closed && (
-        <div className="h-1/4">
-          <Link onClick={() => { signOut({callbackUrl: "/",});}} href="/">
-            <p className="m-4 text-gray-400 flex">
-              Cerrar Sesion{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 ml-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                />
-              </svg>
-            </p>
-          </Link>
+        <div >
+          <UserProfile ></UserProfile>
         </div>
       )}
     </div>
+    <div className={closed?"w-11/12 ml-auto" : "w-10/12 ml-auto"}>
+      {children}
+    </div>
+    </div>
+    
   );
 };
 

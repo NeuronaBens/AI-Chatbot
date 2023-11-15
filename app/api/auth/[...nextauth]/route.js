@@ -25,7 +25,10 @@ export const authOptions = {
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
-          }
+          },
+          include:{
+            role: true,
+          },
         })
 
         if (!user) {
@@ -50,16 +53,17 @@ export const authOptions = {
     async jwt({ token, user, session, trigger }) {
       //console.log('JWT Callback', { token, user, session })
       
-      if(trigger === "update" && session?.name){
-        token.name = session.name;
+      if(trigger === "update" && session){
+        token.name = session.name
+        token.email = session.email
       }
 
       if (user) {
         return {
           ...token,
           id: user.id,
-          deleted: user.deleted,
-          role_id: user.role_id
+          deleted: user.deleted_at,
+          role: user.role.name
         }
       }
       return token;
@@ -72,7 +76,9 @@ export const authOptions = {
           ...session.user,                     
           id: token.id,                     
           deleted: token.deleted,
-          role_id: token.role_id
+          role: token.role,
+          name: token.name,
+          email:  token.email
         }
       }
     },
