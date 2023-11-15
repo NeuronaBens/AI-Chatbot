@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
+import {Badge} from "@chakra-ui/react";
 
 
 const Notifications = ()=>{
@@ -23,15 +23,22 @@ const Notifications = ()=>{
   return(
     <div>
       {status == "loading" ?<div></div>:
-        <div className="grid gap-4">
+        <div className="grid gap-8 mx-2">       
           {notifications.map((value, i)=>(
-            <div id={i} className="flex flex row">
-              <NewspaperIcon class="h-12 w-12 text-black" />
-              <div className="grid">
-                <h3>{value.name}</h3>
+            <div className=" rounded bg-gray-300 py-5 mx-10">
+              <div id={i} className="w-[1200px] w-full flex flex row ml-4 gap-8">
+                <NewspaperIcon class="h-12 w-12 text-black" />
+                <div className=" grid">
+                  <div className="grid grid-cols-6 text-xl font-semibold mb-4">
+                    <div className="flex flex-col col-span-5">{value.notification.name}</div> 
+                    <Badge ml='1' colorScheme='green' className="flex flex-col ">
+                      New
+                    </Badge>
+                  </div>
                 <div>
-                  {value.content}
-                </div>
+                <div>{value.notification.content}</div>
+              </div>
+                </div>  
               </div>
             </div>)) 
           }
