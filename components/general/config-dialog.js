@@ -12,6 +12,7 @@ export default function ConfigDialog({title, onClose, showDialog , children}) {
   const {data:session, status, update} = useSession(); 
   const [name, setName] = useState(session.user.name);
   const [email, setEmail] = useState(session.user.email);
+  const [data, setData] = useState(true);
   //const [password, setPassword] = useState("");
 
 
@@ -32,6 +33,20 @@ export default function ConfigDialog({title, onClose, showDialog , children}) {
     e.preventDefault();
     try{
       update({name,email});
+      const res = await fetch(`/api/database/user/${session.user.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+        }),
+        headers: {
+        "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`API call failed with status: ${res.status}`);
+      }
       console.log(session)
 
     }catch(error){
@@ -97,7 +112,7 @@ export default function ConfigDialog({title, onClose, showDialog , children}) {
                   <div className="space-y-4 flex flex-row justify-between">
                     <label htmlFor='data' className=' pt-3'> Recopilación de Datos </label>
                     <label class="relative inline-flex items-center cursor-pointer">
-                      <input id="data" type="checkbox" value="" class="sr-only peer" checked disabled/>
+                      <input id="data" type="checkbox" class="sr-only peer" onChange={()=>setData(!data)} checked={data}/>
                       <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                     </label>
                   </div>

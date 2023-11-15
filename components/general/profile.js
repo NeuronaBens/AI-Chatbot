@@ -1,18 +1,34 @@
 "use client"
 import ConfigDialog from "./config-dialog";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 const UserProfile = () => {
   const {data: session, status} = useSession();
   const [showMenu, setShowMenu] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  // create a React ref for the dropdown element
+  const options = useRef(null);
+
+  useEffect(() => {
+    const handleOutSideClick = (event) => {
+      if (options.current && !options.current?.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [options]);
 
   return (
     <div>
       {status ==="loading"?<div className="relative m-4 w-36"></div>:
-      <div className="relative m-4 w-36">
+      <div ref={options} className="relative m-4 w-36">
       <button className="flex items-center gap-4" onClick={()=>setShowMenu(!showMenu)}>
         <img className="w-10 h-10 rounded-full w-1/5" src={session.user.image} alt=""/>
         <div className="font-medium dark:text-white w-4/5">
