@@ -6,7 +6,7 @@ import MarcadoresGreeting from "./marcadores-greeting";
 import { useSession } from "next-auth/react";
 
 const MarcadoresContainer = () => {
-  const session = useSession().data;
+  const {data:session, status} = useSession();
   const [marcadores, setMarcadores] = useState([]);
 
   const fetchBookmarks = async () => {
@@ -20,39 +20,44 @@ const MarcadoresContainer = () => {
   };
 
   useEffect(() => {
-    fetchBookmarks();
-  }, [marcadores.length]);
+    if(status === "authenticated"){
+      fetchBookmarks();
+    }
+  }, [status, marcadores.length]);
 
   return (
     <div>
-      <MarcadoresGreeting />
-      {marcadores.length > 0 && <div className="w-2/3 mx-auto">
-        {marcadores.map((marcador) => (
-          <MarcadoresBubble
-            key={marcador.id}
-            mensaje={marcador}
-            eraseMarcador={async (id) => {
-              try {
-                const res = await fetch(`/api/database/messages/${id}`, {
-                method: "PUT",
-                body: JSON.stringify({
-                bookmarked: false,
-                }),
-                headers: {
-                "Content-Type": "application/json",
-                },
-                });
-                if (!res.ok) {
-                  throw new Error(`API call failed with status: ${res.status}`);
+      {status === "loading"?<div><MarcadoresGreeting />Loading...</div>:
+      <div>
+        <MarcadoresGreeting />
+        <div className="w-2/3 mx-auto">
+          {marcadores.map((marcador) => (
+            <MarcadoresBubble
+              key={marcador.id}
+              mensaje={marcador}
+              eraseMarcador={async (id) => {
+                try {
+                  const res = await fetch(`/api/database/messages/${id}`, {
+                  method: "PUT",
+                  body: JSON.stringify({
+                  bookmarked: false,
+                  }),
+                  headers: {
+                  "Content-Type": "application/json",
+                  },
+                  });
+                  if (!res.ok) {
+                    throw new Error(`API call failed with status: ${res.status}`);
+                  }
+                  setMarcadores([]);
+  
+                } catch (error) {
+                  console.error(error);
                 }
-                setMarcadores([]);
-
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-          />
-        ))}
+              }}
+            />
+          ))}
+        </div>
       </div>}
     </div>
   );

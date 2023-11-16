@@ -47,22 +47,16 @@ export default function ConversationHistory() {
   useEffect(() => {
     if (status === "authenticated") {
       fetchMessages();
+      if (messages.length > 0) {
+        const groupedMessages = groupMessagesByDate(messages);
+        setMessageDays(groupedMessages);
+      }
     }
-  }, [status]);
-
-  useEffect(() => {
-    if (messages.length > 0) {
-      const groupedMessages = groupMessagesByDate(messages);
-      setMessageDays(groupedMessages);
-    }
-  }, [messages]);
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
+  }, [status, messages.length]);
+  
   return (
     <div>
+      {status === "loading"?<div>Loading...</div>:
       <Accordion allowToggle className="mr-10 space-y-8">
         {messageDays.map((value, i1) => (
           <AccordionItem key={i1}>
@@ -82,7 +76,7 @@ export default function ConversationHistory() {
             </AccordionPanel>
           </AccordionItem>
         ))}
-      </Accordion>
+      </Accordion>}
     </div>
   );
 }
