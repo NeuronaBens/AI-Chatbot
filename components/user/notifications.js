@@ -33,11 +33,11 @@ const Notifications = ()=>{
                   <div className="text-xl font-semibold">{value.notification.name}</div> 
                   <div>{value.notification.content}</div>
                 </div>
-                <div className="ml-8">
+                {value.read == false && <div className="ml-8">
                   <Badge ml='1' colorScheme='green' className="col-span-1">
                     New
                   </Badge>
-                </div>
+                </div>}
               </div>
             </div>)) 
           }
