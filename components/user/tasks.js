@@ -26,7 +26,7 @@ const Tasks = ()=>{
         <div className="grid gap-8 mx-8">       
           {tasks.map((value, i)=>(
             <div className=" rounded bg-gray-300 py-2">
-              <div id={i} className=" grid grid-cols-12 grid-rows-2" >
+              <div key={i} className=" grid grid-cols-12 grid-rows-2" >
                 <div className="ml-2"><PuzzlePieceIcon class="h-12 w-12 text-black col-span-1" /></div>
               
                 <div className="max-w-full grid row-span-2 col-span-10">
