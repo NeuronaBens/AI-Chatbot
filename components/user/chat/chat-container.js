@@ -87,7 +87,7 @@ const ChatContainer = (session) => {
         throw new Error(`API call failed with status: ${res.status}`);
       }
       const newMessageData = await res.json();
-      console.log(newMessageData);
+      //console.log(newMessageData);
 
       messages.addMessage(newMessageData.id, text, sender, chatSession );
       setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
