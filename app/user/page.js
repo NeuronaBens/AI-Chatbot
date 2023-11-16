@@ -43,7 +43,7 @@ export default async function Home() {
     title: "Student Information",
     type: "form",
     showDialog: loadModal(),
-    stringStylesWidth: "w-[800px] max-w-fullbg-gray-200 flex flex-col",
+    width: "600px",
     onClose: onClose,
     onOk: onOk,
   };

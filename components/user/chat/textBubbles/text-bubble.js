@@ -79,7 +79,7 @@ const TextBubble = ({ chatMessage, onDelete }) => {
           {showOptions && <OptionsMenu handleOptionClick={handleOptionClick} />}
         </div>
       </div>
-      <Dialog props={{title: "¿Deseas denunciar este mensaje?", type: "complaint", showDialog: showDialogComplaint ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, message_id: chatMessage.id }}/>
+      <Dialog props={{title: "¿Deseas denunciar este mensaje?", type: "complaint", showDialog: showDialogComplaint ,onClose: onClose,onOk: onOk, width:"500px", message_id: chatMessage.id }}/>
     </div>
   );
 };

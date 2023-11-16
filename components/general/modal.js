@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useSession } from "next-auth/react";
  
 export default function Dialog({props, children}) {
-    const session = useSession()
+    const {data:session, status} = useSession()
     const dialogRef = useRef(null);
     const [startDate, setStartDate] = useState(new Date());
     const [description, setDescription] = useState("");
@@ -34,7 +34,7 @@ export default function Dialog({props, children}) {
           fetch('/api/database/careers').then((response) => response.json()).then((data) => setCareers(data));
           fetch('/api/database/sexes').then((response) => response.json()).then((data) => setSexes(data));
         }
-    }, [props.showDialog])
+    }, [status, props.showDialog, careers.length, sexes.length])
 
     const closeDialog = () => {
         dialogRef.current?.close()
@@ -52,7 +52,7 @@ export default function Dialog({props, children}) {
               date_of_birth:startDate,
               sex_id:sex,
               career_id:career,
-              user_id:session.data.user.id,
+              user_id:session.user.id,
               }),
               headers: {
                 "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default function Dialog({props, children}) {
               method: "POST",
               body: JSON.stringify({
               result:result,
-              user_id:session.data.user.id,
+              user_id:session.user.id,
               }),
               headers: {
               "Content-Type": "application/json",
@@ -110,10 +110,10 @@ export default function Dialog({props, children}) {
     };
     
 
-    const dialog = props.showDialog === true
+    const dialog = (props.showDialog === true && status === "authenticated")
       ? (
         <dialog ref={dialogRef} className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50">
-          <div className={props.stringStylesWidth}>
+          <div className = {`w-[${props.width}] max-w-fullbg-gray-200 flex flex-col`}>
             <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-indigo-600">
               <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">{props.title}</h1>
               {props.type != "form" &&
@@ -150,7 +150,7 @@ export default function Dialog({props, children}) {
 
               {props.type == "questions" &&
               <form className="mt-8 space-y-6 text-xs" onSubmit={handleSubmit}>
-                <div className={props.stringStylesGrid}>
+                <div className={`grid grid-cols-${props.cols} grid-rows-${props.rows} gap-2 px-2 py-2 text-xs`}>
                   {children.map((item1,index1) =>(item1.values.map((item2,index2) =>(
                     <div key={(index1,index2)}>
                       {(index1 == 0 || index2==0) ?  

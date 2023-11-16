@@ -46,7 +46,7 @@ export default function Home(){
         </button>
       </Card>
       <div>
-        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridGAD7}}>
+        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,onClose: onClose,onOk: onOk, width: "1200px", cols:5, rows:8}}>
           {{values: ["Pregunta", "Nunca", "Varios dias", "La mitad de los dias", "Casi cada dia"],}}
           {{values: ["Sentirse nervioso, ansioso, notar que se le ponen los nervios de punta.", 0, 1, 2, 3],}}
           {{values: ["No ser capaz de parar o controlar sus preocupaciones.	", 0, 1, 2, 3],}}
@@ -56,7 +56,7 @@ export default function Home(){
           {{values: ["Sentirse fácilmente disgustado o irritable.	", 0, 1, 2, 3],}}
           {{values: ["Sentirse asustado como si algo horrible pudiese pasar.	", 0, 1, 2, 3],}}        
         </Dialog>
-        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridPSS14}}>
+        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS ,onClose: onClose,onOk: onOk, width: "1200px", cols:6, rows:15}}>
           {{values: ["Pregunta", "Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido afectado por algo que ocurrió inesperadamente?", 0, 1, 2, 3, 4],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido incapaz de controlar las cosas importantes en tu vida?", 0, 1, 2, 3, 4],}}
