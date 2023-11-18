@@ -3,8 +3,9 @@ import OptionsMenu from "./options-menu";
 import Dialog from "@/components/general/modal";
 
 const TextBubble = ({ chatMessage, onDelete }) => {
+  const buttonColor = chatMessage.sender == false ? "text-white hover:text-gray-200": "text-gray-500 hover:text-gray-700"
   const bubbleColor =
-    chatMessage.sender == false ? "bg-orange-300" : "bg-gray-300";
+    chatMessage.sender == false ? "bg-[#7471D9] text-white" : "bg-gray-300";
   const bubblePosition = chatMessage.sender == false ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
   const [showDialogComplaint, setShowDialogComplaint] = useState(false);
@@ -71,7 +72,7 @@ const TextBubble = ({ chatMessage, onDelete }) => {
         <p>{chatMessage.text}</p>
         <div>
           <button
-            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            className={`${buttonColor} focus:outline-none`}
             onClick={() => setShowOptions(!showOptions)}
           >
             <span className="text-3xl ml-4">...</span>

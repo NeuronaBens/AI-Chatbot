@@ -1,3 +1,4 @@
+import Greeting from '@/components/general/greeting'
 import {
   Accordion,
   AccordionItem,
@@ -11,7 +12,7 @@ export default function FAQs(){
 
   return(
     <div>
-      <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6">Preguntas Frecuentes</h1>
+      <Greeting title={"Preguntas Frecuentes!"} text={"Acá pordrás ver todas las dudas mas comunes sobre Calmbot."}></Greeting>
       <Accordion allowToggle  className="mr-10 space-y-8">
 
         <AccordionItem >

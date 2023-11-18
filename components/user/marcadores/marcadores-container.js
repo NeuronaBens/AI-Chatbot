@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import MarcadoresBubble from "./marcadores-bubble";
-import MarcadoresGreeting from "./marcadores-greeting";
 import { useSession } from "next-auth/react";
 
 const MarcadoresContainer = () => {
@@ -27,9 +26,8 @@ const MarcadoresContainer = () => {
 
   return (
     <div>
-      {status === "loading"?<div><MarcadoresGreeting />Loading...</div>:
+      {status === "loading"?<div>Loading...</div>:
       <div>
-        <MarcadoresGreeting />
         <div className="w-2/3 mx-auto">
           {marcadores.map((marcador) => (
             <MarcadoresBubble

@@ -1,6 +1,7 @@
 "use client"
 
 import Card from "@/components/general/card"
+import Greeting from "@/components/general/greeting";
 import Dialog from "@/components/general/modal"
 import { useState } from "react";
 
@@ -23,7 +24,7 @@ export default function Home(){
 
   return(
     <div>
-      <h1 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6">Tests de ansiedad y estres</h1>
+      <Greeting title={"Tus Tests!"} text={"Acá podrás realizar los tests para medir tus niveles de ansiedad y estrés."}></Greeting>
       <div className="flex flex-wrap gap-4">
       <Card props={{title: "Cuestionario GAD-7", description:"Aqui podras dar el cuestionario GAD-7 para medir tus niveles de ansiedad actuales", image: "/ansiedad.jpg"}}>
       <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
