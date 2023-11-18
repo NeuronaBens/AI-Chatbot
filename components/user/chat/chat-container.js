@@ -52,7 +52,7 @@ const ChatContainer = (session) => {
           setIsLoadingMess(false);
         }else{
           setChatSession(1);
-          handleAddMessage("Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?", false);
+          await handleAddMessage("Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?", false);
           setIsLoadingMess(false);
         }
       }

@@ -3,8 +3,8 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="text-white">
-      <div className="items-center mt-48 bg-gray-900">
-        <div className="h-10 bg-gradient-to-b from-white via-gray-500 to-gray-900"></div>
+      <div className="grid place-items-center text-sm  bg-[#0E233E]">
+        <div className="h-10"></div>
         <div className="px-8 py-4">
           <p className="mb-4 mt-4">
             Esta página se editó por última vez el 23 may 2023 a las 01:00.
@@ -17,54 +17,16 @@ const Footer = () => {
           </p>
         </div>
         <div className="px-8 py-4">
-          <ul className="flex flex-wrap space-x-4 sm:space-x-8 md:space-x-12">
-            <li>
-              <a
-                href="/general/legal/politica-de-privacidad"
-                className="underline text-orange-500"
-              >
-                Política de privacidad
-              </a>
-            </li>
-            <li>
-              <a
-                href="/general/legal/terminos-y-condiciones"
-                className="underline text-orange-500"
-              >
-                Términos de uso
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Limitación de responsabilidad
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Código de conducta
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Versión para móviles
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Desarrolladores
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Estadísticas
-              </a>
-            </li>
-            <li>
-              <a href="#" className="underline text-orange-500">
-                Declaración de cookies
-              </a>
-            </li>
-          </ul>
+          <div className="flex flex-wrap space-x-4 sm:space-x-8 md:space-x-12">
+              <a href="/general/legal/politica-de-privacidad"> Política de privacidad </a>
+              <a href="/general/legal/terminos-y-condiciones"> Términos de uso </a>
+              <a href="#"> Limitación de responsabilidad </a>
+              <a href="#" > Código de conducta </a>
+              <a href="#"> Versión para móviles </a>
+              <a href="#" > Desarrolladores </a>
+              <a href="#" > Estadísticas </a>
+              <a href="#" > Declaración de cookies </a>
+          </div>
         </div>
       </div>
     </footer>
