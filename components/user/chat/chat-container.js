@@ -5,56 +5,88 @@ import TextBubble from "./textBubbles/text-bubble";
 import TextInput from "./text-input";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import ChatWelcome from "./chat-welcome";
+import Dialog from "@/components/general/modal";
 
 
 const ChatContainer = (session) => {
   //////////////////////////////////
   ////////////////////// variables /
   //////////////////////////////////
-  const [student, setStudent] = useState();
-  const [chatSession, setChatSession] = useState();
+  const [student, setStudent] = useState(null);
+  const [isloadingStudent, setIsLoadingStudent] = useState(true);
+  const [chatSession, setChatSession] = useState(1);
   const [messages, setMessages] = useState(new MessageList([]));
+  const [isloadingMess, setIsLoadingMess] = useState(true);
+
+  const handleStudent = async ()=>{
+    try{
+      const studentResponse = await fetch(`/api/database/students/${session.user.id}`);
+      const studentData = await studentResponse.json();
+      setStudent(studentData);
+      setIsLoadingStudent(false);
+    }catch(error){
+      console.error(error);
+    }
+  }
   //console.log(session);
 
   const fetchData = async () => {
     try {
-      const lastMessageResponse = await fetch(`/api/database/students/${session.user.id}/messages/last-message`);
-      const lastMessageData = await lastMessageResponse.json();
-      if(lastMessageData){
-        setChatSession(lastMessageData.session);
-      }else{
-        setChatSession(1);
+      if(student){
+        const lastMessageResponse = await fetch(`/api/database/students/${session.user.id}/messages/last-message`);
+        const lastMessageData = await lastMessageResponse.json();
+        if(lastMessageData){
+          setChatSession(lastMessageData.session);
+          const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages/session`, {
+            method: "POST",
+            body: JSON.stringify({
+              session: chatSession,
+            }),
+            headers: {
+            "Content-Type": "application/json",
+            },}
+          );
+          const messagesData = await messagesResponse.json();
+          const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender, item.position, chatSession));
+          setMessages(new MessageList(newMessages));
+          setIsLoadingMess(false);
+        }else{
+          setChatSession(1);
+          handleAddMessage("Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?", false);
+          setIsLoadingMess(false);
+        }
       }
-
-      const studentResponse = await fetch(`/api/database/students/${session.user.id}`);
-      const studentData = await studentResponse.json();
-      setStudent(studentData);
-
-      const messagesResponse = await fetch(`/api/database/students/${session.user.id}/messages/session`, {
-        method: "POST",
-        body: JSON.stringify({
-          session: chatSession,
-        }),
-        headers: {
-        "Content-Type": "application/json",
-        },}
-      );
-      const messagesData = await messagesResponse.json();
-      if(messagesData.length > 0){
-        const newMessages = messagesData.map(item => new Message(item.id, item.text, item.sender, item.position, chatSession));
-        setMessages(new MessageList(newMessages));
-      }else{
-        handleAddMessage("Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?", false);
-      }
-    } catch (error) {
+    }catch (error) {
       console.error('Error fetching data:', error);
       // Handle error appropriately, e.g., show an error message to the user
     }
   };
 
+  async function onClose() {
+    console.log("Modal has closed");
+    await handleStudent();
+  }
+
+  async function onOk() {
+    console.log("Ok was clicked")
+  }
+
+  const modalProps = {
+    title: "Student Information",
+    type: "form",
+    showDialog: true,
+    width: "600px",
+    onClose: onClose,
+    onOk: onOk,
+  };
+
   useEffect(() => {
+    if(student == null){
+      handleStudent();
+    }
     fetchData();
-  }, [session.user.id, chatSession]);
+  }, [session, student, chatSession]);
+
 
   const deleteMessage = async (index) => {
     const newMessages = messages.getAsMessageList();
@@ -131,18 +163,36 @@ const ChatContainer = (session) => {
   //////////////////////////////////
   //////////////////// return HTML /
   //////////////////////////////////
+
+
+
+  if(student == null && !isloadingStudent) return(
+    <div className="grow">
+      <ChatWelcome />
+      <Dialog props = {modalProps}></Dialog>
+    </div>
+  )
+
+  if(isloadingMess)return(
+    <div className="grow">
+      <ChatWelcome />
+    </div>
+  )
+
+
   return (
     <div className="grow">
-      <div className="h-5/6 mb-32">
-        <ChatWelcome />
-        {messages.getAsMessageList().map((message, index) => (
-          <TextBubble key={index} chatMessage={message} onDelete={deleteMessage}/>
-        ))}
-      </div>
-      <div className="w-full resize-none">
-        <TextInput onUserMessage={handleUserMessage} />
-        
-      </div>
+      <ChatWelcome />
+        <div>
+          <div className="h-5/6 mb-32">
+          {messages.getAsMessageList().map((message, index) => (
+            <TextBubble key={index} chatMessage={message} onDelete={deleteMessage}/>
+          ))}
+          </div>
+          <div className="w-full resize-none">
+            <TextInput onUserMessage={handleUserMessage} />
+          </div>
+        </div>
     </div>
   );
 };

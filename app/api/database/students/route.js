@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from 'next/server';
-
+import { IdManager } from "@/utils/IdManager";
 
 
 export async function GET() {
@@ -31,6 +31,19 @@ export async function POST(req) {
                 }
             }
         }
+    })
+
+    await prisma.settings.create({
+      data:{
+        id: IdManager.settingsId(),
+        data_collection: true,
+        theme: "Claro",
+        student:{
+          connect:{
+            student_id: student.student_id,
+          }
+        },
+      }
     })
 
     return NextResponse.json(student)
