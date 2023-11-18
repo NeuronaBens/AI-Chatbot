@@ -27,7 +27,7 @@ export default function Home(){
       <Greeting title={"Tus Tests!"} text={"Acá podrás realizar los tests para medir tus niveles de ansiedad y estrés."}></Greeting>
       <div className="flex flex-wrap gap-4">
       <Card props={{title: "Cuestionario GAD-7", description:"Aqui podras dar el cuestionario GAD-7 para medir tus niveles de ansiedad actuales", image: "/ansiedad.jpg"}}>
-      <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#7471D9] rounded-lg hover:bg-[#7471D9] focus:outline-none focus:ring-2 focus:[#AAA7F2] focus:ring-offset-2"
         onClick={() => setShowModalGAD(true)}
         >
             Empezar
@@ -37,7 +37,7 @@ export default function Home(){
         </button>
       </Card>
       <Card props={{title: "Cuestionario PSS-14", description: "Aqui podras dar el cuestionario PSS-14 para medir tus niveles de estres actuales", image: "/estres.jpg"}}>
-        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#7471D9] rounded-lg hover:bg-[#7471D9] focus:outline-none focus:ring-2 focus:[#AAA7F2] focus:ring-offset-2"
         onClick={() => setShowModalPSS(true)}
         >
             Empezar

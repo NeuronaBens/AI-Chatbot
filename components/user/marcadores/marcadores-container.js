@@ -30,7 +30,7 @@ const MarcadoresContainer = () => {
       <div>
         <div className="w-2/3 mx-auto">
           {marcadores.map((marcador) => (
-            <MarcadoresBubble
+            <MarcadoresBubble className="bg-[#AAA7F2]"
               key={marcador.id}
               mensaje={marcador}
               eraseMarcador={async (id) => {

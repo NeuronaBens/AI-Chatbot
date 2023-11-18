@@ -51,7 +51,7 @@ const Notifications = ()=>{
       {status == "loading" ?<div></div>:
         <div className="grid gap-8 mx-8">       
           {notifications.map((value, i)=>(
-            <div className=" rounded bg-gray-300 py-2" onClick={()=> updateNotification(value.id)}>
+            <div className=" rounded bg-[#AAA7F2] py-2" onClick={()=> updateNotification(value.id)}>
               <div key={i} className=" grid grid-cols-12 grid-rows-2" >
                 <div className="ml-2"><NewspaperIcon class="h-12 w-12 text-black col-span-1" /></div>
               
