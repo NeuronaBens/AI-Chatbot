@@ -1,4 +1,4 @@
-class TaskManager {
+export class TaskManager {
   static async getAllTasks() {
     const response = await fetch("/api/database/tasks");
     const tasks = await response.json();

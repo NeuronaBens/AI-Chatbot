@@ -13,10 +13,10 @@ export async function POST(req) {
   const studentTask = await prisma.studentTask.create({
     data: {
       id: IdManager.studentTaskId(),
-      completed: false,
+      completed: 0,
       student: {
         connect: {
-          id: student_id,
+          student_id: student_id,
         },
       },
       task: {
