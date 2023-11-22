@@ -145,7 +145,8 @@ const ChatContainer = (session) => {
       messages.addMessage(newMessageData.id, text, sender, chatSession);
       setMessages(new MessageList([...messages.messages])); // Create a new MessageList instance and set it as the new state
 
-      await TaskManager.processTasks(text, session.user.id); //a task if necesary is added
+      //manage TASKS =====================
+      TaskManager.processTasks(text, session.user.id);
     } catch (error) {
       console.error(error);
     }

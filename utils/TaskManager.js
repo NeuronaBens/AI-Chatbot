@@ -35,14 +35,14 @@ export class TaskManager {
 
       const matchingTask = allTasks.find(
         (task) =>
-          task.text.toLowerCase().includes(text.toLowerCase()) &&
+          text.toLowerCase().includes(task.name.toLowerCase()) &&
           !existingTaskIds.includes(task.id)
       );
 
-      if (matchingTask) {
-        await TaskManager.createStudentTask(userId, matchingTask.id);
-        return { success: true, message: "Task processed successfully" };
-      }
+      //if (matchingTask) {
+      await TaskManager.createStudentTask(userId, matchingTask.id);
+      return { success: true, message: "Task processed successfully" };
+      //}
 
       return {
         success: true,
