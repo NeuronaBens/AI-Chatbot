@@ -18,14 +18,16 @@ const Footer = () => {
         </div>
         <div className="px-8 py-4">
           <div className="flex flex-wrap space-x-4 sm:space-x-8 md:space-x-12">
-              <a href="/general/legal/politica-de-privacidad"> Política de privacidad </a>
-              <a href="/general/legal/terminos-y-condiciones"> Términos de uso </a>
-              <a href="#"> Limitación de responsabilidad </a>
-              <a href="#" > Código de conducta </a>
-              <a href="#"> Versión para móviles </a>
-              <a href="#" > Desarrolladores </a>
-              <a href="#" > Estadísticas </a>
-              <a href="#" > Declaración de cookies </a>
+            <a href="/general/legal/politica-de-privacidad">
+              {" "}
+              Política de privacidad{" "}
+            </a>
+            <a href="/general/legal/terminos-y-condiciones">
+              {" "}
+              Términos de uso{" "}
+            </a>
+            <a href="#"> Limitación de responsabilidad </a>
+            <a href="#"> Código de conducta </a>
           </div>
         </div>
       </div>
