@@ -31,7 +31,7 @@ const AdminHome = () => {
     </div>
   );
 
-  return test;
+  return real;
 };
 
 export default AdminHome;

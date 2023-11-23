@@ -110,6 +110,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
         }
 
         document.body.classList.add("bg-slate-800");
+        document.body.classList.add("text-white");
       } else if (option == "delete account") {
         const currentTimestamp = new Date().toISOString();
         const res = await fetch(`/api/database/users/${session.user.id}`, {
