@@ -26,10 +26,10 @@ export default function FAQs() {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Calmbot es un chatbot que simula a una persona en una conversacion humana y para
+            utilizarlo solo tienes que conversar con el. Conforme vayas conversando con el 
+            Calmbot va aprendiendo sobre ti y tu situación y te va recomenando y ayudando 
+            de la mejor manera que vea posible para que manejes de mejor manera tu ansiedad y estrés.
           </AccordionPanel>
         </AccordionItem>
 
@@ -43,10 +43,12 @@ export default function FAQs() {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Le puedes hacer una gran variedad de preguntas, puedes preguntrarle sobre como mejorar
+            tu situación actual en la universidad, como lidiar con el estrés y la ansiedad, como
+            balancear mejor tu vida universitaria y personal, entre otros. Y además Calmbot te
+            permite tener una conversación casual para poder tener a alguien quien contarle
+            tu persona y todo esto también ayudará a Calmbot a en un futuro brindarte una atención
+            aún mas especializada
           </AccordionPanel>
         </AccordionItem>
 
@@ -54,16 +56,15 @@ export default function FAQs() {
           <h2>
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                ¿Como funciona Camlbot?
+              ¿Es este servicio confidencial? ¿Cómo se manejan mis datos?
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          Sí, la confidencialidad es una prioridad. Tus conversaciones son completamente 
+          privadas y no compartimos tu información con terceros. Todos los datos se manejan 
+          de acuerdo con las leyes de privacidad aplicables.
           </AccordionPanel>
         </AccordionItem>
 
@@ -71,16 +72,14 @@ export default function FAQs() {
           <h2>
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                ¿Qués preguntas le puedo hacer a Calmbot?
+              ¿Calmbot puede proporcionar consejos personalizados para mi situación?
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          Calmbot utiliza información proporcionada por ti para ofrecer consejos personalizados. 
+          Sin embargo, ten en cuenta que no reemplaza la asesoría individualizada de un profesional.
           </AccordionPanel>
         </AccordionItem>
 
@@ -88,16 +87,14 @@ export default function FAQs() {
           <h2>
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                ¿Como funciona Camlbot?
+              ¿Calmbot reemplaza la asesoría profesional o médica?
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          No, Calmbot no reemplaza la asesoría profesional o médica. Si experimentas problemas 
+          graves, te recomendamos buscar la ayuda de profesionales capacitados.
           </AccordionPanel>
         </AccordionItem>
 
@@ -105,16 +102,16 @@ export default function FAQs() {
           <h2>
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                ¿Qués preguntas le puedo hacer a Calmbot?
+              ¿Calmbot ofrece actividades o ejercicios prácticos para reducir el estrés?
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          Sí, Calmbot proporciona una variedad de actividades y ejercicios prácticos diseñados para 
+          ayudarte a reducir el estrés. Estos pueden incluir técnicas de respiración, ejercicios de relajación, 
+          actividades de atención plena y sugerencias para incorporar pausas activas en tu rutina diaria. 
+          Estamos aquí para brindarte herramientas prácticas que puedes utilizar para mejorar tu bienestar emocional.
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
