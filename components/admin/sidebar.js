@@ -7,6 +7,19 @@ import { useState} from "react";
 
 const SidebarAdmin = ({ children }) => {
   const [closed, setClosed] = useState(false);
+  const [dash, setDash] = useState(true);
+  const [noti, setNotifi] = useState(false);
+
+  const handleOptionClick = (option)=>{
+    if(option == "dash"){
+      setDash(true);
+      setNotifi(false);
+    }else if(option = "noti"){
+      setNotifi(true);
+      setDash(false);
+    }
+  }
+
   function toggle() {
     setClosed(!closed);
   }
@@ -15,9 +28,7 @@ const SidebarAdmin = ({ children }) => {
     <div className="flex">
       <div
         className={
-          closed
-            ? " fixed z-50 h-screen bg-gray-200 "
-            : "fixed shadow-lg h-screen bg-gray-200 z-50 "
+          closed ? "text-white fixed z-50 h-screen bg-[#FF8E00] " : "text-white fixed shadow-lg h-screen bg-[#FF8E00] z-50 "
         }
       >
         <div className="h-1/4 flex">
@@ -48,18 +59,18 @@ const SidebarAdmin = ({ children }) => {
         </div>
         {!closed && (
           <div className="h-2/4">
-            <Link href="/admin">
-              <p className="m-4">
+            <Link href="/admin" onClick={()=>handleOptionClick("dash")}>
+              <p className={`p-2 m-2 rounded ${dash?"bg-[#FFC832] hover:bg-[#FFC832]": "hover:bg-[#FFC832]"}`}>
                 <b>Dashboards</b>
               </p>
             </Link>
-            <Link href="/admin/notificaciones">
-              <p className="m-4">Notificaciones</p>
+            <Link href="/admin/notificaciones" onClick={()=>handleOptionClick("noti")}>
+              <p className={`p-2 m-2 rounded ${noti?"bg-[#FFC832] hover:bg-[#FFC832]": "hover:bg-[#FFC832]"}`}>Notificaciones</p>
             </Link>
           </div>
         )}
         {!closed && (
-          <div>
+          <div className="mt-16">
             <UserProfile></UserProfile>
           </div>
         )}
