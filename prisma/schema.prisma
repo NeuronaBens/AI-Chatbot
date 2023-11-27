@@ -65,6 +65,7 @@ model StressLevels {
 
 model Message {
   id          String    @id @db.Char(25)
+  text  String @db.VarChar(3000)
   session     Int
   position    Int
   sender      Boolean
@@ -87,7 +88,7 @@ model Complaint {
 model Notification {
   id           String    @id @db.Char(25)
   name         String    @db.VarChar(50)
-  content      String    @db.VarChar(200)
+  content      String    @db.VarChar(500)
   date_sent    DateTime  @default(now())
   admin        Admin     @relation(fields: [admin_id], references: [admin_id])
   admin_id     String    @db.Char(25)
@@ -105,7 +106,7 @@ model Settings {
 model Task {
   id         String    @id @db.Char(25)
   name       String    @unique @db.VarChar(30)
-  content    String    @db.VarChar(100)
+  content    String    @db.VarChar(1000)
   students StudentTask[]     
 }
 

@@ -11,8 +11,8 @@ const MarcadoresBubble = ({ mensaje, eraseMarcador }) => {
 
   return (
     <div className="w-2/3 mx-auto relative">
-      <div className="w-full rounded-xl my-2 mx-5 px-4 py-2 bg-gray-300 ml-auto flex justify-between items-center">
-        <p>{mensaje.texto}</p>
+      <div className="w-full rounded-xl my-2 mx-5 px-4 py-2 rounded bg-[#AAA7F2] py-2 ml-auto flex justify-between items-center">
+        <p>{mensaje.text}</p>
         <div>
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none"

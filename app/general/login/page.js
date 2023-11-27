@@ -20,10 +20,15 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (session?.status === 'authenticated') {
-      router.push('/user') 
+    if(session?.status === "authenticated"){
+      if(session.data.user.role == "Admin"){
+        router.push("/admin");
+      }else{
+        router.push("/user");
+      }
     }
-  })
+  },[session]);
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-2 px-4 sm:px-6 lg:px-8">

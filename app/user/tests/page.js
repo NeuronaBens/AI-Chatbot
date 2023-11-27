@@ -1,6 +1,7 @@
 "use client"
 
 import Card from "@/components/general/card"
+import Greeting from "@/components/general/greeting";
 import Dialog from "@/components/general/modal"
 import { useState } from "react";
 
@@ -23,10 +24,10 @@ export default function Home(){
 
   return(
     <div>
-      <h1 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white py-6">Tests de ansiedad y estres</h1>
+      <Greeting title={"Tus Tests!"} text={"Acá podrás realizar los tests para medir tus niveles de ansiedad y estrés."}></Greeting>
       <div className="flex flex-wrap gap-4">
       <Card props={{title: "Cuestionario GAD-7", description:"Aqui podras dar el cuestionario GAD-7 para medir tus niveles de ansiedad actuales", image: "/ansiedad.jpg"}}>
-      <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#7471D9] rounded-lg hover:bg-[#7471D9] focus:outline-none focus:ring-2 focus:[#AAA7F2] focus:ring-offset-2"
         onClick={() => setShowModalGAD(true)}
         >
             Empezar
@@ -36,7 +37,7 @@ export default function Home(){
         </button>
       </Card>
       <Card props={{title: "Cuestionario PSS-14", description: "Aqui podras dar el cuestionario PSS-14 para medir tus niveles de estres actuales", image: "/estres.jpg"}}>
-        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#7471D9] rounded-lg hover:bg-[#7471D9] focus:outline-none focus:ring-2 focus:[#AAA7F2] focus:ring-offset-2"
         onClick={() => setShowModalPSS(true)}
         >
             Empezar
@@ -46,7 +47,7 @@ export default function Home(){
         </button>
       </Card>
       <div>
-        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridGAD7}}>
+        <Dialog props={{title: "GAD-7", type: "questions", showDialog: showModalGAD ,onClose: onClose,onOk: onOk, width: "1200px", cols:5, rows:8}}>
           {{values: ["Pregunta", "Nunca", "Varios dias", "La mitad de los dias", "Casi cada dia"],}}
           {{values: ["Sentirse nervioso, ansioso, notar que se le ponen los nervios de punta.", 0, 1, 2, 3],}}
           {{values: ["No ser capaz de parar o controlar sus preocupaciones.	", 0, 1, 2, 3],}}
@@ -56,7 +57,7 @@ export default function Home(){
           {{values: ["Sentirse fácilmente disgustado o irritable.	", 0, 1, 2, 3],}}
           {{values: ["Sentirse asustado como si algo horrible pudiese pasar.	", 0, 1, 2, 3],}}        
         </Dialog>
-        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS ,onClose: onClose,onOk: onOk, stringStylesWidth: stringStylesWidth, stringStylesGrid: stringStylesGridPSS14}}>
+        <Dialog props={{title: "PSS-14", type: "questions", showDialog: showModalPSS ,onClose: onClose,onOk: onOk, width: "1200px", cols:6, rows:15}}>
           {{values: ["Pregunta", "Nunca", "Casi nunca", "De vez en cuando", "A menudo", "Muy a menudo"],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido afectado por algo que ocurrió inesperadamente?", 0, 1, 2, 3, 4],}}
           {{values: ["En el último mes, ¿con qué frecuencia te has sentido incapaz de controlar las cosas importantes en tu vida?", 0, 1, 2, 3, 4],}}

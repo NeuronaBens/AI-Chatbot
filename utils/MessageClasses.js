@@ -1,13 +1,15 @@
 export class Message {
-  constructor(text, sender, order) {
+  constructor(id, text, sender, order, session) {
+    this.id = id;
     this.text = text;
     this.sender = sender;
     this.order = order;
+    this.session = session;
   }
   //messages: [{ role: "user", content: "Say this is a test!" }],
   getFormattedForOpenai() {
     //current possibles are User and AI. must transform to user and assistant
-    const role = this.sender.toLowerCase() === "user" ? "user" : "assistant";
+    const role = this.sender === true ? "user" : "assistant";
     return { role, content: this.text };
   }
 }
@@ -19,11 +21,14 @@ export class MessageList {
   fromMessageList(messageList) {
     this.messages = messageList;
   }
-  addMessage(text, sender) {
+  addMessage(id, text, sender, session) {
     // Calculate the order for the new message
-    const order = this.messages.length + 1;
+    let order = 0;
+    if (this.messages.length > 0) {
+      order = this.messages[this.messages.length - 1].order + 1;
+    }
     // Create a new message object and add it to the list
-    const newMessage = new Message(text, sender, order);
+    const newMessage = new Message(id, text, sender, order, session);
     this.messages.push(newMessage);
     return newMessage; // return the newly added message
   }
@@ -55,6 +60,7 @@ export class MessageList {
           " NO respondas con preguntas largas.\n" +
           " Si es que el usuario muestra algún indicio de ansiedad o estrés, preguntale si quiere que le brindes algún ejercicio de relajación o algún mecanismo para calmarse.\n" +
           " El usuario es un estudiante universitario, ten eso en cuenta.\n" +
+          "considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: [Respiración profunda, Meditación, Ejercicio físico, Escucha música relajante, Práctica de mindfulness, Escritura terapéutica, Socializar y buscar apoyo] \n" +
           "considera esto sobre el usuario: \n" +
           userProfile,
       });
