@@ -108,9 +108,6 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
-
-        document.body.classList.add("bg-slate-800");
-        document.body.classList.add("text-white");
       } else if (option == "delete account") {
         const currentTimestamp = new Date().toISOString();
         const res = await fetch(`/api/database/users/${session.user.id}`, {

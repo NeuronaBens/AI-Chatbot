@@ -1,23 +1,27 @@
 // ThemeManager.js
 export class ThemeManager {
-  static async resolveThemeClass(session) {
-    let theme = "Claro"; // Default theme
+  static async resolveThemeClass(userId) {
+    const endpoint = `api/database/students/${encodeURIComponent(
+      userId
+    )}/settings`;
 
     try {
-      const res = await fetch(
-        `/api/database/students/${session.user.id}/settings`
-      );
-      if (res.ok) {
-        const data = await res.json();
-        theme = data.theme || theme; // Use the fetched theme, or fallback to default
+      const response = await fetch(endpoint);
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.theme === "Oscuro") {
+          document.body.classList.add("bg-slate-800");
+          document.body.classList.add("text-white");
+        }
       } else {
-        // Handle errors if needed
+        console.error(
+          `Failed to fetch theme settings. Status: ${response.status}`
+        );
       }
     } catch (error) {
-      // Handle fetch errors if needed
+      console.error("Error fetching theme settings:", error);
     }
-
-    // Determine the theme class based on the 'theme' value
-    return theme === "Oscuro" ? "bg-slate-800" : "bg-white";
   }
 }
