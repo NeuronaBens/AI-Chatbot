@@ -12,8 +12,14 @@ export class ThemeManager {
         const data = await response.json();
 
         if (data.theme === "Oscuro") {
-          document.body.classList.add("bg-slate-800");
+          console.log("resolveThemClass function activation");
+          document.body.className = "vsc-initialized";
           document.body.classList.add("text-white");
+          document.body.style.backgroundColor = "rgb(63, 63, 70)";
+        } else if (data.theme == "Claro") {
+          console.log("resolveThemClass function activation");
+          document.body.className = "vsc-initialized";
+          document.body.style.backgroundColor = "";
         }
       } else {
         console.error(
