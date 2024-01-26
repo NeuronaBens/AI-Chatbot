@@ -24,8 +24,6 @@ const StudentTaskTable = () => {
         `api/database/student-tasks/paginated?pageSize=${pageSize}&page=${page}`
       );
       const data = await response.json();
-      console.log(data); //test
-      alert(data); //test
       setStudentTasks(data.studentTasks);
       setTotalPages(data.totalPages);
     };

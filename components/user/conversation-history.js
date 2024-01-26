@@ -53,29 +53,32 @@ export default function ConversationHistory() {
       }
     }
   }, [status, messages.length]);
-  
+
   return (
-    <div>
-      {status === "loading"?<div>Loading...</div>:
-      <Accordion allowToggle className="mr-10 space-y-8">
-        {messageDays.map((value, i1) => (
-          <AccordionItem key={i1}>
-            <h2 className="py-2 bg-[#F2F0F2]">
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Día {value[0]}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4} className="bg-[#C8C2F2]">
-              {value[1].map((message, i2) => (
-                <div key={i2}>{message.text}</div>
-              ))}
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>}
+    <div className="text-black">
+      {status === "loading" ? (
+        <div>Loading...</div>
+      ) : (
+        <Accordion allowToggle className="mr-10 space-y-8">
+          {messageDays.map((value, i1) => (
+            <AccordionItem key={i1}>
+              <h2 className="py-2 bg-[#F2F0F2]">
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    Día {value[0]}
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4} className="bg-[#C8C2F2]">
+                {value[1].map((message, i2) => (
+                  <div key={i2}>{message.text}</div>
+                ))}
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      )}
     </div>
   );
 }

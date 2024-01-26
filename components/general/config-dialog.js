@@ -108,9 +108,6 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
-
-        document.body.classList.add("bg-slate-800");
-        document.body.classList.add("text-white");
       } else if (option == "delete account") {
         const currentTimestamp = new Date().toISOString();
         const res = await fetch(`/api/database/users/${session.user.id}`, {
@@ -285,15 +282,15 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                             {" "}
                             Recopilación de Datos{" "}
                           </label>
-                          <label class="relative inline-flex items-center cursor-pointer">
+                          <label className="relative inline-flex items-center cursor-pointer">
                             <input
                               id="data"
                               type="checkbox"
-                              class="sr-only peer"
+                              className="sr-only peer"
                               onChange={() => handleUpdate("data")}
                               checked={data}
                             />
-                            <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                            <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                           </label>
                         </div>
                         <div className="space-y-4 flex flex-row justify-between">

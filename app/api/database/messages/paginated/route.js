@@ -1,7 +1,25 @@
 import { prisma } from "@/lib/prisma";
 
 export async function GET(req) {
-  const { page = 1, pageSize = 10 } = req.nextUrl.searchParams;
+  let page = 1;
+  let pageSize = 10;
+
+  try {
+    const nextPage = req.nextUrl.searchParams.get("page");
+    const nextPageSize = req.nextUrl.searchParams.get("pageSize");
+    if (nextPage !== null) {
+      page = parseInt(nextPage, 10);
+    } else {
+      page = 1;
+    }
+    if (nextPageSize !== null) {
+      pageSize = parseInt(nextPageSize, 10);
+    } else {
+      pageSize = 10;
+    }
+  } catch (error) {
+    console.error("Error parsing page or pageSize:", error);
+  }
 
   const skip = (page - 1) * pageSize;
   const messages = await prisma.message.findMany({

@@ -26,8 +26,14 @@ const Footer = () => {
               {" "}
               Términos de uso{" "}
             </a>
-            <a href="#"> Limitación de responsabilidad </a>
-            <a href="#"> Código de conducta </a>
+            <a href="/general/legal/terminos-y-condiciones">
+              {" "}
+              Limitación de responsabilidad{" "}
+            </a>
+            <a href="/general/legal/terminos-y-condiciones">
+              {" "}
+              Código de conducta{" "}
+            </a>
           </div>
         </div>
       </div>

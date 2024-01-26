@@ -7,6 +7,7 @@ import { Message, MessageList } from "@/utils/MessageClasses";
 import ChatWelcome from "./chat-welcome";
 import Dialog from "@/components/general/modal";
 import { TaskManager } from "@/utils/TaskManager";
+import { ThemeManager } from "@/utils/ThemeManager";
 
 const ChatContainer = (session) => {
   //////////////////////////////////
@@ -104,6 +105,7 @@ const ChatContainer = (session) => {
       handleStudent();
     }
     fetchData();
+    ThemeManager.resolveThemeClass(session.user.id);
   }, [session, student, chatSession]);
 
   const deleteMessage = async (index) => {
