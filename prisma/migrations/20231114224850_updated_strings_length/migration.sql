@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Message" ALTER COLUMN "text" SET DATA TYPE VARCHAR(3000);
+
+-- AlterTable
+ALTER TABLE "Notification" ALTER COLUMN "content" SET DATA TYPE VARCHAR(500);
+
+-- AlterTable
+ALTER TABLE "Task" ALTER COLUMN "content" SET DATA TYPE VARCHAR(1000);

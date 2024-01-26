@@ -6,8 +6,8 @@ import { Children } from "react";
 
 function Navbar({ children }) {
   return (
-    <nav className="bg-white shadow-lg py-4">
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between w-full">
+    <nav className="pb-4">
+      <div className="max-w-full mx-auto px-4 flex items-center justify-between px-10">
         <Link href="/">
           <Logo size={40} />
         </Link>

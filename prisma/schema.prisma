@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @db.Char(25)
+  name        String    @db.VarChar(50)
+  email       String    @unique @db.VarChar(50)
+  password    String    @db.VarChar(100)
+  image       String?   @db.VarChar(250)
+  deleted_at  DateTime?
+  role        Role @relation(fields: [role_id], references: [id])
+  role_id String @db.Char(25)
+  student Student?
+  admin Admin?
+}
+
+model Student {
+  user User @relation(fields: [student_id], references: [id])
+  student_id String @id @db.Char(25)
+  description String @db.VarChar(2000)
+  date_of_birth DateTime @db.Date
+  sex Sex @relation(fields: [sex_id], references: [id])
+  sex_id String @db.Char(25)
+  career Career @relation(fields: [career_id], references: [id])
+  career_id String @db.Char(25)
+  notifications StudentNotification[]
+  anxiety_levels AnxietyLevels[]
+  stress_levels StressLevels[]
+  messages Message[]
+  settings Settings?
+  tasks StudentTask[]
+}
+
+model Admin {
+  user User @relation(fields: [admin_id], references: [id])
+  admin_id String  @id @db.Char(25)
+  hierarchy Int
+  notifications Notification[]
+}
+
+model AnxietyLevels {
+  id        String    @id @db.Char(25)
+  anxiety   Int
+  date      DateTime  @default(now())
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id   String @db.Char(25) 
+}
+
+model StressLevels {
+  id        String    @id @db.Char(25)
+  stress    Int
+  date      DateTime  @default(now())
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id   String @db.Char(25) 
+}
+
+model Message {
+  id          String    @id @db.Char(25)
+  text  String @db.VarChar(3000)
+  session     Int
+  position    Int
+  sender      Boolean
+  deleted      Boolean
+  bookmarked  Boolean
+  date_send DateTime @default(now())
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id   String @db.Char(25) 
+  complaints Complaint[]    
+}
+
+model Complaint {
+  id          String    @id @db.Char(25)
+  content     String    @db.VarChar(300)
+  date        DateTime  @default(now())
+  message     Message   @relation(fields: [message_id], references: [id])
+  message_id  String    @db.Char(25)
+}
+
+model Notification {
+  id           String    @id @db.Char(25)
+  name         String    @db.VarChar(50)
+  content      String    @db.VarChar(500)
+  date_sent    DateTime  @default(now())
+  admin        Admin     @relation(fields: [admin_id], references: [admin_id])
+  admin_id     String    @db.Char(25)
+  students StudentNotification[]  
+}
+
+model Settings {
+  id             String  @id @db.Char(25)
+  data_collection Boolean
+  theme          String  @db.VarChar(10)
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id   String @unique @db.Char(25) 
+}
+
+model Task {
+  id         String    @id @db.Char(25)
+  name       String    @unique @db.VarChar(30)
+  content    String    @db.VarChar(1000)
+  students StudentTask[]     
+}
+
+model StudentTask{
+  id String @id @db.Char(25)
+  completed Int
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id  String @db.Char(25)
+  task   Task   @relation(fields: [task_id], references: [id])
+  task_id  String @db.Char(25)
+}
+
+model StudentNotification {
+  id             String    @id @db.Char(25)
+  student   Student   @relation(fields: [student_id], references: [student_id])
+  student_id   String @db.Char(25)     
+  notification   Notification @relation(fields: [notification_id], references: [id])
+  notification_id String @db.Char(25)
+  read           Boolean
+}
+
+model Role{
+  id          String @id @db.Char(25)
+  name        String @unique @db.VarChar(10)
+  description String @db.VarChar(100)
+  user User[]
+}
+
+model Career{
+  id String @id @db.Char(25)
+  name String @unique @db.VarChar(50)
+  description String @db.VarChar(100)
+  students Student[]
+}
+
+model Sex{
+  id String @id @db.Char(25)
+  name String @unique @db.VarChar(30)
+  students Student[]
+}

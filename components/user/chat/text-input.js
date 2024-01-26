@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 
-const TextInput = ({ onSend }) => {
+const TextInput = ({ onUserMessage }) => {
   const [text, setText] = useState("");
 
-  const handleSend = () => {
-    onSend(text);
+  const handleSend = async () => {
+    onUserMessage(text);
     setText("");
   };
 
@@ -21,10 +21,11 @@ const TextInput = ({ onSend }) => {
               value={text}
               onChange={(e) => setText(e.target.value)}
               className="w-full mr-2 p-2 rounded-l bg-gray-200 "
+              placeholder="Escribe un mensaje"
             />
             <button
               onClick={handleSend}
-              className="bg-orange-400 text-white rounded-r p-2"
+              className="bg-[#3A378C] text-white rounded-r p-2"
             >
               {"➤"}
             </button>

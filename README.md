@@ -1,11 +1,30 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+You are currently on the development branch.
+
 ## Getting Started
 
-create a .env.local file that contains:
-- COHERE_API_KEY
+First, install the necesary dependencies:
 
-First, run the development server:
+```bash
+npm i
+npx prisma generate
+npm i @prisma/client
+npm install prisma --save-dev
+```
+
+Also add the necessary elements to .env and .env.local
+
+#### .env
+
+DATABASE_URL =
+
+#### .env.local
+
+OPENAI_API_KEY =
+
+Second, run the development server:
+
 
 ```bash
 npm run dev
