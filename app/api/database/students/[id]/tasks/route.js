@@ -1,17 +1,18 @@
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req,{ params }){
-  const id = params.id
+//directory location: app/api/database/students/[id]/tasks/route.js
+
+export async function GET(req, { params }) {
+  const id = params.id;
 
   const tasks = await prisma.studentTask.findMany({
     where: {
-      student_id: id
+      student_id: id,
     },
-    include:{
+    include: {
       task: true,
-    }
-  })
+    },
+  });
 
-
-  return Response.json(tasks)
+  return Response.json(tasks);
 }

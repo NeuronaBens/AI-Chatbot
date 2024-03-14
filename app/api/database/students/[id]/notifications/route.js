@@ -1,17 +1,18 @@
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req,{ params }){
-  const id = params.id
+//directory location: app/api/database/students/[id]/notifications/route.js
+
+export async function GET(req, { params }) {
+  const id = params.id;
 
   const notifications = await prisma.studentNotification.findMany({
     where: {
-      student_id: id
+      student_id: id,
     },
-    include:{
-      notification: true
-    }
-  })
+    include: {
+      notification: true,
+    },
+  });
 
-
-  return Response.json(notifications)
+  return Response.json(notifications);
 }
