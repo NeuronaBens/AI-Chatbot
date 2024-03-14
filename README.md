@@ -18,10 +18,13 @@ Also add the necessary elements to .env and .env.local
 #### .env
 
 DATABASE_URL =
+NEXTAUTH_SECRET =
+NEXTAUTH_URL =
 
 #### .env.local
 
 OPENAI_API_KEY =
+JWT_SECRET =
 
 Second, run the development server:
 
