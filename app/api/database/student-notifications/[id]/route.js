@@ -1,15 +1,17 @@
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/prisma";
 
-export async function PUT(req,{ params }){
-  const id = params.id
-  const data = await req.json()
+//app/api/database/student-notifications/[id]/route.js
+
+export async function PUT(req, { params }) {
+  const id = params.id;
+  const data = await req.json();
 
   const studentNoti = await prisma.studentNotification.update({
     where: {
-      id: id
+      id: id,
     },
     data: data,
-  })
+  });
 
-  return Response.json(studentNoti)
+  return Response.json(studentNoti);
 }
