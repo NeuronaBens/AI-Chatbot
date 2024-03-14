@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
+//directory location: app/api/database/student-tasks/[id]/route.js
+
 export async function GET(req, context) {
   const id = context.params.id;
   try {
