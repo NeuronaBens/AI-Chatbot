@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import { IdManager } from "@/utils/IdManager";
 
+//example use: http://localhost:3000/api\database\students\USR-1710294-aHlbhf-935166\messages
+
 export async function GET(req, { params }) {
   const id = params.id;
 
