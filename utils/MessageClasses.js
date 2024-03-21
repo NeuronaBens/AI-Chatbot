@@ -77,7 +77,6 @@ export class MessageList {
     userProfile = "estudiante de la universidad peruana de ciencias aplicadas, tiene 18 años y se llama Juan."
   ) {
     let formattedMessages = [];
-    console.log(userProfile); //debug
 
     if (systemRole == "Greeting Physologist") {
       const actividades = [
@@ -97,7 +96,7 @@ export class MessageList {
         role: "system",
         content:
           "Actúa como un psicólogo terapeútico cognitivo conductual llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado.\n" +
-          " Procura seguir la conversación con el usuario naturalmente como un humano, utilizando técnicas de la terápia cognitiva conductual. Utiliza emojis ☺️ en ocasiones que lo ameriten, muy cuidadosamente de no usarlos siempre.\n" +
+          " Procura seguir la conversación con el usuario naturalmente como un humano, utilizando técnicas de la terápia cognitiva conductual. Utiliza emojis ☺️ en ocasiones que lo ameriten, muy cuidadosamente de no usarlos siempre, variados.\n" +
           " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. NO DIGAS TANTO 'estoy aquí para apoyarte' o similares\n" +
           " El usuario es un estudiante universitario, ten eso en cuenta.\n" +
           " Considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: \n" +

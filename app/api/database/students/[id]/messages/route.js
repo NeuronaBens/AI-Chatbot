@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Message, MessageList } from "@/utils/MessageClasses";
 import { IdManager } from "@/utils/IdManager";
+import { TaskManager } from "@/utils/TaskManager";
 
 //example use: http://localhost:3000/api\database\students\USR-1710294-aHlbhf-935166\messages
 
@@ -120,7 +121,19 @@ export async function POST(request, { params }) {
       currentSession
     );
 
-    // Step : Return the AI-generated response as the API response
+    // Step 10: Call the TaskManager.processTasks method to check for matching tasks and create a new student task
+    try {
+      const taskResult = await TaskManager.processTasks(aiResponse, userId);
+      if (taskResult.success) {
+        console.log(taskResult.message);
+      } else {
+        throw new Error(taskResult.error);
+      }
+    } catch (error) {
+      console.error("Error in API processing task:", error.message);
+    }
+
+    // Step 11: Return the AI-generated response as the API response
     return Response.json(aiMessage);
   } catch (error) {
     console.error("Error in POST request:", error);
