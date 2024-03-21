@@ -22,6 +22,11 @@ export async function POST(request, { params }) {
 
     const { message } = await request.json();
 
+    // Step 1: Retrieve the user information based on the provided session data
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
     // Step 2: Retrieve the student information based on the provided session data
     const student = await prisma.student.findUnique({
       where: { student_id: userId },
@@ -84,9 +89,9 @@ export async function POST(request, { params }) {
     );
 
     // Step 7: Generate an AI response using the message list and student information
-    const formattedMessages = messageList.getFormattedForOpenai(
+    const formattedMessages = messageList.getFormattedForOpenaiAlt(
       "Greeting Physologist",
-      `Mi nombre es ${student.name}. ${student.description}`
+      `Mi nombre es ${user.name}. ${student.description}`
     );
 
     const aiResponse = await generateResponseOpenAI(formattedMessages);

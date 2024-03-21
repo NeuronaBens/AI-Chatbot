@@ -71,4 +71,56 @@ export class MessageList {
     }
     return formattedMessages;
   }
+
+  getFormattedForOpenaiAlt(
+    systemRole = "Greeting Physologist",
+    userProfile = "estudiante de la universidad peruana de ciencias aplicadas, tiene 18 años y se llama Juan."
+  ) {
+    let formattedMessages = [];
+    console.log(userProfile); //debug
+
+    if (systemRole == "Greeting Physologist") {
+      const actividades = [
+        "Respiración profunda",
+        "Meditación",
+        "Ejercicio físico",
+        "Escucha música relajante",
+        "Práctica de mindfulness",
+        "Escritura terapéutica",
+        "Socializar y buscar apoyo",
+      ];
+
+      // Shuffle the actividades array
+      const shuffledActividades = actividades.sort(() => 0.5 - Math.random());
+
+      formattedMessages.push({
+        role: "system",
+        content:
+          "Actúa como un psicólogo terapeútico cognitivo conductual llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado.\n" +
+          " Procura seguir la conversación con el usuario naturalmente como un humano, utilizando técnicas de la terápia cognitiva conductual.\n" +
+          " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. \n" +
+          " Se una persona bastante llevadera para ayudar a la mejoría del paciente. \n" +
+          " Usa respuestas CORTAS, reitero, se bastante corto, NO uses enumeraciones, NO seas redundante, DEBE ser una conversición jovial.\n" +
+          " El usuario es un estudiante universitario, ten eso en cuenta.\n" +
+          " Considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: \n" +
+          shuffledActividades.join(", ") +
+          "\n" +
+          "considera esto sobre el usuario: \n" +
+          userProfile,
+      });
+    }
+
+    let totalLength = 0;
+    for (let i = this.messages.length - 1; i >= 0; i--) {
+      const message = this.messages[i].getFormattedForOpenai();
+      totalLength += message.content.length;
+      if (totalLength <= 6000) {
+        formattedMessages.unshift(message);
+      } else {
+        break;
+      }
+    }
+
+    return formattedMessages;
+  }
 }
