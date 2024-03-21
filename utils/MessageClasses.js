@@ -74,7 +74,7 @@ export class MessageList {
 
   getFormattedForOpenaiAlt(
     systemRole = "Greeting Physologist",
-    userProfile = "estudiante de la universidad peruana de ciencias aplicadas, tiene 18 años y se llama Juan."
+    userProfile = "estudiante de la universidad peruana de ciencias aplicadas, tiene 18 años y debes preguntarle su nombre."
   ) {
     let formattedMessages = [];
 
