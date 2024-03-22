@@ -4,7 +4,7 @@ import {useChat} from "ai/react"
 import React, { useState, useEffect } from "react";
 import ChatWelcome from "../chat/chat-welcome";
 import Dialog from "@/components/general/modal";
-import { TaskManager } from "@/utils/TaskManager";
+import TextInput from "./input-text-audio";
 
 export default function AIChat(session){
 
@@ -18,8 +18,7 @@ export default function AIChat(session){
       student_id: session.user.id,
       session:chatSession,
       position:position,
-    },
-    initialMessages:[]
+    }
   }
   );
 
@@ -206,12 +205,9 @@ export default function AIChat(session){
         <div className="w-full resize-none">
           <div className="fixed bottom-0 w-full bg-white">
             <div className="flex">
-              <div className="w-2/3">                  
-                <form onSubmit={customHandleSubmit} className="p-5 flex">
-                  <input type="text" value={input} onChange={handleInputChange} 
-                    className="w-full mr-2 p-2 rounded-l bg-gray-200 " placeholder="Escribe un mensaje"/>
-                  <button className="bg-[#3A378C] text-white rounded-r p-2" type='submit'>{"➤"}</button>
-                </form>
+              <div className="w-2/3 pb-4 ml-20">                  
+                <TextInput handleSubmit={customHandleSubmit} handleInputChange={handleInputChange} input={input} setInput={setInput}>                  
+                </TextInput>
               </div>
             </div>
           </div>
