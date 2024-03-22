@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
 
-//example use: http://localhost:3000/api\database\students\USR-1710294-aHlbhf-935166\messages\current-session
-
 export async function GET(req, { params }) {
   const id = params.id;
 
@@ -14,6 +12,16 @@ export async function GET(req, { params }) {
     },
   });
 
+  const totalMessages = await prisma.message.count({
+    where: {
+      student_id: id,
+      session: message.session,
+      deleted: false,
+    },
+  });
+
+  const skip = Math.max(0, totalMessages - 25);
+
   const messages = await prisma.message.findMany({
     where: {
       student_id: id,
@@ -23,6 +31,8 @@ export async function GET(req, { params }) {
     orderBy: {
       position: "asc",
     },
+    take: 25,
+    skip: skip,
   });
 
   return Response.json(messages);
