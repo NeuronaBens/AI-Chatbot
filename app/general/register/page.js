@@ -147,22 +147,23 @@ export default function Register() {
                 required
               />
               <span className="ml-2 text-sm text-gray-600">
-                I accept the{" "}
+                Acepto los{" "}
                 <a
                   href="/general/legal/terminos-y-condiciones"
                   target="_blank"
                   className="underline text-violet-700"
                 >
-                  Terms and Conditions
+                  Términos y condiciones
                 </a>{" "}
-                and{" "}
+                y la{" "}
                 <a
                   href="/general/legal/politica-de-privacidad"
                   target="_blank"
                   className="underline text-violet-700"
                 >
-                  Privacy Policy
-                </a>
+                  Politica de Privacidad
+                </a>{" "}
+                de Calmbot.
               </span>
             </label>
           </div>
