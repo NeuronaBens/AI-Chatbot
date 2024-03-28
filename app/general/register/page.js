@@ -151,7 +151,7 @@ export default function Register() {
                 <a
                   href="/general/legal/terminos-y-condiciones"
                   target="_blank"
-                  className="underline"
+                  className="underline text-violet-700"
                 >
                   Terms and Conditions
                 </a>{" "}
@@ -159,7 +159,7 @@ export default function Register() {
                 <a
                   href="/general/legal/politica-de-privacidad"
                   target="_blank"
-                  className="underline"
+                  className="underline text-violet-700"
                 >
                   Privacy Policy
                 </a>
