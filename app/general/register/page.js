@@ -10,7 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState("");
-
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +35,10 @@ export default function Register() {
     }
   };
 
+  const handleCheckboxChange = (e) => {
+    setAcceptTerms(e.target.checked);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -47,7 +51,10 @@ export default function Register() {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="name" className="sr-only"> Name </label>
+              <label htmlFor="name" className="sr-only">
+                {" "}
+                Name{" "}
+              </label>
               <input
                 id="name"
                 name="name"
@@ -61,7 +68,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="email-address" className="sr-only"> Email address </label>
+              <label htmlFor="email-address" className="sr-only">
+                {" "}
+                Email address{" "}
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -75,7 +85,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only"> Password </label>
+              <label htmlFor="password" className="sr-only">
+                {" "}
+                Password{" "}
+              </label>
               <input
                 id="password"
                 name="password"
@@ -89,7 +102,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="confirm-password" className="sr-only"> Confirm password </label>
+              <label htmlFor="confirm-password" className="sr-only">
+                {" "}
+                Confirm password{" "}
+              </label>
               <input
                 id="confirm-password"
                 name="confirm-password"
@@ -103,7 +119,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="image" className="sr-only"> Image </label>
+              <label htmlFor="image" className="sr-only">
+                {" "}
+                Image{" "}
+              </label>
               <input
                 id="image"
                 name="image"
@@ -117,9 +136,42 @@ export default function Register() {
             </div>
           </div>
           <div>
+            <label htmlFor="acceptTerms" className="inline-flex items-center">
+              <input
+                id="acceptTerms"
+                name="acceptTerms"
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-indigo-600"
+                checked={acceptTerms}
+                onChange={handleCheckboxChange}
+                required
+              />
+              <span className="ml-2 text-sm text-gray-600">
+                Acepto los{" "}
+                <a
+                  href="/general/legal/terminos-y-condiciones"
+                  target="_blank"
+                  className="underline text-violet-700"
+                >
+                  Términos y condiciones
+                </a>{" "}
+                y la{" "}
+                <a
+                  href="/general/legal/politica-de-privacidad"
+                  target="_blank"
+                  className="underline text-violet-700"
+                >
+                  Politica de Privacidad
+                </a>{" "}
+                de Calmbot.
+              </span>
+            </label>
+          </div>
+          <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:opacity-50"
+              disabled={!acceptTerms} // Disabled based on checkbox state
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg
