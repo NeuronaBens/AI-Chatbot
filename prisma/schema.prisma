@@ -110,13 +110,14 @@ model Task {
   students StudentTask[]     
 }
 
-model StudentTask{
-  id String @id @db.Char(25)
-  completed Int
-  student   Student   @relation(fields: [student_id], references: [student_id])
-  student_id  String @db.Char(25)
-  task   Task   @relation(fields: [task_id], references: [id])
-  task_id  String @db.Char(25)
+model StudentTask {
+  id           String   @id @db.Char(25)
+  completed    Int
+  student      Student  @relation(fields: [student_id], references: [student_id])
+  student_id   String   @db.Char(25)
+  task         Task     @relation(fields: [task_id], references: [id])
+  task_id      String   @db.Char(25)
+  creation_date DateTime @default(now())
 }
 
 model StudentNotification {
