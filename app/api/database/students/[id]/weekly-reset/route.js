@@ -110,7 +110,7 @@ export async function POST(req, { params }) {
     return Response.json(aiMessage);
   }
 
-  return false;
+  return Response.json(false);
 }
 
 async function generateResponseOpenAI(messages) {
