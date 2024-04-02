@@ -18,7 +18,7 @@ export default function AIChat(session){
   const [editLastMessage, setEditLastMessage] = useState(false);
   const [deletedMessage, setDeletedMessage] = useState(null);
 
-  const {messages, input, handleInputChange, setMessages, handleSubmit,setInput, isLoading, error, onStreamingCompleted} = useChat({
+  const {messages, input, handleInputChange, setMessages, handleSubmit,setInput, isLoading, error} = useChat({
     body:{
       student_id: session.user.id,
       session:chatSession,
@@ -43,57 +43,65 @@ export default function AIChat(session){
   const fetchData = async () => {
     try {
       if (student) {
-        const lastMessageResponse = await fetch(
-          `/api/database/students/${session.user.id}/messages/last-message`
-        );
-        const lastMessageData = await lastMessageResponse.json();
-        if (lastMessageData) {
-          setChatSession(lastMessageData.session);
-          setPosition(lastMessageData.position + 1);
-          const messagesResponse = await fetch(
-            `/api/database/students/${session.user.id}/messages/session`,
+        const lastMessages = await fetch(
+          `/api/database/students/${session.user.id}/messages/current-session-bunch`,
             {
-              method: "POST",
-              body: JSON.stringify({
-                session: chatSession,
-              }),
+              method: "GET",
               headers: {
                 "Content-Type": "application/json",
               },
             }
-          );
-          const messagesData = await messagesResponse.json();
-          const newMessages = messagesData.map(
+        );
+        const lastMessagesData = await lastMessages.json();
+
+        if(lastMessagesData.length > 0){
+          const last = lastMessagesData[lastMessagesData.length - 1];
+
+          setChatSession(last.session);
+          setPosition(last.position + 1);
+
+          const newMessages = lastMessagesData.map(
             (item) =>
-               ({
+              ({
                 id: item.id,
                 role: item.sender == true ? 'user' :  'assistant',
                 content: item.text
               })
           );
+
+          const actividades = [
+            "Respiración profunda",
+            "Meditación",
+            "Ejercicio físico",
+            "Escucha música relajante",
+            "Práctica de mindfulness",
+            "Escritura terapéutica",
+            "Socializar y buscar apoyo",
+          ];
+    
+          // Shuffle the actividades array
+          const shuffledActividades = actividades.sort(() => 0.5 - Math.random());
+
           setMessages([{
             role: "system",
-            content:"Actúa como un psicólogo terapeútico llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado," +
-            " además brinda tecnicas de diferente tipo para tratar sus problemas de estrés y ansiedad. \n" +
-            " Tambien procura ser asertivo y seguir la conversación con el usuario," +
-            " utilizando técnicas de la terápia cognitiva conductual." +
-            " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. \n" +
-            " Se una persona bastante llevadera y jovial para ayudar a la mejoría psicológica del estrés o ansiedad que pueda estar sufriendo el este paciente. \n" +
-            " Usa respuestas CORTAS o MEDIANAS, no te excedas con la longitud de las respuestas, no uses enumeraciones, debe ser una conversición jovial.\n" +
-            " Si es que el usuario muestra algún indicio de ansiedad o estrés, preguntale si quiere que le brindes algún ejercicio de relajación o algún mecanismo para calmarse.\n" +
+            content:"Actúa como un psicólogo terapeútico cognitivo conductual llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado.\n" +
+            " Procura seguir la conversación con el usuario naturalmente como un humano, utilizando técnicas de la terápia cognitiva conductual. Utiliza emojis en ocasiones que lo ameriten, muy cuidadosamente de no usarlos siempre, variados.\n" +
+            " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. NO DIGAS TANTO 'estoy aquí para apoyarte' o similares\n" +
             " El usuario es un estudiante universitario, ten eso en cuenta.\n" +
-            "considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: [Respiración profunda, Meditación, Ejercicio físico, Escucha música relajante, Práctica de mindfulness, Escritura terapéutica, Socializar y buscar apoyo] \n" +
+            " Considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: \n" +
+            shuffledActividades.join(", ") +
+            "\n" +
             "considera esto sobre el usuario: \n" +
-            "Mi nombre es " + session.user.name + ". " + student.description,
+            "Su nombre es " + session.user.name + ". " + student.description,
           }, ...newMessages]);
-        } else {
+
+        }else{
           setChatSession(1);
           setPosition(0);
           await handleAddMessage(
             "Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
             false
           );
-
         }
       }
     } catch (error) {
@@ -125,26 +133,37 @@ export default function AIChat(session){
       }
       const newMessageData = await res.json();
       setPosition(position + 1);
-      
+
+      const actividades = [
+        "Respiración profunda",
+        "Meditación",
+        "Ejercicio físico",
+        "Escucha música relajante",
+        "Práctica de mindfulness",
+        "Escritura terapéutica",
+        "Socializar y buscar apoyo",
+      ];
+
+      // Shuffle the actividades array
+      const shuffledActividades = actividades.sort(() => 0.5 - Math.random());
+
       setMessages([{
         role: "system",
-        content:"Actúa como un psicólogo terapeútico llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado," +
-        " además brinda tecnicas de diferente tipo para tratar sus problemas de estrés y ansiedad. \n" +
-        " Tambien procura ser asertivo y seguir la conversación con el usuario," +
-        " utilizando técnicas de la terápia cognitiva conductual." +
-        " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. \n" +
-        " Se una persona bastante llevadera y jovial para ayudar a la mejoría psicológica del estrés o ansiedad que pueda estar sufriendo el este paciente. \n" +
-        " Usa respuestas CORTAS o MEDIANAS, no te excedas con la longitud de las respuestas, no uses enumeraciones, debe ser una conversición jovial.\n" +
-        " Si es que el usuario muestra algún indicio de ansiedad o estrés, preguntale si quiere que le brindes algún ejercicio de relajación o algún mecanismo para calmarse.\n" +
+        content:"Actúa como un psicólogo terapeútico cognitivo conductual llamado Calmbot, Calmbot es capaz de conversar con el usuario, y ser su psicólogo personalizado.\n" +
+        " Procura seguir la conversación con el usuario naturalmente como un humano, utilizando técnicas de la terápia cognitiva conductual. Utiliza emojis en ocasiones que lo ameriten, muy cuidadosamente de no usarlos siempre, variados.\n" +
+        " Recuerda NUNCA decirle que busque apoyo psicológico, dado que tu eres esa persona, TU ERES su apoyo psicológico. NO DIGAS TANTO 'estoy aquí para apoyarte' o similares\n" +
         " El usuario es un estudiante universitario, ten eso en cuenta.\n" +
-        "considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: [Respiración profunda, Meditación, Ejercicio físico, Escucha música relajante, Práctica de mindfulness, Escritura terapéutica, Socializar y buscar apoyo] \n" +
+        " Considera estas posibles actividades, si es que fuera a necesitar el usuario que le brindas alguna: \n" +
+        shuffledActividades.join(", ") +
+        "\n" +
         "considera esto sobre el usuario: \n" +
-        "Mi nombre es " + session.user.name + ". " + student.description,
+        "Su nombre es " + session.user.name + ". " + student.description,
       },{
         id: newMessageData.id,
         role: newMessageData.sender == true ? 'user' :  'assistant',
         content: newMessageData.text
       }]);
+      
     } catch (error) {
       console.error(error);
     }
