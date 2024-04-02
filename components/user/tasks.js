@@ -22,7 +22,7 @@ const Tasks = () => {
   const completeTask = async (index) => {
     // Make a copy of the tasks array to modify the completed task
     const updatedTasks = [...tasks];
-    updatedTasks[index].completed = true; // Assuming you have a 'completed' property in your task object
+    updatedTasks[index].completed = 1; // Assuming you have a 'completed' property in your task object
 
     try {
       const response = await fetch(
@@ -32,7 +32,7 @@ const Tasks = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ completed: true }), // Assuming 'true' represents completion
+          body: JSON.stringify({ completed: 1 }), // Assuming 'true' represents completion
         }
       );
 
@@ -65,7 +65,7 @@ const Tasks = () => {
             <div
               key={i}
               className={`rounded ${
-                value.completed
+                value.completed == 1
                   ? "bg-white border-2 border-purple-500"
                   : "bg-[#AAA7F2]"
               } py-2`}
@@ -78,7 +78,7 @@ const Tasks = () => {
                 <div className="max-w-full grid row-span-2 col-span-10">
                   <div className="text-xl font-semibold">
                     {value.task.name}{" "}
-                    {!value.completed && (
+                    {value.completed == 0 && (
                       <button
                         onClick={() => completeTask(i)}
                         className="ml-2 bg-purple-500 text-white py-1 px-2 mr-4 rounded"
@@ -90,11 +90,11 @@ const Tasks = () => {
 
                   <div>{value.task.content}</div>
                 </div>
-                <div className="ml-8">
-                  <Badge ml="1" colorScheme="green" className="col-span-1">
-                    New
-                  </Badge>
-                </div>
+                {value.completed == 0 && (
+                  <div className="ml-8">
+                    <Badge ml="1" colorScheme="green" className="col-span-1"> New </Badge>
+                  </div>
+                )}
               </div>
             </div>
           ))}
