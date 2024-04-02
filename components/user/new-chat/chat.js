@@ -5,15 +5,20 @@ import React, { useState, useEffect } from "react";
 import ChatWelcome from "../chat/chat-welcome";
 import Dialog from "@/components/general/modal";
 import TextInput from "./input-text-audio";
+import { createClient } from "@/utils/supabase/client";
+import TextBubble from "./text-bubble";
 
 export default function AIChat(session){
-
+  const supabase = createClient();
   const [student, setStudent] = useState(null);
   const [isloadingStudent, setIsLoadingStudent] = useState(true);
   const [chatSession, setChatSession] = useState(1);
   const [position, setPosition] = useState(0);
+  const [lastResComplete, setLastResComplete] = useState(true);
+  const [editLastMessage, setEditLastMessage] = useState(false);
+  const [deletedMessage, setDeletedMessage] = useState(null);
 
-  const {messages, input, handleInputChange, setMessages, handleSubmit,setInput, isLoading, error} = useChat({
+  const {messages, input, handleInputChange, setMessages, handleSubmit,setInput, isLoading, error, onStreamingCompleted} = useChat({
     body:{
       student_id: session.user.id,
       session:chatSession,
@@ -154,35 +159,73 @@ export default function AIChat(session){
     console.log("Ok was clicked");
   }
 
-  const modalProps = {
-    title: "Student Information",
-    type: "form",
-    showDialog: true,
-    width: "600px",
-    onClose: onClose,
-    onOk: onOk,
-  };
-
   const customHandleSubmit = async (e) => {
     e.preventDefault();
+    setLastResComplete(false);
     handleSubmit(e);
     setPosition(position + 2);
     setInput('');
   }
+
+  const updateLastMessage = async () =>{
+    const lastMessageResponse = await fetch(
+      `/api/database/students/${session.user.id}/messages/last-message`
+    );
+    const lastMessageData = await lastMessageResponse.json();
+    var lastMessage = messages[messages.length - 1];
+    lastMessage.id = lastMessageData.id;
+
+    messages[length - 1] = lastMessage;
+    setMessages(messages);
+    setEditLastMessage(false);
+  }
+
+  const handleNewAIMessage = async (payload) => {
+    const { new: newMessage } = payload;
+
+    if (newMessage.session === chatSession && !newMessage.sender && newMessage.position != 0 && position >= messages.length -1) {
+
+      setEditLastMessage(true);
+      setLastResComplete(true);
+    }
+  };
+
+  const deleteMessage = async (index) => {
+    const newMessages = messages;
+    newMessages.splice(index, 1); // Remove the message from the array
+
+    setMessages(newMessages);
+    setDeletedMessage(index);
+  };
+
+  useEffect(() =>{
+    if(editLastMessage){
+      updateLastMessage();
+    }
+  },[editLastMessage, deletedMessage])
 
   useEffect(() => {
     if (student == null) {
       handleStudent();
     }
     fetchData();
+
+    const messagesSubscription = supabase
+    .channel('Message')
+    .on('postgres_changes',{ event: 'INSERT', schema: 'public', table: 'Message', filter: `student_id=eq.${session.user.id}` } , handleNewAIMessage)
+    .subscribe();
+
+
+    return () => {
+      messagesSubscription.unsubscribe();
+    };
   }, [session, student, chatSession]);
-
-
+ 
   if (student == null && !isloadingStudent)
     return (
       <div className="grow">
         <ChatWelcome />
-        <Dialog props={modalProps}></Dialog>
+        <Dialog props={{title: "Student Information",type: "form",showDialog: true,width: "600px", onClose: onClose,onOk: onOk}}></Dialog>
       </div>
     );
 
@@ -194,12 +237,14 @@ export default function AIChat(session){
           {messages
           .filter((message) => message.role === 'user' || message.role === 'assistant' )
           .map((message, index) => (
-            <div className="w-5/6 mx-auto relative">
-              <div key={index} className={`w-2/3 rounded-xl my-2 mx-5 px-4 py-2 
-              ${message.role === 'assistant' ? "bg-[#7471D9] text-white mr-auto" : "bg-gray-300 ml-auto"} flex justify-between items-center`}>
-                <p>{message.content}</p>
-              </div>
-            </div>
+            <TextBubble
+              key={index}
+              chatMessage={message}
+              onDelete={deleteMessage}
+              messagesLength={messages.length}
+              index={index}
+              lastResComplete={lastResComplete}
+            />
           ))}
         </div>
         <div className="w-full resize-none">

@@ -1,16 +1,11 @@
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
 import { IdManager } from '@/utils/IdManager'
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SERVICE_KEY);
-
-const config = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-})
-
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const config = new Configuration({apiKey: process.env.OPENAI_API_KEY})
 const openai = new OpenAIApi(config)
-
 export const runtime = "edge";
 
 const getAllTasks = async ()=> {
@@ -98,7 +93,6 @@ export async function POST(req) {
     onCompletion: async (completion) => {
       const response =  await SaveToDatabase(completion, session, position + 1, false, student_id);     
       await processTask(completion, student_id);
-
       console.log(response)
     }}
   );
