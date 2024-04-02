@@ -47,22 +47,24 @@ export async function POST(req) {
   });
 
   // Create the welcome student notification
-  await prisma.studentNotification.create({
-    data: {
-      id: IdManager.notificationId(),
-      read: false,
-      student: {
-        connect: {
-          student_id: student.student_id,
+  try {
+    await prisma.studentNotification.create({
+      data: {
+        id: IdManager.notificationId(),
+        read: false,
+        student: {
+          connect: {
+            student_id: student.student_id,
+          },
+        },
+        notification: {
+          connect: {
+            id: "NTF-1699934-aaaSmv-575469",
+          },
         },
       },
-      notification: {
-        connect: {
-          id: "NTF-1699934-aaaSmv-575469",
-        },
-      },
-    },
-  });
+    });
+  } catch (e) {}
 
   return NextResponse.json(student);
 }
