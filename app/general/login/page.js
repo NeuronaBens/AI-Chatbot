@@ -19,11 +19,29 @@ export default function Login() {
     })
   };
 
+  const reset = async ()=>{
+    await fetch(`/api/database/students/${session.data.user.id}/weekly-reset-tasks`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    // Create a new weekly reset entry
+    await fetch(`/api/database/students/${session.data.user.id}/weekly-reset`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+  }
+
   useEffect(() => {
     if(session?.status === "authenticated"){
       if(session.data.user.role == "Admin"){
         router.push("/admin");
       }else{
+        reset();
         router.push("/user");
       }
     }

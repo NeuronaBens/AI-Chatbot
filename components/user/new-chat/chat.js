@@ -2,7 +2,7 @@
 
 import {useChat} from "ai/react"
 import React, { useState, useEffect } from "react";
-import ChatWelcome from "../chat/chat-welcome";
+import ChatWelcome from "./chat-welcome";
 import Dialog from "@/components/general/modal";
 import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";

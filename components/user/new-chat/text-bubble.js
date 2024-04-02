@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OptionsMenu from "../chat/textBubbles/options-menu";
+import OptionsMenu from "./options-menu";
 import Dialog from "@/components/general/modal";
 
 const TextBubble = ({ chatMessage, onDelete, messagesLength, index, lastResComplete  }) => {
