@@ -29,6 +29,15 @@ export default function Register() {
       });
       if (res.ok) {
         router.push("/general/login");
+      } else {
+        const data = await res.json();
+        if (data.error === "Email already exists") {
+          alert(
+            "El correo electrónico ya está siendo utilizado por otra cuenta."
+          );
+        } else {
+          console.error("Error en el registro:", data.error);
+        }
       }
     } catch (error) {
       console.error(error);
