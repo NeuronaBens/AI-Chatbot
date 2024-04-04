@@ -1,52 +1,60 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { signIn } from 'next-auth/react'
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function Login() {
-  const session = useSession()
-  const router = useRouter()
+  const session = useSession();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signIn('credentials', {
-      redirect:false,
-      email, password,
-    })
+    const response = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (response?.error) {
+      setErrorMessage("Invalid email or password");
+    }
   };
 
-  const reset = async ()=>{
-    await fetch(`/api/database/students/${session.data.user.id}/weekly-reset-tasks`, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
+  const reset = async () => {
+    await fetch(
+      `/api/database/students/${session.data.user.id}/weekly-reset-tasks`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
 
     // Create a new weekly reset entry
     await fetch(`/api/database/students/${session.data.user.id}/weekly-reset`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
-  }
+  };
 
   useEffect(() => {
-    if(session?.status === "authenticated"){
-      if(session.data.user.role == "Admin"){
+    if (session?.status === "authenticated") {
+      if (session.data.user.role == "Admin") {
         router.push("/admin");
-      }else{
+      } else {
         reset();
         router.push("/user");
       }
     }
-  },[session]);
-
+  }, [session]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-2 px-4 sm:px-6 lg:px-8">
@@ -60,7 +68,10 @@ export default function Login() {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="email-address" className="sr-only"> Email address </label>
+              <label htmlFor="email-address" className="sr-only">
+                {" "}
+                Email address{" "}
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -74,7 +85,10 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only"> Password </label>
+              <label htmlFor="password" className="sr-only">
+                {" "}
+                Password{" "}
+              </label>
               <input
                 id="password"
                 name="password"
@@ -88,6 +102,10 @@ export default function Login() {
               />
             </div>
           </div>
+
+          {errorMessage && (
+            <div className="text-red-500 text-sm mt-2">{errorMessage}</div>
+          )}
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
