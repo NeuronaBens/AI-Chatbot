@@ -66,7 +66,7 @@ const Tasks = () => {
               key={i}
               className={`rounded ${
                 value.completed == 1
-                  ? "bg-white border-2 border-purple-500"
+                  ? " border-2 border-purple-500"
                   : "bg-[#AAA7F2]"
               } py-2`}
             >
@@ -92,7 +92,10 @@ const Tasks = () => {
                 </div>
                 {value.completed == 0 && (
                   <div className="ml-8">
-                    <Badge ml="1" colorScheme="green" className="col-span-1"> New </Badge>
+                    <Badge ml="1" colorScheme="green" className="col-span-1">
+                      {" "}
+                      New{" "}
+                    </Badge>
                   </div>
                 )}
               </div>

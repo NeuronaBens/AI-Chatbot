@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 Example json response:
 {
     "id": "STG-1700032-1tjqFv-681691",
-    "data_collection": true,
+    "data_collection": true, 
     "theme": "Claro",
     "student_id": "USR-1699205-8oNKSv-846310"
 }

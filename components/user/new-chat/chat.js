@@ -338,7 +338,7 @@ export default function AIChat(session) {
           )}
         </div>
         <div className="w-full resize-none">
-          <div className="fixed bottom-0 w-full bg-white">
+          <div className="fixed bottom-0 w-full ">
             <div className="flex">
               <div className="w-2/3 pb-4 ml-20">
                 <TextInput

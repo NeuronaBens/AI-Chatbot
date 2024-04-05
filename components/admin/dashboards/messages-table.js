@@ -41,7 +41,7 @@ const MessageTable = () => {
   return (
     <div className="w-6/6 m-4" id="message-dashboard">
       <h3 className="font-bold">Messages Table</h3>
-      <Table className="table-auto table-fixed bg-white">
+      <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
             <Th className="px-4 py-2 w-1/12 bg-orange-300">ID</Th>
