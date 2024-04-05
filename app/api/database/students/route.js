@@ -59,12 +59,14 @@ export async function POST(req) {
         },
         notification: {
           connect: {
-            id: "NTF-1699934-aaaSmv-575469",
+            id: "NTF-1700070-nhymxT-958507",
           },
         },
       },
     });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 
   return NextResponse.json(student);
 }
