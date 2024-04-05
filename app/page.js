@@ -272,10 +272,10 @@ export default function Home() {
         <section id="contacto" className="w-full md:w-screen-md mx-auto p-12">
           <div className="mb-6">
             <h1 className="text-3xl font-bold mb-4">
-              <a href="#top">Preguntanos lo que sea sobre Calmbot</a>
+              <a href="#top">Preguntanos lo que sea sobre Calmy</a>
             </h1>
             <p className="text-gray-700">
-              Si tienes alguna pregunta o recomendación sobre Calmbot, nos
+              Si tienes alguna pregunta o recomendación sobre Calmy, nos
               encantaría que nos lo comentes. Llena el formulario de abajo y te
               responderemos lo más pronto posible
             </p>

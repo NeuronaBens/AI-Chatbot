@@ -191,7 +191,7 @@ export default function Register() {
                 >
                   Politica de Privacidad
                 </a>{" "}
-                de Calmbot.
+                de Calmy.
               </span>
             </label>
           </div>

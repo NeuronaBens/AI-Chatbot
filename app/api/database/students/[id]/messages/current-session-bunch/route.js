@@ -18,7 +18,7 @@ export async function GET(req, { params }) {
     const newMessage = await prisma.message.create({
       data: {
         id: IdManager.messageId(),
-        text: "Hola, soy Calmbot, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
+        text: "Hola, soy Calmy, tu asistente psicológico personalizado ¿en qué puedo ayudarte hoy?",
         session: 1,
         position: 0,
         sender: false,

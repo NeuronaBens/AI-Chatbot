@@ -6,7 +6,7 @@ export default function TasksSection() {
     <div>
       <Greeting
         title={"Tus Actividades!"}
-        text={"Acá podrás ver todas tus actividades recomendadas por Calmbot."}
+        text={"Acá podrás ver todas tus actividades recomendadas por Calmy."}
       ></Greeting>
       <Tasks></Tasks>
     </div>

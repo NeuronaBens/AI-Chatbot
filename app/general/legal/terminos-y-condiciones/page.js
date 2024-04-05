@@ -2,7 +2,7 @@ export default function Terminos() {
   return (
     <div className="my-8 max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h1 className="text-3xl font-bold mb-4">
-        Términos y Condiciones de uso de Calmbot
+        Términos y Condiciones de uso de Calmy
       </h1>
       <p className="mb-4">Versión vigente: 8 de Setiembre, 2023</p>
 
@@ -10,25 +10,25 @@ export default function Terminos() {
         Resumen de términos y condiciones
       </h2>
       <p className="mb-4">
-        Calmbot es un sitio web que ofrece servicios vinculados principalmente
-        al bienestar mental y emocional.
+        Calmy es un sitio web que ofrece servicios vinculados principalmente al
+        bienestar mental y emocional.
       </p>
 
-      <h2 className="text-xl font-bold mb-2">1. Calmbot</h2>
+      <h2 className="text-xl font-bold mb-2">1. Calmy</h2>
       <p className="mb-4">
-        Calmbot es un sitio web que ofrece servicios vinculados principalmente
-        al bienestar mental y emocional.
+        Calmy es un sitio web que ofrece servicios vinculados principalmente al
+        bienestar mental y emocional.
       </p>
 
       <h2 className="text-xl font-bold mb-2">2. Términos y Condiciones</h2>
       <p className="mb-4">
-        Estos términos y condiciones regulan la relación entre Calmbot y las
+        Estos términos y condiciones regulan la relación entre Calmy y las
         personas que utilizan sus servicios ("Personas Usuarias"). Las Personas
         Usuarias aceptan estos Términos y Condiciones desde el momento en que
-        utilizan los servicios de Calmbot.
+        utilizan los servicios de Calmy.
       </p>
       <p className="mb-4">
-        Calmbot se reserva el derecho de realizar cambios importantes en sus
+        Calmy se reserva el derecho de realizar cambios importantes en sus
         servicios, los cuales serán notificados con al menos 10 días de
         anticipación. Los cambios no afectarán las operaciones ya finalizadas.
       </p>
@@ -47,15 +47,15 @@ export default function Terminos() {
         Usuaria es responsable de mantener la confidencialidad de su contraseña.
       </p>
       <p className="mb-4">
-        Calmbot podrá rechazar solicitudes de registro o cancelar registros ya
+        Calmy podrá rechazar solicitudes de registro o cancelar registros ya
         aceptados, sin generar derecho a resarcimiento. No podrán registrarse
-        nuevamente en Calmbot las Personas Usuarias que hayan sido inhabilitadas
+        nuevamente en Calmy las Personas Usuarias que hayan sido inhabilitadas
         previamente.
       </p>
 
       <h2 className="text-xl font-bold mb-2">5. Privacidad de Datos</h2>
       <p className="mb-4">
-        Calmbot protege la privacidad de las Personas Usuarias y utiliza la
+        Calmy protege la privacidad de las Personas Usuarias y utiliza la
         información personal de manera responsable. Para más detalles, consulta
         nuestra Declaración de Privacidad.
       </p>
@@ -63,35 +63,34 @@ export default function Terminos() {
       <h2 className="text-xl font-bold mb-2">6. Sanciones</h2>
       <p className="mb-4">
         En caso de incumplimiento de la ley o de estos Términos y Condiciones,
-        Calmbot podrá tomar medidas que incluyen advertencias, suspensiones o
+        Calmy podrá tomar medidas que incluyen advertencias, suspensiones o
         inhabilitaciones temporales o permanentes de cuentas.
       </p>
 
       <h2 className="text-xl font-bold mb-2">7. Responsabilidad</h2>
       <p className="mb-4">
-        Calmbot será responsable por defectos en la prestación de sus servicios
-        en la medida en que le sea imputable y de acuerdo con las leyes
-        vigentes.
+        Calmy será responsable por defectos en la prestación de sus servicios en
+        la medida en que le sea imputable y de acuerdo con las leyes vigentes.
       </p>
 
       <h2 className="text-xl font-bold mb-2">8. Tarifas</h2>
       <p className="mb-4">
-        Calmbot podrá cobrar tarifas por sus servicios, y las Personas Usuarias
-        se comprometen a pagarlas a tiempo. Las tarifas podrán modificarse con
+        Calmy podrá cobrar tarifas por sus servicios, y las Personas Usuarias se
+        comprometen a pagarlas a tiempo. Las tarifas podrán modificarse con
         previo aviso.
       </p>
 
       <h2 className="text-xl font-bold mb-2">9. Propiedad Intelectual</h2>
       <p className="mb-4">
-        Calmbot y sus propietarios son dueños de los derechos de propiedad
+        Calmy y sus propietarios son dueños de los derechos de propiedad
         intelectual sobre sus servicios y contenido, protegidos por las leyes
         nacionales e internacionales. El uso indebido está prohibido.
       </p>
 
       <h2 className="text-xl font-bold mb-2">10. Indemnidad</h2>
       <p className="mb-4">
-        Las Personas Usuarias mantendrán indemne a Calmbot y sus afiliados por
-        reclamos relacionados con sus actividades en Calmbot.
+        Las Personas Usuarias mantendrán indemne a Calmy y sus afiliados por
+        reclamos relacionados con sus actividades en Calmy.
       </p>
 
       <h2 className="text-xl font-bold mb-2">
