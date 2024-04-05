@@ -10,9 +10,7 @@ export default function Card({ props, children }) {
         <h5 className="text-lg font-bold mb-1 dark:text-white">
           {props.title}
         </h5>
-        <p className="text-sm text-gray-700 dark:text-gray-400 mb-2">
-          {props.description}
-        </p>
+        <p className="text-sm mb-2">{props.description}</p>
         {children}
       </div>
     </div>

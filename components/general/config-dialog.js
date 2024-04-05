@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
@@ -108,8 +109,8 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
             },
           }
         );
-
-        console.log(session.user.id); /////test
+        setTheme(value);
+        location.reload();
 
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
