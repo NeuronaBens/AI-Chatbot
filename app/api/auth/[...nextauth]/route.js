@@ -41,6 +41,11 @@ export const authOptions = {
           throw new Error("No user found");
         }
 
+        // Check if the user is deleted
+        if (user.deleted_at) {
+          throw new Error("User account is deleted");
+        }
+
         const isPasswordValid = await compare(
           credentials.password,
           user.password

@@ -17,9 +17,10 @@ export async function GET(req, context) {
   return new Response(JSON.stringify(student));
 }
 
-export async function PUT(req) {
-  const { student_id, description, date_of_birth, sex_id, career_id } =
-    await req.json();
+export async function PUT(req, context) {
+  const student_id = context.params.id;
+
+  const { description, date_of_birth, sex_id, career_id } = await req.json();
 
   try {
     const data = {};

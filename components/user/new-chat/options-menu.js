@@ -3,7 +3,7 @@ import React from "react";
 const OptionsMenu = ({ handleOptionClick }) => {
   return (
     <div className="absolute z-10 mt-2 w-48 rounded-md shadow-lg">
-      <div className="rounded-md bg-white shadow-xs">
+      <div className="rounded-md  shadow-xs">
         <div
           className="py-1"
           role="menu"

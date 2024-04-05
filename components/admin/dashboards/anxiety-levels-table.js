@@ -41,7 +41,7 @@ const AnxietyLevelsTable = () => {
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Anxiety Levels Table</h3>
-      <Table className="table-auto table-fixed bg-white">
+      <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
             <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>

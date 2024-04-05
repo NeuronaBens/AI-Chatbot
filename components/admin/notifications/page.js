@@ -108,7 +108,7 @@ const NotificacionesForm = ({ session }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-white rounded-md shadow-md">
+    <div className="max-w-md mx-auto p-8  rounded-md shadow-md">
       <input
         type="text"
         value={name}
