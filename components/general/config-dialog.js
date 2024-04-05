@@ -160,9 +160,9 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
     showDialog === true ? (
       <dialog
         ref={dialogRef}
-        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50"
+        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50 bg-[#7471D9]"
       >
-        <div className="w-[600px] h-[450px] max-w-full bg-[#7471D9] text-white flex flex-col">
+        <div className="w-[600px] h-[450px] max-w-full text-white flex flex-col">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
             <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">
               {title}
