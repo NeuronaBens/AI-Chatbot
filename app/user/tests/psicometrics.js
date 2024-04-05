@@ -88,6 +88,7 @@ const StudentPsicometrics = () => {
           </div>
         ))}
       </div>
+      <div className="mt-72"></div>
     </div>
   );
 };
