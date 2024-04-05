@@ -52,7 +52,7 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
         value={input}
         onChange={handleInputChange}
         placeholder="Escribe un mensaje..."
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="text-black flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button
         type="button"

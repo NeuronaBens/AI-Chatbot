@@ -66,19 +66,22 @@ const TextBubble = ({
   const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
       try {
-        const res = await fetch(`/api/database/messages/${chatMessage.id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            deleted: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!res.ok) {
-          throw new Error(`API call failed with status: ${res.status}`);
+        if (
+          window.confirm("¿Estás seguro de que deseas eliminar este mensaje?")
+        ) {
+          const res = await fetch(`/api/database/messages/${chatMessage.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              deleted: true,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!res.ok) {
+            throw new Error(`API call failed with status: ${res.status}`);
+          }
         }
-
         await onDelete(index + 1);
       } catch (error) {
         console.error(error);
