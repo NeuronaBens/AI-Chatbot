@@ -4,7 +4,7 @@ import Link from "next/link";
 import Logo from "../general/logo";
 import UserProfile from "../general/profile";
 
-const SidebarUser = ({ children }) => {
+const SidebarUser = ({ children, session }) => {
   const [closed, setClosed] = useState(false);
   const [chat, setChat] = useState(true);
   const [historial, setHistorial] = useState(false);
@@ -18,18 +18,27 @@ const SidebarUser = ({ children }) => {
   useEffect(() => {
     const fetchTheme = async () => {
       try {
-        const response = await fetch(
-          `/api/database/students/${userId}/settings`
-        );
-        const data = await response.json();
-        setTheme(data.theme);
+        if (session && session.user) {
+          const userId = session.user.id;
+          const response = await fetch(
+            `/api/database/students/${userId}/settings`
+          );
+          const data = await response.json();
+
+          setTheme(data.theme);
+
+          // Set the background color based on the theme
+          if (data.theme === "Oscuro") {
+            document.body.className = "bg-gray-800";
+          }
+        }
       } catch (error) {
         console.error("Error fetching theme:", error);
       }
     };
 
     fetchTheme();
-  }, []);
+  }, [session]);
 
   function toggle() {
     setClosed(!closed);
