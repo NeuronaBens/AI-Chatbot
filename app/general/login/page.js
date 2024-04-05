@@ -66,7 +66,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            Ingresa a tu cuenta
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -75,7 +75,7 @@ export default function Login() {
             <div>
               <label htmlFor="email-address" className="sr-only">
                 {" "}
-                Email address{" "}
+                Dirección de Correo Electrónico{" "}
               </label>
               <input
                 id="email-address"
@@ -92,7 +92,7 @@ export default function Login() {
             <div>
               <label htmlFor="password" className="sr-only">
                 {" "}
-                Password{" "}
+                Contraseña{" "}
               </label>
               <input
                 id="password"
@@ -144,14 +144,14 @@ export default function Login() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
-                  Processing...
+                  Procesando...
                 </>
               ) : (
                 <>
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     {/* ... */}
                   </span>
-                  Sign in
+                  Ingresar
                 </>
               )}
             </button>

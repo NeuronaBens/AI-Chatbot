@@ -24,13 +24,13 @@ export default function Register() {
 
     // Validate email
     if (!isValidEmail(email)) {
-      alert("Please enter a valid email address.");
+      alert("Por favor, ingresa una dirección de correo válida.");
       return;
     }
 
     // Validate password length
     if (password.length < 8) {
-      alert("Password must be at least 8 characters long.");
+      alert("La contraseña debe contener al menos 8 caracteres.");
       return;
     }
 
@@ -76,7 +76,7 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create an account
+            Crea una Cuenta
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -85,7 +85,7 @@ export default function Register() {
             <div>
               <label htmlFor="name" className="sr-only">
                 {" "}
-                Name{" "}
+                Nombre{" "}
               </label>
               <input
                 id="name"
@@ -102,7 +102,7 @@ export default function Register() {
             <div>
               <label htmlFor="email-address" className="sr-only">
                 {" "}
-                Email address{" "}
+                Dirección de Correo Electrónico{" "}
               </label>
               <input
                 id="email-address"
@@ -119,7 +119,7 @@ export default function Register() {
             <div>
               <label htmlFor="password" className="sr-only">
                 {" "}
-                Password{" "}
+                Contraseña{" "}
               </label>
               <input
                 id="password"
@@ -136,7 +136,7 @@ export default function Register() {
             <div>
               <label htmlFor="confirm-password" className="sr-only">
                 {" "}
-                Confirm password{" "}
+                Confirmar Contraseña{" "}
               </label>
               <input
                 id="confirm-password"
@@ -153,7 +153,7 @@ export default function Register() {
             <div>
               <label htmlFor="image" className="sr-only">
                 {" "}
-                Image{" "}
+                Url de Image{" "}
               </label>
               <input
                 id="image"
@@ -237,7 +237,7 @@ export default function Register() {
                   />
                 </svg>
               </span>
-              Register
+              Registrarme
             </button>
           </div>
         </form>
