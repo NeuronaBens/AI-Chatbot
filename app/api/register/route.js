@@ -3,10 +3,41 @@ import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 import { IdManager } from "@/utils/IdManager";
 
+const isValidEmail = (email) => {
+  // Simple email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 export async function POST(req) {
-  const { name, email, password, image } = await req.json();
+  var { name, email, password, image } = await req.json();
 
   try {
+    // Validate email
+    if (!isValidEmail(email)) {
+      return new Response(JSON.stringify({ error: "Invalid email address" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Set email to all lowercase
+    email = email.toLowerCase();
+
+    // Validate password length
+    if (password.length < 8) {
+      return new Response(
+        JSON.stringify({
+          error: "Password must be at least 8 characters long",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Validate non reapeted user
     const exist = await prisma.user.findUnique({
       where: { email: email },
     });

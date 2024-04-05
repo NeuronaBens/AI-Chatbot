@@ -12,8 +12,27 @@ export default function Register() {
   const [image, setImage] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
 
+  const isValidEmail = (email) => {
+    // Simple email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate email
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters long.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/register", {
         method: "POST",
