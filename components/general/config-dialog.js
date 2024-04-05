@@ -48,6 +48,10 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    session.user.image = imageUrl;
+    session.user.name = name;
+
     try {
       update({ name, email, image: imageUrl });
       const res = await fetch(`/api/database/users/${session.user.id}`, {
