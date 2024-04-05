@@ -31,7 +31,9 @@ const StudentPsicometrics = () => {
     <div className="w-5/6 mx-auto justify-center items-center mt-4">
       <br></br>
       <hr className="m-5"></hr>
-      <h2 className="text-2xl font-bold mb-4 text-center">Anxiety Levels</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        Niveles de Ansiedad
+      </h2>
       <div className="relative wrap overflow-hidden p-10 h-full">
         <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
         {anxietyLevels.map((level, index) => (
@@ -47,12 +49,12 @@ const StudentPsicometrics = () => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
-              <h3 className="mb-3 font-bold text-gray-800 text-xl">
-                Anxiety: {level.anxiety}
+            <div className="order-1 bg-gradient-to-r from-[#7471D9] to-purple-700 rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
+              <h3 className="mb-3 font-bold text-xl">
+                Nivel de Ansiedad: {level.anxiety}
               </h3>
-              <p className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">
-                Date: {new Date(level.date).toLocaleString()}
+              <p className="text-sm leading-snug tracking-wide text-opacity-100">
+                Fecha: {new Date(level.date).toLocaleString()}
               </p>
             </div>
           </div>
@@ -60,7 +62,7 @@ const StudentPsicometrics = () => {
       </div>
 
       <h2 className="text-2xl font-bold mb-4 mt-12 text-center">
-        Stress Levels
+        Niveles de Estrés
       </h2>
       <div className="relative wrap overflow-hidden p-10 h-full">
         <div className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2"></div>
@@ -77,12 +79,12 @@ const StudentPsicometrics = () => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
-              <h3 className="mb-3 font-bold text-gray-800 text-xl">
-                Stress: {level.stress}
+            <div className="order-1 bg-gradient-to-r from-[#7471D9] to-purple-700 rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
+              <h3 className="mb-3 font-bold text-xl">
+                Nivel de estrés: {level.stress}
               </h3>
-              <p className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">
-                Date: {new Date(level.date).toLocaleString()}
+              <p className="text-sm leading-snug tracking-wide text-opacity-100">
+                Fecha: {new Date(level.date).toLocaleString()}
               </p>
             </div>
           </div>
