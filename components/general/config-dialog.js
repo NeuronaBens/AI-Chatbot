@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import DescriptionUpdate from "./config-dialog-components/description-update";
 
 export default function ConfigDialog({ title, onClose, showDialog }) {
   const dialogRef = useRef(null);
@@ -302,6 +303,9 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                             </Button>
                           </div>
                         </form>
+                        <div>
+                          <DescriptionUpdate />
+                        </div>
                       </div>
                     )}
                     {showPrivacy && (
