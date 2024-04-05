@@ -50,10 +50,12 @@ export default function Login() {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
+      setIsLoading(true);
       if (session.data.user.role == "Admin") {
         router.push("/admin");
       } else {
         reset();
+        setIsLoading(false);
         router.push("/user");
       }
     }

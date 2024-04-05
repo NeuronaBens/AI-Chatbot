@@ -57,7 +57,7 @@ export default function Home() {
                 className="h-16 w-16"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1"
+                strokeWidth="1"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
@@ -82,7 +82,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                strokeWidth="1"
                 stroke="currentColor"
               >
                 <path
@@ -106,7 +106,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                strokeWidth="1"
                 stroke="currentColor"
               >
                 <path
@@ -129,7 +129,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                strokeWidth="1"
                 stroke="currentColor"
               >
                 <path
@@ -152,7 +152,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                strokeWidth="1"
                 stroke="currentColor"
               >
                 <path
@@ -175,7 +175,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1"
+                strokeWidth="1"
                 stroke="currentColor"
               >
                 <path
