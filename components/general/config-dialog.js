@@ -15,6 +15,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
   const [email, setEmail] = useState(session.user.email);
   const [data, setData] = useState(true);
   const [history, setHistory] = useState(false);
+  const [imageUrl, setImageUrl] = useState(session.user.image);
   //const [password, setPassword] = useState("");
 
   const fetchSettings = async () => {
@@ -48,18 +49,18 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      update({ name, email });
+      update({ name, email, image: imageUrl });
       const res = await fetch(`/api/database/users/${session.user.id}`, {
         method: "PUT",
         body: JSON.stringify({
           name: name,
           email: email,
+          image: imageUrl,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-
       if (!res.ok) {
         throw new Error(`API call failed with status: ${res.status}`);
       }
@@ -236,9 +237,26 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                         >
                           <img
                             className="mx-auto h-1/2 w-1/3 rounded-full"
-                            src={session.user.image}
+                            src={imageUrl}
                             alt=""
                           />
+                          <div className="rounded-md shadow-sm space-y-4 flex flex-row">
+                            <label htmlFor="image" className="w-1/5 pt-3">
+                              {" "}
+                              Image URL:{" "}
+                            </label>
+                            <input
+                              id="image"
+                              name="image"
+                              type="url"
+                              required
+                              value={imageUrl}
+                              onChange={(e) => setImageUrl(e.target.value)}
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                              placeholder="Image URL"
+                            />
+                          </div>
+
                           <div className="rounded-md shadow-sm space-y-4 flex flex-row">
                             <label htmlFor="name" className="w-1/5 pt-3">
                               {" "}
@@ -251,7 +269,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                               required
                               value={name}
                               onChange={(e) => setName(e.target.value)}
-                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 "
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                               placeholder="Name"
                             />
                           </div>
@@ -266,8 +284,8 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                               autoComplete="email"
                               required
                               value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 "
+                              readOnly
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                               placeholder="Email"
                             />
                           </div>
