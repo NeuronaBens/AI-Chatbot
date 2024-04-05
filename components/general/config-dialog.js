@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useSession } from "next-auth/react";
 import { Button } from "@chakra-ui/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function ConfigDialog({ title, onClose, showDialog }) {
   const dialogRef = useRef(null);
@@ -109,19 +109,25 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
       } else if (option == "delete account") {
-        const currentTimestamp = new Date().toISOString();
-        const res = await fetch(`/api/database/users/${session.user.id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            deleted_at: currentTimestamp,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error(`API call failed with status: ${res.status}`);
+        const confirmDelete = confirm(
+          "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."
+        );
+        if (confirmDelete) {
+          const currentTimestamp = new Date().toISOString();
+          const res = await fetch(`/api/database/users/${session.user.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              deleted_at: currentTimestamp,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!res.ok) {
+            throw new Error(`API call failed with status: ${res.status}`);
+          } else {
+            signOut({ callbackUrl: "/" });
+          }
         }
       } else if (option == "delete history") {
         const res = await fetch(
