@@ -153,13 +153,15 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
     }
   };
 
+  ////////////////////////////////////////////////////////////////////////////////
+
   const dialog =
     showDialog === true ? (
       <dialog
         ref={dialogRef}
         className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50"
       >
-        <div className="w-[600px] h-[450px] max-w-full bg-blue-500 text-white flex flex-col">
+        <div className="w-[600px] h-[450px] max-w-full bg-[#7471D9] text-white flex flex-col">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
             <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">
               {title}
@@ -171,7 +173,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
               x
             </button>
           </div>
-          <hr className=" bg-blue-500 mx-2 py-2"></hr>
+          <hr className=" bg-[#7471D9] mx-2 py-2"></hr>
           {status === "loading" ? (
             <div></div>
           ) : (
@@ -272,8 +274,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                           <div className="flex justify-center items-center py-4">
                             <Button
                               type="submit"
-                              className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white "
-                              colorScheme="facebook"
+                              className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white"
                             >
                               Actualizar
                             </Button>
