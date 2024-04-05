@@ -3,16 +3,12 @@
 import Card from "@/components/general/card";
 import Greeting from "@/components/general/greeting";
 import Dialog from "@/components/general/modal";
+import StudentPsicometrics from "./psicometrics";
 import { useState } from "react";
 
-export default function Home() {
+export default function TestPage() {
   const [showModalGAD, setShowModalGAD] = useState(false);
   const [showModalPSS, setShowModalPSS] = useState(false);
-  const stringStylesWidth = "w-[1200px] max-w-fullbg-gray-200 flex flex-col";
-  const stringStylesGridGAD7 =
-    "grid grid-cols-5 grid-rows-8 gap-2 px-2 py-2 text-xs";
-  const stringStylesGridPSS14 =
-    "grid grid-cols-6 grid-rows-15 gap-2 px-2 py-2 text-xs";
 
   async function onClose() {
     console.log("Modal has closed");
@@ -336,6 +332,7 @@ export default function Home() {
           </Dialog>
         </div>
       </div>
+      <StudentPsicometrics />
     </div>
   );
 }
