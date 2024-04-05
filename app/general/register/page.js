@@ -10,6 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState("");
+  const [invitationCode, setInvitationCode] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
 
   const isValidEmail = (email) => {
@@ -41,6 +42,7 @@ export default function Register() {
           email,
           password,
           image,
+          invitationCode,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -54,6 +56,8 @@ export default function Register() {
           alert(
             "El correo electrónico ya está siendo utilizado por otra cuenta."
           );
+        } else if (data.error === "Invalid invitation code") {
+          alert("Código de invitación inválido.");
         } else {
           console.error("Error en el registro:", data.error);
         }
@@ -160,6 +164,23 @@ export default function Register() {
                 onChange={(e) => setImage(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Image URL"
+              />
+            </div>
+            <div>
+              <label htmlFor="invitationCode" className="sr-only">
+                {" "}
+                Código de Invitación{" "}
+              </label>
+              <input
+                id="invitationCode"
+                name="invitationCode"
+                type="text"
+                autoComplete="invitationCode"
+                required
+                value={invitationCode}
+                onChange={(e) => setInvitationCode(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Invitation Code"
               />
             </div>
           </div>

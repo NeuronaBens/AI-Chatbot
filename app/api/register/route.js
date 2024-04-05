@@ -9,8 +9,10 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
+const INVITATION_CODE = "UTest887733";
+
 export async function POST(req) {
-  var { name, email, password, image } = await req.json();
+  var { name, email, password, image, invitationCode } = await req.json();
 
   try {
     // Validate email
@@ -30,6 +32,17 @@ export async function POST(req) {
         JSON.stringify({
           error: "Password must be at least 8 characters long",
         }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Validate invitation code
+    if (invitationCode !== INVITATION_CODE) {
+      return new Response(
+        JSON.stringify({ error: "Invalid invitation code" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
