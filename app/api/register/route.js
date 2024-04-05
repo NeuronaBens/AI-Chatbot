@@ -9,7 +9,7 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
-const INVITATION_CODE = "UTest887733";
+const INVITATION_CODE = process.env.INVITATION_CODE;
 
 export async function POST(req) {
   var { name, email, password, image, invitationCode } = await req.json();

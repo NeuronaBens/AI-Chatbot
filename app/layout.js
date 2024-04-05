@@ -5,7 +5,7 @@ import { Providers } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "AI Chatbot",
+  title: "Calmy",
   description:
     "Empieza la indentificación y prevención del estrés y la ansiedad con nuestro AI Chatbot",
 };
