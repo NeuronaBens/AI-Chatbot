@@ -9,7 +9,7 @@ export default async function NotificationPage() {
   const session = await getServerSession(authOptions);
   return (
     <div>
-      <NotificacionesForm session={...session}></NotificacionesForm>
+      <NotificacionesForm {...session}></NotificacionesForm>
       <NotificationTable></NotificationTable>
       <StudentNotificationTable></StudentNotificationTable>
     </div>

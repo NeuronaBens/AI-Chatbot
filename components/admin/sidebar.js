@@ -56,6 +56,9 @@ const SidebarAdmin = ({ children }) => {
             <Link href="/admin/notificaciones">
               <p className="m-4">Notificaciones</p>
             </Link>
+            <Link href="/admin/complaints">
+              <p className="m-4">Complaints</p>
+            </Link>
           </div>
         )}
         {!closed && (
