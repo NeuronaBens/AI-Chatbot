@@ -128,7 +128,6 @@ export async function POST(request, { params }) {
     try {
       const taskResult = await TaskManager.processTasks(aiResponse, userId);
       if (taskResult.success) {
-        console.log(taskResult.message);
       } else {
         throw new Error(taskResult.error);
       }

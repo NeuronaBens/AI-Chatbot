@@ -55,13 +55,10 @@ const TextBubble = ({
   };
 
   async function onClose() {
-    console.log("Modal has closed");
     setShowDialogComplaint(false);
   }
 
-  async function onOk() {
-    console.log("Ok was clicked");
-  }
+  async function onOk() {}
 
   const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
