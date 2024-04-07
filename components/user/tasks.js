@@ -37,7 +37,6 @@ const Tasks = () => {
 
       if (response.ok) {
         const updatedTask = await response.json();
-        console.log("Task updated:", updatedTask);
       } else {
         console.error("Failed to update task:", response.statusText);
       }

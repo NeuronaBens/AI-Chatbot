@@ -40,7 +40,6 @@ export default function ConversationHistory() {
     Object.entries(groupedMessages).map(([day, values]) => {
       groups.push([day, values]);
     });
-    console.log(groups);
     return groups;
   };
 
