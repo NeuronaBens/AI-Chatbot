@@ -44,15 +44,15 @@ const StudentTaskTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Completed</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Student ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Task ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Completed</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Student ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Task ID</Th>
           </Tr>
         </Thead>
         <Tbody>
           {studentTasks.map((studentTask) => (
-            <Tr key={studentTask.id} className="hover:bg-orange-100">
+            <Tr key={studentTask.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{studentTask.id}</Td>
               <Td className="border px-4 py-2 text-left">
                 {studentTask.completed ? "True" : "False"}

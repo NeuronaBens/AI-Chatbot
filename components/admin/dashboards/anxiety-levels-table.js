@@ -44,15 +44,15 @@ const AnxietyLevelsTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Anxiety Levels</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Date</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">StudentID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Anxiety Levels</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Date</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">StudentID</Th>
           </Tr>
         </Thead>
         <Tbody>
           {anxietyLevelsList.map((anxietyLevels) => (
-            <Tr key={anxietyLevels.id} className="hover:bg-orange-100">
+            <Tr key={anxietyLevels.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{anxietyLevels.id}</Td>
               <Td className="border px-4 py-2 text-left">
                 {anxietyLevels.anxiety}

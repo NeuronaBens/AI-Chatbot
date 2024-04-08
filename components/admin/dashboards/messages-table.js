@@ -44,18 +44,18 @@ const MessageTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">Sender</Th>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">Bookmarked</Th>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">Date Sent</Th>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">Deleted</Th>
-            <Th className="px-4 py-2 w-1/12 bg-orange-300">Student ID</Th>
-            <Th className="px-4 py-2 w-11/12 bg-orange-300">Text</Th>
+            <Th className="px-4 py-2 w-2/12 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/12 bg-[#7A72DE]">Sender</Th>
+            <Th className="px-4 py-2 w-1/12 bg-[#7A72DE]">Bookmarked</Th>
+            <Th className="px-4 py-2 w-2/12 bg-[#7A72DE]">Date Sent</Th>
+            <Th className="px-4 py-2 w-1/12 bg-[#7A72DE]">Deleted</Th>
+            <Th className="px-4 py-2 w-2/12 bg-[#7A72DE]">Student ID</Th>
+            <Th className="px-4 py-2 w-4/12 bg-[#7A72DE]">Text</Th>
           </Tr>
         </Thead>
         <Tbody>
           {messages.map((message) => (
-            <Tr key={message.id} className="hover:bg-orange-100">
+            <Tr key={message.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{message.id}</Td>
               <Td className="border px-4 py-2 text-left">
                 {message.sender ? "True" : "False"}
@@ -82,14 +82,14 @@ const MessageTable = () => {
           <Button
             onClick={handlePrevPage}
             disabled={page === 1}
-            className="bg-orange-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
+            className="bg-[#7A72DE] text-white disabled:opacity-50 rounded-md p-1 font-bold"
           >
             Prev
           </Button>
           <Button
             onClick={handleNextPage}
             disabled={page === totalPages}
-            className="bg-orange-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
+            className="bg-[#7A72DE] text-white disabled:opacity-50 rounded-md p-1 font-bold"
           >
             Next
           </Button>
