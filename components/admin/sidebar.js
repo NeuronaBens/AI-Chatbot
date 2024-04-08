@@ -3,21 +3,41 @@ import React from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
 import UserProfile from "../general/profile";
-import { useState} from "react";
+import { useState } from "react";
 
 const SidebarAdmin = ({ children }) => {
   const [closed, setClosed] = useState(false);
+  const [dashboards, setDashboards] = useState(true);
+  const [notificaciones, setNotificaciones] = useState(false);
+  const [complaints, setComplaints] = useState(false);
   function toggle() {
     setClosed(!closed);
   }
+
+  const setAllFalse = () => {
+    setDashboards(false);
+    setNotificaciones(false);
+    setComplaints(false);
+  };
+
+  const handleOptionClick = (option) => {
+    setAllFalse();
+    if (option == "Dashboards") {
+      setDashboards(false);
+    } else if (option == "Notificaciones") {
+      setNotificaciones(false);
+    } else if (option == "Complaints") {
+      setComplaints(false);
+    }
+  };
 
   return (
     <div className="flex">
       <div
         className={
           closed
-            ? " fixed z-50 h-screen bg-gray-200 "
-            : "fixed shadow-lg h-screen bg-gray-200 z-50 "
+            ? "text-white fixed z-50 h-screen bg-[#3A378C] "
+            : "text-white fixed shadow-lg h-screen bg-[#3A378C] z-50 "
         }
       >
         <div className="h-1/4 flex">
@@ -48,21 +68,49 @@ const SidebarAdmin = ({ children }) => {
         </div>
         {!closed && (
           <div className="h-2/4">
-            <Link href="/admin">
-              <p className="m-4">
+            <Link href="/admin" onClick={() => handleOptionClick("Dashboards")}>
+              <p
+                className={`p-2 m-2 rounded ${
+                  dashboards
+                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                    : "hover:bg-[#7471D9]"
+                }`}
+              >
                 <b>Dashboards</b>
               </p>
             </Link>
-            <Link href="/admin/notificaciones">
-              <p className="m-4">Notificaciones</p>
+            <Link
+              href="/admin/notificaciones"
+              onClick={() => handleOptionClick("Notificaciones")}
+            >
+              <p
+                className={`p-2 m-2 rounded ${
+                  notificaciones
+                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                    : "hover:bg-[#7471D9]"
+                }`}
+              >
+                Notificaciones
+              </p>
             </Link>
-            <Link href="/admin/complaints">
-              <p className="m-4">Complaints</p>
+            <Link
+              href="/admin/complaints"
+              onClick={() => handleOptionClick("Complaints")}
+            >
+              <p
+                className={`p-2 m-2 rounded ${
+                  complaints
+                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                    : "hover:bg-[#7471D9]"
+                }`}
+              >
+                Complaints
+              </p>
             </Link>
           </div>
         )}
         {!closed && (
-          <div>
+          <div className="mt-16">
             <UserProfile></UserProfile>
           </div>
         )}
