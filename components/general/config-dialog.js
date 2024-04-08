@@ -19,6 +19,8 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
   const [history, setHistory] = useState(false);
   const [imageUrl, setImageUrl] = useState(session.user.image);
   //const [password, setPassword] = useState("");
+  const [updatingSession, setUpdatingSession] = useState(false);
+  const [updatingHistory, setUpdatingHistory] = useState(false);
 
   const fetchSettings = async () => {
     const res = await fetch(
@@ -137,6 +139,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
           }
         }
       } else if (option == "delete history") {
+        setUpdatingHistory(true);
         const res = await fetch(
           `/api/database/students/${session.user.id}/messages/session`,
           {
@@ -150,10 +153,31 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
           }
         );
 
+        location.reload();
+
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
         setHistory(true);
+        setUpdatingHistory(false);
+      } else if (option == "new session") {
+        setUpdatingSession(true);
+        const res = await fetch(
+          `/api/database/students/${session.user.id}/messages/start-new-session`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        location.reload();
+
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+        setUpdatingSession(false);
       }
     } catch (error) {
       console.error(error);
@@ -360,16 +384,27 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                           </select>
                         </div>
                         <div className="space-y-4 flex flex-row justify-between">
-                          <div className=" pt-3">
-                            {" "}
-                            Borrar historial de conversacion{" "}
+                          <div className="pt-3">
+                            Borrar historial de conversación
                           </div>
                           <Button
                             className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
                             onClick={() => handleUpdate("delete history")}
                             colorScheme="red"
+                            disabled={updatingHistory}
                           >
-                            Borrar
+                            {updatingHistory ? "Procesando..." : "Borrar"}
+                          </Button>
+                        </div>
+                        <div className="space-y-4 flex flex-row justify-between">
+                          <div className="pt-3">Reiniciar Conversación</div>
+                          <Button
+                            className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
+                            onClick={() => handleUpdate("new session")}
+                            colorScheme="red"
+                            disabled={updatingSession}
+                          >
+                            {updatingSession ? "Procesando..." : "Reiniciar"}
                           </Button>
                         </div>
                       </div>

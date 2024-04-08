@@ -11,14 +11,11 @@ export default function TestPage() {
   const [showModalPSS, setShowModalPSS] = useState(false);
 
   async function onClose() {
-    console.log("Modal has closed");
     setShowModalGAD(false);
     setShowModalPSS(false);
   }
 
-  async function onOk() {
-    console.log("Ok was clicked");
-  }
+  async function onOk() {}
 
   return (
     <div>
@@ -52,7 +49,7 @@ export default function TestPage() {
               <path
                 stroke="currentColor"
                 stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
                 strokeWidth="2"
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
@@ -82,7 +79,7 @@ export default function TestPage() {
               <path
                 stroke="currentColor"
                 stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
                 strokeWidth="2"
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
