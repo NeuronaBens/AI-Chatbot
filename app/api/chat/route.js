@@ -81,30 +81,76 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
 };
 
 export async function POST(req) {
-  const { messages, student_id, session, position } = await req.json();
-  const newMessage = messages[messages.length - 1];
+  try {
+    const { messages, student_id, session, position } = await req.json();
+    const newMessage = messages[messages.length - 1];
 
-  await SaveToDatabase(newMessage.content, session, position, true, student_id);
+    await SaveToDatabase(
+      newMessage.content,
+      session,
+      position,
+      true,
+      student_id
+    );
 
-  const res = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    stream: true,
-    messages: messages,
-    temperature: 0.7,
-  });
+    const res = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      stream: true,
+      messages: messages,
+      temperature: 0.7,
+    });
 
-  const stream = OpenAIStream(res, {
-    onCompletion: async (completion) => {
-      const response = await SaveToDatabase(
-        completion,
-        session,
-        position + 1,
-        false,
-        student_id
-      );
-      await processTask(completion, student_id);
-    },
-  });
+    const stream = OpenAIStream(res, {
+      onCompletion: async (completion) => {
+        const response = await SaveToDatabase(
+          completion,
+          session,
+          position + 1,
+          false,
+          student_id
+        );
+        await processTask(completion, student_id);
+      },
+    });
 
-  return new StreamingTextResponse(stream);
+    return new StreamingTextResponse(stream);
+  } catch (err) {
+    console.error("Error in OpenAI API call:", err);
+
+    // Implement retries
+    let retryCount = 0;
+    const maxRetries = 3;
+    while (retryCount < maxRetries) {
+      try {
+        retryCount++;
+        const res = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          stream: true,
+          messages: messages,
+          temperature: 0.7,
+        });
+        const stream = OpenAIStream(res, {
+          onCompletion: async (completion) => {
+            const response = await SaveToDatabase(
+              completion,
+              session,
+              position + 1,
+              false,
+              student_id
+            );
+            await processTask(completion, student_id);
+          },
+        });
+        return new StreamingTextResponse(stream);
+      } catch (retryErr) {
+        console.error(
+          `Retry attempt ${retryCount}: Error in OpenAI API call:`,
+          retryErr
+        );
+        if (retryCount === maxRetries) {
+          throw retryErr;
+        }
+      }
+    }
+  }
 }
