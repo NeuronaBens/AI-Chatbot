@@ -112,7 +112,9 @@ const Complaints = () => {
         </form>
       )}
       <div className="relative wrap overflow-hidden p-10 h-full">
-        <div className="border-2-2 absolute border-black h-full border-2 left-1/2"></div>
+        {complaints.length > 0 && (
+          <div className="border-2-2 absolute border-black h-full border-2 left-1/2"></div>
+        )}
         {complaints.map((level, index) => (
           <div
             key={level.id}
