@@ -23,11 +23,11 @@ const SidebarAdmin = ({ children }) => {
   const handleOptionClick = (option) => {
     setAllFalse();
     if (option == "Dashboards") {
-      setDashboards(false);
+      setDashboards(true);
     } else if (option == "Notificaciones") {
-      setNotificaciones(false);
+      setNotificaciones(true);
     } else if (option == "Complaints") {
-      setComplaints(false);
+      setComplaints(true);
     }
   };
 

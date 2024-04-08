@@ -113,7 +113,7 @@ const Complaints = () => {
       )}
       <div className="relative wrap overflow-hidden p-10 h-full">
         {complaints.length > 0 && (
-          <div className="border-2-2 absolute border-black h-full border-2 left-1/2"></div>
+          <div className="border-2-2 absolute border-[#363447] h-full border-2 left-1/2"></div>
         )}
         {complaints.map((level, index) => (
           <div
