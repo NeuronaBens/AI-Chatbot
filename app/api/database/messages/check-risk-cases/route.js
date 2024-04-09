@@ -4,7 +4,7 @@ import { IdManager } from "@/utils/IdManager";
 // route: app\api\database\messages\check-risk-cases\route.js
 
 export async function POST(req) {
-  const { text, student_id } = await req.json();
+  const { text, student_id, message_id } = await req.json();
 
   // Define the list of sensitive words to check for
   const sensitiveWords = ["morir", "matar", "suicidar", "suicidio"];
@@ -27,10 +27,10 @@ export async function POST(req) {
       const complaint = await prisma.complaint.create({
         data: {
           id: IdManager.complaintId(),
-          content: text,
+          content: "El usuario ha enviado un mensaje riegoso",
           message: {
             connect: {
-              id: "MSG-testtes-testte-testte",
+              id: message_id,
             },
           },
         },
@@ -39,7 +39,7 @@ export async function POST(req) {
       // Create a new student notification linking the notification to the student
       const studentNotification = await prisma.studentNotification.create({
         data: {
-          id: IdManager.notificationId(),
+          id: IdManager.studentNotificationId(),
           read: false,
           student: {
             connect: {

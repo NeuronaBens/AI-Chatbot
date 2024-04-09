@@ -200,27 +200,6 @@ export default function AIChat(session) {
   const customHandleSubmit = async (e) => {
     e.preventDefault();
     setLastResComplete(false);
-
-    // Call the endpoint to check for sensitive words
-    const response = await fetch("/api/database/messages/check-risk-cases", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: input,
-        student_id: session.user.id,
-      }),
-    });
-
-    const containsSensitiveWords = await response.json();
-
-    if (containsSensitiveWords) {
-      // Handle the case when the message contains sensitive words
-      // You can show a warning message or take appropriate action
-      console.log("The message contains sensitive words.");
-    }
-    // Proceed with submitting the message
     handleSubmit(e);
     setPosition(position + 2);
     setInput("");

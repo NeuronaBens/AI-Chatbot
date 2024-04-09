@@ -77,14 +77,34 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
     })
     .select();
 
+  // Llamar al endpoint de check-risk-cases después de guardar el mensaje
+  if (sender) {
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}api/database/messages/check-risk-cases`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+          student_id: student_id,
+          message_id: data[0].id,
+        }),
+      }
+    );
+
+    const isRisky = await response.json();
+    console.log("Is risky message:", isRisky);
+  }
+
   return data;
 };
 
 export async function POST(req) {
+  const { messages, student_id, session, position } = await req.json();
+  const newMessage = messages[messages.length - 1];
   try {
-    const { messages, student_id, session, position } = await req.json();
-    const newMessage = messages[messages.length - 1];
-
     await SaveToDatabase(
       newMessage.content,
       session,
