@@ -44,16 +44,16 @@ const UserTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Name</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Email</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Career</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Sex</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Name</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Email</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Career</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Sex</Th>
           </Tr>
         </Thead>
         <Tbody>
           {students.map((student) => (
-            <Tr key={student.student_id} className="hover:bg-orange-100">
+            <Tr key={student.student_id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">
                 {student.student_id}
               </Td>

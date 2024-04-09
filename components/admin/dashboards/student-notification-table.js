@@ -49,15 +49,15 @@ const StudentNotificationTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Student ID</Th>
-            <Th className="px-4 py-2 w-2/6 bg-orange-300">Notification ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Read</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Student ID</Th>
+            <Th className="px-4 py-2 w-2/6 bg-[#7A72DE]">Notification ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Read</Th>
           </Tr>
         </Thead>
         <Tbody>
           {notifications.map((studentNotification) => (
-            <Tr key={studentNotification.id} className="hover:bg-orange-100">
+            <Tr key={studentNotification.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">
                 {studentNotification.id}
               </Td>

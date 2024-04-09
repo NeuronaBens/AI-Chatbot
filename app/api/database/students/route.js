@@ -3,7 +3,11 @@ import { NextResponse } from "next/server";
 import { IdManager } from "@/utils/IdManager";
 
 export async function GET() {
-  const students = await prisma.student.findMany();
+  const students = await prisma.student.findMany({
+    include: {
+      user: true,
+    },
+  });
   return new Response(JSON.stringify(students));
 }
 

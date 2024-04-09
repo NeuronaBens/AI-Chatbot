@@ -44,13 +44,13 @@ const SexTable = () => {
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Name</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Name</Th>
           </Tr>
         </Thead>
         <Tbody>
           {sexList.map((sexItem) => (
-            <Tr key={sexItem.id} className="hover:bg-orange-100">
+            <Tr key={sexItem.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{sexItem.id}</Td>
               <Td className="border px-4 py-2 text-left">{sexItem.name}</Td>
             </Tr>

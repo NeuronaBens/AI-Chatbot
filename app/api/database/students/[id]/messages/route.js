@@ -12,6 +12,9 @@ export async function GET(req, { params }) {
     where: {
       student_id: id,
     },
+    orderBy: {
+      position: "asc",
+    },
   });
 
   return Response.json(messages);
