@@ -55,7 +55,6 @@ export default function Login() {
         router.push("/admin");
       } else {
         reset();
-        setIsLoading(false);
         router.push("/user");
       }
     }
