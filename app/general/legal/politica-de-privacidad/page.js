@@ -20,10 +20,10 @@ export default function Politica() {
         Para cualquier consulta relacionada con esta Política de Privacidad,
         puedes contactarnos a través del siguiente correo electrónico:{" "}
         <a
-          href="mailto:Calmy45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          Calmy45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         .
       </p>
@@ -78,10 +78,10 @@ export default function Politica() {
         de protección de datos de Perú. Para ello, puede contactarnos a través
         de:{" "}
         <a
-          href="mailto:Calmy45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          Calmy45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         , adjuntando la solicitud correspondiente y una copia de su documento de
         identidad.
