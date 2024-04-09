@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Logo = ({ size }) => {
   return (
-    <div className={`h-${size} w-${size}`}>
+    <div className={`h-${size} w-${size} mt-8`}>
       <Image
         src="/logo.svg"
         alt="Logo"

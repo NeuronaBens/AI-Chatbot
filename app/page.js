@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="scroll-smooth w-full">
-      <div className="container mt-10 w-full">
+      <div className="container w-full">
         <Navbar id="top">
           <NavbarContentAuthentication></NavbarContentAuthentication>
         </Navbar>
