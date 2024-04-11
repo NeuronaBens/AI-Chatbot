@@ -10,7 +10,10 @@ import CareerTable from "@/components/admin/dashboards/career-table";
 import TaskTable from "@/components/admin/dashboards/task-table";
 import StudentTaskTable from "@/components/admin/dashboards/student-task-table";
 
-const AdminHome = () => {
+export default function Admin({ searchParams }) {
+  const page = searchParams["page"] ?? "1";
+  const per_page = searchParams["per_page"] ?? "10";
+
   const real = (
     <div>
       <UserTable></UserTable>
@@ -21,17 +24,14 @@ const AdminHome = () => {
       <SexTable></SexTable>
       <CareerTable></CareerTable>
       <TaskTable></TaskTable>
-      <StudentTaskTable></StudentTaskTable>
     </div>
   );
 
   const test = (
     <div>
-      <StudentTaskTable></StudentTaskTable>
+      <StudentTaskTable page={page} per_page={per_page}></StudentTaskTable>
     </div>
   );
 
-  return real;
-};
-
-export default AdminHome;
+  return test;
+}
