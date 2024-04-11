@@ -7,7 +7,7 @@ const PaginationControls = ({ hasNextPage, hasPrevPage }) => {
   const searchParams = useSearchParams();
 
   const page = searchParams.get("page") ?? "1";
-  const per_page = searchParams.get("per_page") ?? "5";
+  const per_page = searchParams.get("per_page") ?? "10";
 
   return (
     <div className="flex gap-2">
