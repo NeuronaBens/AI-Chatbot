@@ -12,6 +12,7 @@ export async function POST(req) {
   );
 
   if (containsSensitiveWords) {
+    console.log("is risky");
     return Response.json(true);
   }
   return Response.json(false);

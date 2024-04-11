@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
-import { Badge } from "@chakra-ui/react";
+import { Badge, Spinner } from "@chakra-ui/react";
 
 const Notifications = () => {
   const { data: session, status } = useSession();

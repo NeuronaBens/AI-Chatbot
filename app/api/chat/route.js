@@ -95,7 +95,6 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
     );
 
     const isRisky = await response.json();
-    console.log("Is risky message:", isRisky);
   }
 
   return data;
