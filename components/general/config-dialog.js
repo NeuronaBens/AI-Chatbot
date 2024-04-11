@@ -119,7 +119,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
         }
       } else if (option == "delete account") {
         const confirmDelete = confirm(
-          "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."
+          "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer. No podrás crear otra cuenta con este correo electrónico."
         );
         if (confirmDelete) {
           const currentTimestamp = new Date().toISOString();

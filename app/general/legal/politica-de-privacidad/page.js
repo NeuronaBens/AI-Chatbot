@@ -20,10 +20,10 @@ export default function Politica() {
         Para cualquier consulta relacionada con esta Política de Privacidad,
         puedes contactarnos a través del siguiente correo electrónico:{" "}
         <a
-          href="mailto:Calmy45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          Calmy45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         .
       </p>
@@ -70,6 +70,31 @@ export default function Politica() {
         exigidos por la legislación vigente.
       </p>
 
+      <h2 className="text-xl font-bold mb-2">
+        ANÁLISIS DE MENSAJES Y GESTIÓN DE RIESGOS
+      </h2>
+      <p className="mb-4">
+        Con el fin de salvaguardar la integridad y seguridad de los usuarios, el
+        Chatbot implementará mecanismos de análisis de los mensajes
+        intercambiados durante las conversaciones. En caso de detectar indicios
+        de riesgo de autolesión o daño hacia el usuario o terceros, el Chatbot
+        podrá adoptar las medidas pertinentes, que incluyen, pero no se limitan
+        a:
+      </p>
+      <ul className="list-disc list-inside mb-4">
+        <li>Notificar al usuario a través de su cuenta registrada.</li>
+        <li>
+          Compartir la información necesaria con las autoridades competentes, en
+          cumplimiento de las obligaciones legales vigentes.
+        </li>
+      </ul>
+      <p className="mb-4">
+        El Chatbot podrá utilizar la información obtenida a través del análisis
+        de mensajes únicamente con el propósito de prevenir daños y brindar
+        asistencia adecuada al usuario, de acuerdo con los protocolos y
+        procedimientos establecidos por la empresa.
+      </p>
+
       <h2 className="text-xl font-bold mb-2">EJERCICIO DE DERECHOS ARCO</h2>
       <p className="mb-4">
         El usuario tiene derecho a ejercitar sus derechos de Información,
@@ -78,10 +103,10 @@ export default function Politica() {
         de protección de datos de Perú. Para ello, puede contactarnos a través
         de:{" "}
         <a
-          href="mailto:Calmy45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          Calmy45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         , adjuntando la solicitud correspondiente y una copia de su documento de
         identidad.
@@ -92,8 +117,9 @@ export default function Politica() {
       </h2>
       <p className="mb-4">
         Nos reservamos el derecho de modificar esta Política de Privacidad para
-        cumplir con los cambios legales vigentes. Se recomienda al usuario
-        revisar esta política regularmente.
+        cumplir con los cambios legales vigentes y actualizaciones de
+        funcionalidad. Se recomienda al usuario revisar esta política
+        regularmente.
       </p>
     </div>
   );
