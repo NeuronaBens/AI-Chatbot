@@ -8,10 +8,7 @@ import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";
 import TextBubble from "./text-bubble";
 
-import {
-  checkIfMessageIsRisky,
-  displayNotification,
-} from "./notification-utils";
+import { checkIfMessageIsRisky, displayNotification } from "./notice-utils";
 
 export default function AIChat(session) {
   const supabase = createClient();

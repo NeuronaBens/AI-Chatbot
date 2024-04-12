@@ -9,13 +9,19 @@ import { useState } from "react";
 export default function TestPage() {
   const [showModalGAD, setShowModalGAD] = useState(false);
   const [showModalPSS, setShowModalPSS] = useState(false);
+  const [refreshPsicometrics, setRefreshPsicometrics] = useState(false);
 
   async function onClose() {
     setShowModalGAD(false);
     setShowModalPSS(false);
   }
 
-  async function onOk() {}
+  async function onOk() {
+    // Trigger a state update to re-render the StudentPsicometrics component
+    setShowModalGAD(false);
+    setShowModalPSS(false);
+    setRefreshPsicometrics((prevState) => !prevState);
+  }
 
   return (
     <div>
@@ -48,8 +54,7 @@ export default function TestPage() {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                strokeLinejoin="round"
+                strokeLinecap="round"
                 strokeWidth="2"
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
@@ -329,7 +334,7 @@ export default function TestPage() {
           </Dialog>
         </div>
       </div>
-      <StudentPsicometrics />
+      <StudentPsicometrics refreshPsicometrics={refreshPsicometrics} />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
-const StudentPsicometrics = () => {
+const StudentPsicometrics = ({ refreshPsicometrics }) => {
   const { data: session, status } = useSession();
   const [anxietyLevels, setAnxietyLevels] = useState([]);
   const [stressLevels, setStressLevels] = useState([]);
@@ -25,7 +25,7 @@ const StudentPsicometrics = () => {
       }
     };
     fetchData();
-  }, [session, status]);
+  }, [session, status, refreshPsicometrics]);
 
   return (
     <div className="w-5/6 mx-auto justify-center items-center mt-4">
