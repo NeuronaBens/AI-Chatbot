@@ -2,39 +2,254 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-const PaginationControls = ({ hasNextPage, hasPrevPage }) => {
+const PaginationControls = ({
+  hasNextPage,
+  hasPrevPage,
+  totalRecords,
+  pageSize,
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const page = searchParams.get("page") ?? "1";
-  const per_page = searchParams.get("per_page") ?? "10";
+  const per_page = searchParams.get("per_page") ?? pageSize;
+  const pages = Array.from(
+    { length: Math.ceil(totalRecords / per_page) },
+    (_, index) => index + 1
+  );
 
   return (
-    <div className="flex gap-2">
-      <button
-        className="bg-blue-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
-        disabled={!hasPrevPage}
-        onClick={() => {
-          router.push(`/admin/?page=${Number(page) - 1}&per_page=${per_page}`);
-        }}
-      >
-        prev page
-      </button>
-
-      <div>
-        {page} / {Math.ceil(10 / Number(per_page))}
-      </div>
-
-      <button
-        className="bg-blue-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
-        disabled={!hasNextPage}
-        onClick={() => {
-          router.push(`/admin/?page=${Number(page) + 1}&per_page=${per_page}`);
-        }}
-      >
-        next page
-      </button>
-    </div>
+    <nav className="bg-[#3A378C]">
+      <ul class="flex items-center -space-x-px h-8 text-sm">
+        <li>
+          <button
+            disabled={!hasPrevPage}
+            onClick={() => {
+              router.push(
+                `/admin/?page=${Number(page) - 1}&per_page=${per_page}`
+              );
+            }}
+            class="flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]"
+          >
+            <span class="sr-only">Previous</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 1 1 5l4 4"
+              />
+            </svg>
+          </button>
+        </li>
+        {pages.length <= 20 ? (
+          pages.map((p) => (
+            <li>
+              <button
+                onClick={() => {
+                  router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                }}
+                className={`${
+                  page == p.toString() ? "bg-[#7A72DE]" : ""
+                } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+              >
+                {p}
+              </button>
+            </li>
+          ))
+        ) : (
+          <div class="flex items-center -space-x-px h-8 text-sm">
+            {parseInt(page) <= 5 && (
+              <div class="flex items-center -space-x-px h-8 text-sm">
+                {pages.slice(0, 7).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
+                <li>
+                  <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                    ...
+                  </button>
+                </li>
+                {pages
+                  .slice(
+                    Math.ceil(totalRecords / per_page) - 3,
+                    Math.ceil(totalRecords / per_page)
+                  )
+                  .map((p) => (
+                    <li>
+                      <button
+                        onClick={() => {
+                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        }}
+                        className={`${
+                          page == p.toString() ? "bg-[#7A72DE]" : ""
+                        } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                      >
+                        {p}
+                      </button>
+                    </li>
+                  ))}
+              </div>
+            )}
+            {parseInt(page) > 5 &&
+              parseInt(page) < Math.ceil(totalRecords / per_page) - 5 && (
+                <div class="flex items-center -space-x-px h-8 text-sm">
+                  {pages.slice(0, 3).map((p) => (
+                    <li>
+                      <button
+                        onClick={() => {
+                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        }}
+                        className={`${
+                          page == p.toString() ? "bg-[#7A72DE]" : ""
+                        } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                      >
+                        {p}
+                      </button>
+                    </li>
+                  ))}
+                  <li>
+                    <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                      ...
+                    </button>
+                  </li>
+                  {pages
+                    .slice(parseInt(page) - 2, parseInt(page) + 2)
+                    .map((p) => (
+                      <li>
+                        <button
+                          onClick={() => {
+                            router.push(
+                              `/admin/?page=${p}&per_page=${per_page}`
+                            );
+                          }}
+                          className={`${
+                            page == p.toString() ? "bg-[#7A72DE]" : ""
+                          } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                        >
+                          {p}
+                        </button>
+                      </li>
+                    ))}
+                  <li>
+                    <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                      ...
+                    </button>
+                  </li>
+                  {pages
+                    .slice(
+                      Math.ceil(totalRecords / per_page) - 3,
+                      Math.ceil(totalRecords / per_page)
+                    )
+                    .map((p) => (
+                      <li>
+                        <button
+                          onClick={() => {
+                            router.push(
+                              `/admin/?page=${p}&per_page=${per_page}`
+                            );
+                          }}
+                          className={`${
+                            page == p.toString() ? "bg-[#7A72DE]" : ""
+                          } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                        >
+                          {p}
+                        </button>
+                      </li>
+                    ))}
+                </div>
+              )}
+            {parseInt(page) >= Math.ceil(totalRecords / per_page) - 5 && (
+              <div class="flex items-center -space-x-px h-8 text-sm">
+                {pages.slice(0, 3).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
+                <li>
+                  <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                    ...
+                  </button>
+                </li>
+                {pages
+                  .slice(
+                    Math.ceil(totalRecords / per_page) - 7,
+                    Math.ceil(totalRecords / per_page)
+                  )
+                  .map((p) => (
+                    <li>
+                      <button
+                        onClick={() => {
+                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        }}
+                        className={`${
+                          page == p.toString() ? "bg-[#7A72DE]" : ""
+                        } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                      >
+                        {p}
+                      </button>
+                    </li>
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
+        <li>
+          <button
+            disabled={!hasNextPage}
+            onClick={() => {
+              router.push(
+                `/admin/?page=${Number(page) + 1}&per_page=${per_page}`
+              );
+            }}
+            class="flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]"
+          >
+            <span class="sr-only">Next</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

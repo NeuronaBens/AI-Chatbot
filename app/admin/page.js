@@ -27,7 +27,11 @@ export default function Admin({ searchParams }) {
 
   const test = (
     <div>
-      <StudentTaskTable page={page} per_page={per_page}></StudentTaskTable>
+      <StudentTaskTable
+        page={page}
+        per_page={per_page}
+        pageSize="10"
+      ></StudentTaskTable>
     </div>
   );
 

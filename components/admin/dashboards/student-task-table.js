@@ -15,7 +15,7 @@ import {
 
 import PaginationControls from "@/components/general/pag-controls";
 
-const StudentTaskTable = ({ page, per_page }) => {
+const StudentTaskTable = ({ page, per_page, pageSize }) => {
   const [studentTasks, setStudentTasks] = useState([]);
   const [slicedData, setSlicedData] = useState([]);
   const [order, setOrder] = useState(Array(4).fill(0));
@@ -422,10 +422,12 @@ const StudentTaskTable = ({ page, per_page }) => {
           </Table>
         </TableContainer>
       )}
-      <HStack mt={4} justifyContent="flex-end">
+      <HStack mt={4}>
         <PaginationControls
           hasNextPage={end < filteredData.length}
           hasPrevPage={start > 0}
+          totalRecords={filteredData.length}
+          pageSize={pageSize}
         ></PaginationControls>
       </HStack>
     </div>
