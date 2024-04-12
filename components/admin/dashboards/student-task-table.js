@@ -20,6 +20,10 @@ const StudentTaskTable = ({ page, per_page }) => {
   const [slicedData, setSlicedData] = useState([]);
   const [order, setOrder] = useState(Array(4).fill(0));
   const [filteredData, setFilteredData] = useState([]);
+  const [idFilter, setIdFilter] = useState("");
+  const [completedFilter, setCompletedFilter] = useState("");
+  const [studentIdFilter, setStudentIdFilter] = useState("");
+  const [taskIdFilter, setTaskIdFilter] = useState("");
   // mocked, skipped and limited in the real app
   const start = (Number(page) - 1) * Number(per_page); // 0, 5, 10 ...
   const end = start + Number(per_page); // 5, 10, 15
@@ -42,6 +46,16 @@ const StudentTaskTable = ({ page, per_page }) => {
   useEffect(() => {
     setSlicedData(filteredData.slice(start, end));
   }, [page, per_page, filteredData, order]);
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
 
   const orderData = (field) => {
     if (field == "id") {
@@ -107,17 +121,107 @@ const StudentTaskTable = ({ page, per_page }) => {
     }
   };
 
+  const handleFilterChange = (filterType, value) => {
+    switch (filterType) {
+      case "id":
+        setIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "completed":
+        setCompletedFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "student_id":
+        setStudentIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "task_id":
+        setTaskIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      // Add cases for other filters as needed
+      default:
+        break;
+    }
+  };
+
+  const applyFilters = (filterType, filterValue) => {
+    let filteredData = studentTasks;
+
+    // Apply previous filters
+
+    if (filterType != "id" && idFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.id.toLowerCase().includes(idFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "completed" && completedFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.completed
+          .toString()
+          .toLowerCase()
+          .includes(completedFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "student_id" && studentIdFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.student_id.toLowerCase().includes(studentIdFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "task_id" && taskIdFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.task_id.toLowerCase().includes(taskIdFilter.toLowerCase())
+      );
+    }
+
+    //Applly current filter
+
+    if (filterType === "id") {
+      filteredData = filteredData.filter((row) =>
+        row.id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "completed") {
+      filteredData = filteredData.filter((row) =>
+        row.completed
+          .toString()
+          .toLowerCase()
+          .includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "student_id") {
+      filteredData = filteredData.filter((row) =>
+        row.student_id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "task_id") {
+      filteredData = filteredData.filter((row) =>
+        row.task_id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    setFilteredData(filteredData);
+  };
+
+  const debouncedApplyFilters = debounce(applyFilters, 3000);
+
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Student Task Table</h3>
       {studentTasks && (
-        <TableContainer>
+        <TableContainer className="rounded-md shadow-xl">
           <Table size="sm">
             <Thead>
-              <Tr>
-                <Th className="px-4 py-2 w-1/6 bg-[#7A72DE] border">
+              <Tr className="bg-[#7A72DE] ">
+                <Th className="w-1/6">
                   <button
-                    class="w-full h-full flex justify-between items-center"
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
                     onClick={() => orderData("id")}
                   >
                     <span>ID</span>
@@ -150,13 +254,13 @@ const StudentTaskTable = ({ page, per_page }) => {
                     )}
                   </button>
                 </Th>
-                <Th className="px-4 py-2 w-1/6 bg-[#7A72DE] border">
+                <Th className="w-1/6 ">
                   <button
-                    class="w-full h-full flex justify-between items-center"
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
                     onClick={() => orderData("completed")}
                   >
                     <span>COMPLETED</span>
-                    {order[0] == 1 && (
+                    {order[1] == 1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -170,7 +274,7 @@ const StudentTaskTable = ({ page, per_page }) => {
                       </svg>
                     )}
 
-                    {order[0] == -1 && (
+                    {order[1] == -1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -185,13 +289,13 @@ const StudentTaskTable = ({ page, per_page }) => {
                     )}
                   </button>
                 </Th>
-                <Th className="px-4 py-2 w-1/6 bg-[#7A72DE] border">
+                <Th className="w-1/6 ">
                   <button
-                    class="w-full h-full flex justify-between items-center"
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
                     onClick={() => orderData("student_id")}
                   >
                     <span>STUDENT ID</span>
-                    {order[0] == 1 && (
+                    {order[2] == 1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -205,7 +309,7 @@ const StudentTaskTable = ({ page, per_page }) => {
                       </svg>
                     )}
 
-                    {order[0] == -1 && (
+                    {order[2] == -1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -220,13 +324,13 @@ const StudentTaskTable = ({ page, per_page }) => {
                     )}
                   </button>
                 </Th>
-                <Th className="px-4 py-2 w-1/6 bg-[#7A72DE] border">
+                <Th className="w-1/6 ">
                   <button
-                    class="w-full h-full flex justify-between items-center"
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
                     onClick={() => orderData("task_id")}
                   >
                     <span>TASK ID</span>
-                    {order[0] == 1 && (
+                    {order[3] == 1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -240,7 +344,7 @@ const StudentTaskTable = ({ page, per_page }) => {
                       </svg>
                     )}
 
-                    {order[0] == -1 && (
+                    {order[3] == -1 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
@@ -258,51 +362,72 @@ const StudentTaskTable = ({ page, per_page }) => {
               </Tr>
 
               <Tr>
-                <Th className="border">
-                  <input className="w-full h-full border text-sm"></input>
+                <Th>
+                  <input
+                    type="text"
+                    value={idFilter}
+                    onChange={(e) => handleFilterChange("id", e.target.value)}
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
                 </Th>
-                <Th className="border">
-                  <select className="w-full h-full border text-sm font-normal">
+                <Th>
+                  <select
+                    value={completedFilter}
+                    onChange={(e) =>
+                      handleFilterChange("completed", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  >
                     <option value="">Select an option</option>
-                    <option value={true}>True</option>
-                    <option value={false}>False</option>
+                    <option value="1">True</option>
+                    <option value="0">False</option>
                   </select>
                 </Th>
-                <Th className="border ">
-                  <input className="w-full h-full border text-sm font-normal"></input>
+                <Th>
+                  <input
+                    value={studentIdFilter}
+                    onChange={(e) =>
+                      handleFilterChange("student_id", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
                 </Th>
-                <Th className="border">
-                  <input className="w-full h-full border text-sm"></input>
+                <Th>
+                  <input
+                    value={taskIdFilter}
+                    onChange={(e) =>
+                      handleFilterChange("task_id", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
                 </Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody className="bg-[#F6F3FA]">
               {slicedData.map((studentTask) => (
                 <Tr key={studentTask.id} className="hover:bg-[#E0DFFF]">
-                  <Td className="border px-4 py-2 text-left">
-                    {studentTask.id}
-                  </Td>
-                  <Td className="border px-4 py-2 text-left">
+                  <Td className=" px-4 py-2 text-left">{studentTask.id}</Td>
+                  <Td className=" px-4 py-2 text-left">
                     {studentTask.completed ? "True" : "False"}
                   </Td>
-                  <Td className="border px-4 py-2 text-left">
+                  <Td className=" px-4 py-2 text-left">
                     {studentTask.student_id}
                   </Td>
-                  <Td className="border px-4 py-2 text-left">
+                  <Td className=" px-4 py-2 text-left">
                     {studentTask.task_id}
                   </Td>
                 </Tr>
               ))}
             </Tbody>
           </Table>
-          <HStack mt={4} justifyContent="flex-end">
-            <PaginationControls
-              hasNextPage={end < studentTasks.length}
-              hasPrevPage={start > 0}
-            ></PaginationControls>
-          </HStack>
         </TableContainer>
       )}
+      <HStack mt={4} justifyContent="flex-end">
+        <PaginationControls
+          hasNextPage={end < filteredData.length}
+          hasPrevPage={start > 0}
+        ></PaginationControls>
+      </HStack>
     </div>
   );
 };
