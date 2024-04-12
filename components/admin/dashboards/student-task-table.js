@@ -15,7 +15,7 @@ import {
 
 import PaginationControls from "@/components/general/pag-controls";
 
-const StudentTaskTable = ({ page, per_page, pageSize }) => {
+const StudentTaskTable = ({ page, per_page }) => {
   const [studentTasks, setStudentTasks] = useState([]);
   const [slicedData, setSlicedData] = useState([]);
   const [order, setOrder] = useState(Array(4).fill(0));
@@ -44,7 +44,14 @@ const StudentTaskTable = ({ page, per_page, pageSize }) => {
   }, []);
 
   useEffect(() => {
-    setSlicedData(filteredData.slice(start, end));
+    const data = filteredData.slice(start, end);
+    if (data.length < parseInt(per_page) && data.length > 0) {
+      const nulosAAgregar = Array(parseInt(per_page) - data.length).fill(null);
+      const newData = [...data, ...nulosAAgregar];
+      setSlicedData(newData);
+    } else {
+      setSlicedData(data);
+    }
   }, [page, per_page, filteredData, order]);
 
   const debounce = (func, delay) => {
@@ -405,18 +412,31 @@ const StudentTaskTable = ({ page, per_page, pageSize }) => {
             </Thead>
             <Tbody className="bg-[#F6F3FA]">
               {slicedData.map((studentTask) => (
-                <Tr key={studentTask.id} className="hover:bg-[#E0DFFF]">
-                  <Td className=" px-4 py-2 text-left">{studentTask.id}</Td>
-                  <Td className=" px-4 py-2 text-left">
-                    {studentTask.completed ? "True" : "False"}
-                  </Td>
-                  <Td className=" px-4 py-2 text-left">
-                    {studentTask.student_id}
-                  </Td>
-                  <Td className=" px-4 py-2 text-left">
-                    {studentTask.task_id}
-                  </Td>
-                </Tr>
+                <>
+                  {studentTask != null ? (
+                    <Tr key={studentTask.id} className="hover:bg-[#E0DFFF]">
+                      <Td className=" px-4 py-2 text-left">{studentTask.id}</Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.completed ? "True" : "False"}
+                      </Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.student_id}
+                      </Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.task_id}
+                      </Td>
+                    </Tr>
+                  ) : (
+                    <Tr className="hover:bg-[#E0DFFF]">
+                      <Td className="text-[#F6F3FA] hover:text-[#E0DFFF] px-4 py-2 text-left">
+                        Nulo
+                      </Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                    </Tr>
+                  )}
+                </>
               ))}
             </Tbody>
           </Table>
@@ -427,7 +447,7 @@ const StudentTaskTable = ({ page, per_page, pageSize }) => {
           hasNextPage={end < filteredData.length}
           hasPrevPage={start > 0}
           totalRecords={filteredData.length}
-          pageSize={pageSize}
+          pageSize={per_page}
         ></PaginationControls>
       </HStack>
     </div>
