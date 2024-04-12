@@ -14,7 +14,6 @@ export default function Admin({ searchParams }) {
 
   const real = (
     <div>
-      <UserTable></UserTable>
       <AnxietyLevelsTable></AnxietyLevelsTable>
       <StressLevelsTable></StressLevelsTable>
       <ComplaintTable></ComplaintTable>
@@ -27,7 +26,7 @@ export default function Admin({ searchParams }) {
 
   const test = (
     <div>
-      <StudentTaskTable page={page} per_page={per_page}></StudentTaskTable>
+      <UserTable page={page} per_page={per_page}></UserTable>
     </div>
   );
 

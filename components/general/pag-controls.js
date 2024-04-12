@@ -13,10 +13,8 @@ const PaginationControls = ({
 
   const page = searchParams.get("page") ?? "1";
   const per_page = searchParams.get("per_page") ?? pageSize;
-  const pages = Array.from(
-    { length: Math.ceil(totalRecords / per_page) },
-    (_, index) => index + 1
-  );
+  const total_pages = Math.ceil(totalRecords / per_page);
+  const pages = Array.from({ length: total_pages }, (_, index) => index + 1);
 
   return (
     <nav className="bg-[#3A378C]">
@@ -87,96 +85,23 @@ const PaginationControls = ({
                     ...
                   </button>
                 </li>
-                {pages
-                  .slice(
-                    Math.ceil(totalRecords / per_page) - 3,
-                    Math.ceil(totalRecords / per_page)
-                  )
-                  .map((p) => (
-                    <li>
-                      <button
-                        onClick={() => {
-                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
-                        }}
-                        className={`${
-                          page == p.toString() ? "bg-[#7A72DE]" : ""
-                        } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
-                      >
-                        {p}
-                      </button>
-                    </li>
-                  ))}
+                {pages.slice(total_pages - 3, total_pages).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
               </div>
             )}
-            {parseInt(page) > 5 &&
-              parseInt(page) < Math.ceil(totalRecords / per_page) - 5 && (
-                <div class="flex items-center -space-x-px h-8 text-sm">
-                  {pages.slice(0, 3).map((p) => (
-                    <li>
-                      <button
-                        onClick={() => {
-                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
-                        }}
-                        className={`${
-                          page == p.toString() ? "bg-[#7A72DE]" : ""
-                        } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
-                      >
-                        {p}
-                      </button>
-                    </li>
-                  ))}
-                  <li>
-                    <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
-                      ...
-                    </button>
-                  </li>
-                  {pages
-                    .slice(parseInt(page) - 2, parseInt(page) + 2)
-                    .map((p) => (
-                      <li>
-                        <button
-                          onClick={() => {
-                            router.push(
-                              `/admin/?page=${p}&per_page=${per_page}`
-                            );
-                          }}
-                          className={`${
-                            page == p.toString() ? "bg-[#7A72DE]" : ""
-                          } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
-                        >
-                          {p}
-                        </button>
-                      </li>
-                    ))}
-                  <li>
-                    <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
-                      ...
-                    </button>
-                  </li>
-                  {pages
-                    .slice(
-                      Math.ceil(totalRecords / per_page) - 3,
-                      Math.ceil(totalRecords / per_page)
-                    )
-                    .map((p) => (
-                      <li>
-                        <button
-                          onClick={() => {
-                            router.push(
-                              `/admin/?page=${p}&per_page=${per_page}`
-                            );
-                          }}
-                          className={`${
-                            page == p.toString() ? "bg-[#7A72DE]" : ""
-                          } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
-                        >
-                          {p}
-                        </button>
-                      </li>
-                    ))}
-                </div>
-              )}
-            {parseInt(page) >= Math.ceil(totalRecords / per_page) - 5 && (
+            {parseInt(page) > 5 && parseInt(page) < total_pages - 5 && (
               <div class="flex items-center -space-x-px h-8 text-sm">
                 {pages.slice(0, 3).map((p) => (
                   <li>
@@ -198,10 +123,7 @@ const PaginationControls = ({
                   </button>
                 </li>
                 {pages
-                  .slice(
-                    Math.ceil(totalRecords / per_page) - 7,
-                    Math.ceil(totalRecords / per_page)
-                  )
+                  .slice(parseInt(page) - 2, parseInt(page) + 2)
                   .map((p) => (
                     <li>
                       <button
@@ -216,6 +138,62 @@ const PaginationControls = ({
                       </button>
                     </li>
                   ))}
+                <li>
+                  <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                    ...
+                  </button>
+                </li>
+                {pages.slice(total_pages - 3, total_pages).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
+              </div>
+            )}
+            {parseInt(page) >= total_pages - 5 && (
+              <div class="flex items-center -space-x-px h-8 text-sm">
+                {pages.slice(0, 3).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
+                <li>
+                  <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
+                    ...
+                  </button>
+                </li>
+                {pages.slice(total_pages - 7, total_pages).map((p) => (
+                  <li>
+                    <button
+                      onClick={() => {
+                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                      }}
+                      className={`${
+                        page == p.toString() ? "bg-[#7A72DE]" : ""
+                      } flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]`}
+                    >
+                      {p}
+                    </button>
+                  </li>
+                ))}
               </div>
             )}
           </div>

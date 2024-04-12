@@ -24,9 +24,9 @@ const StudentTaskTable = ({ page, per_page }) => {
   const [completedFilter, setCompletedFilter] = useState("");
   const [studentIdFilter, setStudentIdFilter] = useState("");
   const [taskIdFilter, setTaskIdFilter] = useState("");
-  // mocked, skipped and limited in the real app
-  const start = (Number(page) - 1) * Number(per_page); // 0, 5, 10 ...
-  const end = start + Number(per_page); // 5, 10, 15
+
+  const start = (Number(page) - 1) * Number(per_page);
+  const end = start + Number(per_page);
 
   useEffect(() => {
     const fetchStudentTasks = async () => {
