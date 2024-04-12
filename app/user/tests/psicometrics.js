@@ -49,7 +49,7 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gradient-to-r from-[#7471D9] to-purple-700 rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
+            <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
               <h3 className="mb-3 font-bold text-xl">
                 Nivel de Ansiedad: {level.anxiety}
               </h3>
@@ -79,7 +79,7 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gradient-to-r from-[#7471D9] to-purple-700 rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
+            <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
               <h3 className="mb-3 font-bold text-xl">
                 Nivel de estrés: {level.stress}
               </h3>

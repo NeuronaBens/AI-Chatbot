@@ -122,7 +122,7 @@ const Complaints = () => {
               index % 2 === 0 ? "flex-row-reverse" : ""
             }`}
           >
-            <div className="order-1 bg-gradient-to-r from-[#7471D9] to-purple-700 rounded-lg shadow-xl w-5/12 px-6 py-2 text-white">
+            <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-6 py-2 text-white">
               <h3 className="mb-1 font-bold">{level.content}</h3>
               <p className="text-sm leading-snug tracking-wide text-opacity-100">
                 Fecha: {new Date(level.date).toLocaleString()}
