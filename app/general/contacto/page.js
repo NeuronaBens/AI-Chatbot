@@ -7,9 +7,9 @@ export default function Contact() {
             Ask us anything about Calmy
           </h2>
           <p className="text-gray-700">
-            If you have any questions or feedback about Calmy, we'd love to hear
-            from you. Fill out the form below and we'll get back to you as soon
-            as possible.
+            If you have any questions or feedback about Calmy, we would love to
+            hear from you. Fill out the form below and we will get back to you
+            as soon as possible.
           </p>
         </section>
         <form method="POST" action="https://example.com">
