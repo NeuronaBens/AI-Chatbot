@@ -10,6 +10,17 @@ const SidebarAdmin = ({ children }) => {
   const [dashboards, setDashboards] = useState(true);
   const [notificaciones, setNotificaciones] = useState(false);
   const [complaints, setComplaints] = useState(false);
+  const [showTables, setShowTables] = useState(false);
+  const [tableStudents, setTableStudents] = useState(false);
+  const [tableMessages, setTableMessages] = useState(false);
+  const [tableAnxiety, setTableAnxiety] = useState(false);
+  const [tableStress, setTableStress] = useState(false);
+  const [tableComplaints, setTableComplaints] = useState(false);
+  const [tableTasks, setTableTasks] = useState(false);
+  const [tableStudentsTasks, setTableStudentsTasks] = useState(false);
+  const [tableCareers, setTableCareers] = useState(false);
+  const [tableSexes, setTableSexes] = useState(false);
+
   function toggle() {
     setClosed(!closed);
   }
@@ -18,6 +29,16 @@ const SidebarAdmin = ({ children }) => {
     setDashboards(false);
     setNotificaciones(false);
     setComplaints(false);
+    setShowTables(false);
+    setTableStudents(false);
+    setTableMessages(false);
+    setTableAnxiety(false);
+    setTableStress(false);
+    setTableComplaints(false);
+    setTableTasks(false);
+    setTableStudentsTasks(false);
+    setTableCareers(false);
+    setTableSexes(false);
   };
 
   const handleOptionClick = (option) => {
@@ -28,6 +49,24 @@ const SidebarAdmin = ({ children }) => {
       setNotificaciones(true);
     } else if (option == "Complaints") {
       setComplaints(true);
+    } else if (option == "Students") {
+      setTableStudents(true);
+    } else if (option == "Messages") {
+      setTableMessages(true);
+    } else if (option == "Anxiety") {
+      setTableAnxiety(true);
+    } else if (option == "Stress") {
+      setTableStress(true);
+    } else if (option == "ComplaintsTable") {
+      setTableComplaints(true);
+    } else if (option == "Tasks") {
+      setTableTasks(true);
+    } else if (option == "StudentsTasks") {
+      setTableStudentsTasks(true);
+    } else if (option == "Careers") {
+      setTableCareers(true);
+    } else if (option == "Sexes") {
+      setTableSexes(true);
     }
   };
 
@@ -42,11 +81,11 @@ const SidebarAdmin = ({ children }) => {
       >
         <div className="h-1/4 flex">
           <Link href="/">
-            <div className="m-4">
+            <div className="mx-4">
               <Logo size={40} />
             </div>
           </Link>
-          <div className="flex ml-auto mr-4 mt-4">
+          <div className="flex ml-auto mr-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -68,23 +107,195 @@ const SidebarAdmin = ({ children }) => {
         </div>
         {!closed && (
           <div className="h-2/4">
-            <Link href="/admin" onClick={() => handleOptionClick("Dashboards")}>
-              <p
-                className={`p-2 m-2 rounded ${
-                  dashboards
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
-                }`}
+            <div>
+              <button
+                className="w-full"
+                onClick={() => {
+                  handleOptionClick("Dashboards");
+                  setShowTables(!showTables);
+                }}
               >
-                <b>Dashboards</b>
-              </p>
-            </Link>
+                <p
+                  className={`p-2 mx-2 my-1 rounded text-left flex items-center ${
+                    dashboards
+                      ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                      : "hover:bg-[#7471D9]"
+                  }`}
+                >
+                  <b>Dashboards</b>
+                  <svg
+                    class="w-3 h-3 ml-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </p>
+              </button>
+              {showTables && (
+                <ul class="text-sm ml-4">
+                  <li>
+                    <Link
+                      href="/admin/tables/students-table"
+                      onClick={() => handleOptionClick("Students")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableStudents
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Students Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/messages-table"
+                      onClick={() => handleOptionClick("Messages")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableMessages
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Messages Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/anxiety-table"
+                      onClick={() => handleOptionClick("Anxiety")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableAnxiety
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Anxiety Levels Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/stress-table"
+                      onClick={() => handleOptionClick("Stress")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableStress
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Stress Levels Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/complaints-table"
+                      onClick={() => handleOptionClick("ComplaintsTable")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableComplaints
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Complaints Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/tasks-table"
+                      onClick={() => handleOptionClick("Tasks")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableTasks
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Tasks Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/students-tasks-table"
+                      onClick={() => handleOptionClick("StudentsTasks")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableStudentsTasks
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Student's Tasks Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/careers-table"
+                      onClick={() => handleOptionClick("Careers")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableCareers
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Careers Table
+                      </p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/tables/sexes-table"
+                      onClick={() => handleOptionClick("Sexes")}
+                    >
+                      <p
+                        className={`p-1 m-1 rounded ${
+                          tableSexes
+                            ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                            : "hover:bg-[#7471D9]"
+                        }`}
+                      >
+                        Sexes Table
+                      </p>
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+
             <Link
               href="/admin/notificaciones"
               onClick={() => handleOptionClick("Notificaciones")}
             >
               <p
-                className={`p-2 m-2 rounded ${
+                className={`p-2 mx-2 my-1 rounded ${
                   notificaciones
                     ? "bg-[#7471D9] hover:bg-[#7471D9]"
                     : "hover:bg-[#7471D9]"
@@ -98,7 +309,7 @@ const SidebarAdmin = ({ children }) => {
               onClick={() => handleOptionClick("Complaints")}
             >
               <p
-                className={`p-2 m-2 rounded ${
+                className={`p-2 mx-2 my-1 rounded ${
                   complaints
                     ? "bg-[#7471D9] hover:bg-[#7471D9]"
                     : "hover:bg-[#7471D9]"
@@ -110,7 +321,7 @@ const SidebarAdmin = ({ children }) => {
           </div>
         )}
         {!closed && (
-          <div className="mt-16">
+          <div className="mt-24">
             <UserProfile></UserProfile>
           </div>
         )}

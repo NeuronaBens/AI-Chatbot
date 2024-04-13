@@ -1,18 +1,9 @@
 "use client";
 
-import UserTable from "@/components/admin/dashboards/user-table";
-import AnxietyLevelsTable from "@/components/admin/dashboards/anxiety-levels-table";
-import StressLevelsTable from "@/components/admin/dashboards/stress-levels-table";
-import ComplaintTable from "@/components/admin/dashboards/complaints-table";
-import MessageTable from "@/components/admin/dashboards/messages-table";
-import SexTable from "@/components/admin/dashboards/sex-table";
-import CareerTable from "@/components/admin/dashboards/career-table";
-import TaskTable from "@/components/admin/dashboards/task-table";
-import StudentTaskTable from "@/components/admin/dashboards/student-task-table";
 import { useState, useEffect } from "react";
 import GeneralTable from "@/components/general/table";
 
-export default function Admin({ searchParams }) {
+export default function StudentsTable({ searchParams }) {
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "10";
   const [students, setStudents] = useState([]);
@@ -69,20 +60,9 @@ export default function Admin({ searchParams }) {
     fetchStudents();
   }, []);
 
-  const real = (
+  return (
     <div>
-      <AnxietyLevelsTable></AnxietyLevelsTable>
-      <StressLevelsTable></StressLevelsTable>
-      <ComplaintTable></ComplaintTable>
-      <MessageTable></MessageTable>
-      <SexTable></SexTable>
-      <CareerTable></CareerTable>
-      <TaskTable></TaskTable>
-    </div>
-  );
-
-  const test = (
-    <div>
+      <h3 className="font-bold">Students Table</h3>
       {students && (
         <GeneralTable
           data={students}
@@ -91,15 +71,9 @@ export default function Admin({ searchParams }) {
           per_page={per_page}
           canSort
           canFilter
-          columnsWidth={["w-1/6", "w-1/6", "w-1/6", "w-1/6"]}
+          columnsWidth={["1/6", "1/6", "1/6", "1/6", "1/6", "1/6"]}
         ></GeneralTable>
       )}
-    </div>
-  );
-
-  return (
-    <div>
-      <h1>Prueba</h1>
     </div>
   );
 }

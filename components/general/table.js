@@ -20,6 +20,7 @@ const GeneralTable = ({
   per_page = "5",
   canSort = true,
   canFilter = true,
+  columnsWidth,
 }) => {
   const [filteredData, setFilteredData] = useState(data);
   const [slicedData, setSlicedData] = useState([]);
@@ -193,7 +194,7 @@ const GeneralTable = ({
             <Thead>
               <Tr className="bg-[#7A72DE]">
                 {columns.map(({ label, key }, index) => (
-                  <Th key={key} className="w-1/6">
+                  <Th key={key} className={`${columnsWidth[index]}`}>
                     {canSort && (
                       <button
                         className="w-full h-full my-1 flex justify-between items-center font-bold text-black"
@@ -259,11 +260,13 @@ const GeneralTable = ({
                     </Td>
                   ) : (
                     columns.map(({ key, filterType, nestedPath }) => (
-                      <Td key={key} className="px-4 py-2 text-left">
-                        {renderCellContent(
-                          { filterType, nestedPath },
-                          row[key]
-                        )}
+                      <Td key={key} className="px-4 py-2">
+                        <div className="text-wrap">
+                          {renderCellContent(
+                            { filterType, nestedPath },
+                            row[key]
+                          )}
+                        </div>
                       </Td>
                     ))
                   )}
