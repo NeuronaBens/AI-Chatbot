@@ -16,7 +16,7 @@ export default function Dialog({ props, children }) {
   const [sex, setSex] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [myArray, setMyArray] = useState(
-    Array(children.length > 0 ? children.length - 2 : 0).fill(0)
+    Array(props.type == "questions" ? children.length - 2 : 0).fill(0)
   );
 
   const handleUpdate = (index, value) => {
