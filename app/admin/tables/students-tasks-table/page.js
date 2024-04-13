@@ -55,7 +55,7 @@ export default function StudentsTasksTable({ searchParams }) {
 
   return (
     <div>
-      <h3 className="font-bold">Students Tasks Table</h3>
+      <h3 className="font-bold">Student&apos;s Tasks Table</h3>
       {studentsTasks && (
         <GeneralTable
           data={studentsTasks}
