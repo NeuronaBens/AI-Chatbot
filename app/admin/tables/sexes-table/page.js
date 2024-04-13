@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import GeneralTable from "@/components/general/table";
 
-export default function CareersTable({ searchParams }) {
+export default function SexesTable({ searchParams }) {
   const page = searchParams["page"] ?? "1";
-  const per_page = searchParams["per_page"] ?? "15";
-  const [careers, setCareers] = useState([]);
+  const per_page = searchParams["per_page"] ?? "5";
+  const [sexes, setSexes] = useState([]);
 
   const columns = [
     {
@@ -23,42 +23,35 @@ export default function CareersTable({ searchParams }) {
       options: null,
       nestedPath: null,
     },
-    {
-      key: "description",
-      label: "DESCRIPTION",
-      filterType: "text",
-      options: null,
-      nestedPath: null,
-    },
   ];
 
   useEffect(() => {
-    const fetchCareers = async () => {
-      const response = await fetch("/api/database/careers", {
+    const fetchSexes = async () => {
+      const response = await fetch("/api/database/sexes", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await response.json();
-      setCareers(data);
+      setSexes(data);
     };
-    fetchCareers();
+    fetchSexes();
   }, []);
 
   return (
     <div>
-      <h3 className="font-bold">Careers Table</h3>
-      {careers && (
+      <h3 className="font-bold">Sexes Table</h3>
+      {sexes && (
         <GeneralTable
-          data={careers}
+          data={sexes}
           columns={columns}
           page={page}
           per_page={per_page}
           canSort
           canFilter
-          columnsWidth={["w-1/6", "w-1/6", "w-2/6"]}
-          route={"admin/tables/careers-table"}
+          columnsWidth={["w-1/6", "w-1/6"]}
+          route={"admin/tables/sexes-table"}
         ></GeneralTable>
       )}
     </div>

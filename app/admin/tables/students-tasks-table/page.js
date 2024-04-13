@@ -5,7 +5,7 @@ import GeneralTable from "@/components/general/table";
 
 export default function StudentsTasksTable({ searchParams }) {
   const page = searchParams["page"] ?? "1";
-  const per_page = searchParams["per_page"] ?? "10";
+  const per_page = searchParams["per_page"] ?? "15";
   const [studentsTasks, setStudentsTasks] = useState([]);
 
   const columns = [
