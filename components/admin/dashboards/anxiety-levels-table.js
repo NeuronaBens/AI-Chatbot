@@ -14,9 +14,13 @@ import {
 
 const AnxietyLevelsTable = () => {
   const [anxietyLevelsList, setAnxietyLevels] = useState([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
+  const [slicedData, setSlicedData] = useState([]);
+  const [order, setOrder] = useState(Array(4).fill(0));
+  const [filteredData, setFilteredData] = useState([]);
+  const [idFilter, setIdFilter] = useState("");
+  const [completedFilter, setCompletedFilter] = useState("");
+  const [studentIdFilter, setStudentIdFilter] = useState("");
+  const [taskIdFilter, setTaskIdFilter] = useState("");
 
   useEffect(() => {
     const fetchAnxietyLevels = async () => {

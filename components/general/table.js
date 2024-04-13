@@ -13,219 +13,266 @@ import {
 } from "@chakra-ui/react";
 import PaginationControls from "@/components/general/pag-controls";
 
-const GeneralTable = ({ data, columns, page, per_page }) => {
+const GeneralTable = ({
+  data,
+  columns,
+  page = "1",
+  per_page = "5",
+  canSort = true,
+  canFilter = true,
+}) => {
   const [filteredData, setFilteredData] = useState(data);
+  const [slicedData, setSlicedData] = useState([]);
   const [order, setOrder] = useState(Array(columns.length).fill(0));
   const [filters, setFilters] = useState({});
 
-  const start = (Number(page) - 1) * Number(per_page); // 0, 5, 10 ...
-  const end = start + Number(per_page); // 5, 10, 15
+  const start = (Number(page) - 1) * Number(per_page);
+  const end = start + Number(per_page);
 
-  const handleFilterChange = (filterKey, filterValue) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterKey]: filterValue,
-    }));
-    debouncedApplyFilters(filterKey, filterValue);
+  useEffect(() => {
+    setFilteredData(data);
+  }, [data]);
+
+  useEffect(() => {
+    const slicedData = filteredData.slice(start, end);
+
+    if (slicedData.length < parseInt(per_page) && slicedData.length > 0) {
+      const nullsToAdd = Array(parseInt(per_page) - slicedData.length).fill(
+        null
+      );
+      const newData = [...slicedData, ...nullsToAdd];
+      setSlicedData(newData);
+    } else {
+      setSlicedData(slicedData);
+    }
+  }, [page, per_page, filteredData, order]);
+
+  const handleFilterChange = (columnKey, value) => {
+    setFilters((prevFilters) => ({ ...prevFilters, [columnKey]: value }));
+    applyFilters(columnKey, value);
   };
 
-  const orderData = (columnIndex) => {
-    const newOrder = [...order];
-    newOrder[columnIndex] =
-      order[columnIndex] === 0 ? 1 : order[columnIndex] * -1;
-    setOrder(newOrder);
+  const applyFilters = (columnKey, filterValue) => {
+    let newFilteredData = data;
 
-    const sortedData = [...filteredData].sort((a, b) => {
-      const aValue = a[columns[columnIndex].dataKey];
-      const bValue = b[columns[columnIndex].dataKey];
-
-      if (columns[columnIndex].type === "number") {
-        return order[columnIndex] * (aValue - bValue);
-      } else if (columns[columnIndex].type === "boolean") {
-        return order[columnIndex] * (aValue === bValue ? 0 : aValue ? -1 : 1);
-      } else {
-        return order[columnIndex] * aValue.localeCompare(bValue);
+    // Apply all filters except the current one
+    Object.entries(filters).forEach(([key, value]) => {
+      const column = columns.find((col) => col.key === key);
+      if (key !== columnKey && value !== "") {
+        newFilteredData = newFilteredData.filter((row) => {
+          const cellValue = column.nestedPath
+            ? column.nestedPath.split(".").reduce((obj, key) => obj?.[key], row)
+            : row[key];
+          return cellValue
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        });
       }
     });
 
-    setFilteredData(sortedData);
-  };
-
-  const applyFilters = (filterKey, filterValue) => {
-    let newFilteredData = [...data];
-
-    // Apply previous filters
-    for (const [key, value] of Object.entries(filters)) {
-      if (key !== filterKey && value !== "") {
-        const column = columns.find((column) => column.dataKey === key);
-        if (column.type === "number") {
-          newFilteredData = newFilteredData.filter(
-            (row) => row[key] === parseInt(value)
-          );
-        } else if (column.type === "boolean") {
-          newFilteredData = newFilteredData.filter(
-            (row) => row[key].toString() === value
-          );
-        } else {
-          newFilteredData = newFilteredData.filter((row) =>
-            row[key].toString().toLowerCase().includes(value.toLowerCase())
-          );
-        }
-      }
-    }
-
-    // Apply current filter
-    if (filterValue !== "") {
-      const column = columns.find((column) => column.dataKey === filterKey);
-      if (column.type === "number") {
-        newFilteredData = newFilteredData.filter(
-          (row) => row[filterKey] === parseInt(filterValue)
-        );
-      } else if (column.type === "boolean") {
-        newFilteredData = newFilteredData.filter(
-          (row) => row[filterKey].toString() === filterValue
-        );
-      } else {
-        newFilteredData = newFilteredData.filter((row) =>
-          row[filterKey]
-            .toString()
-            .toLowerCase()
-            .includes(filterValue.toLowerCase())
-        );
-      }
+    // Apply the current filter
+    if (columnKey && filterValue !== "") {
+      const column = columns.find((col) => col.key === columnKey);
+      newFilteredData = newFilteredData.filter((row) => {
+        const cellValue = column.nestedPath
+          ? column.nestedPath.split(".").reduce((obj, key) => obj?.[key], row)
+          : row[columnKey];
+        return cellValue
+          .toString()
+          .toLowerCase()
+          .includes(filterValue.toLowerCase());
+      });
     }
 
     setFilteredData(newFilteredData);
   };
 
-  const debouncedApplyFilters = debounce(applyFilters, 500);
+  const orderData = (columnKey) => {
+    const newOrder = order.map((value, index) =>
+      index === columnKey ? (value === 0 ? 1 : value * -1) : 0
+    );
+    setOrder(newOrder);
 
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return (...args) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(null, args);
-      }, delay);
-    };
+    const column = columns.find((col) => col.key === columns[columnKey].key);
+    const orderedData = [...filteredData].sort((a, b) => {
+      const aValue = column.nestedPath
+        ? a[column.key][column.nestedPath]
+        : a[column.key];
+      const bValue = column.nestedPath
+        ? b[column.key][column.nestedPath]
+        : b[column.key];
+
+      if (aValue < bValue) return newOrder[columnKey] === 1 ? -1 : 1;
+      if (aValue > bValue) return newOrder[columnKey] === 1 ? 1 : -1;
+      return 0;
+    });
+
+    setFilteredData(orderedData);
   };
 
-  useEffect(() => {
-    const slicedData = filteredData.slice(start, end);
-    const paddedData =
-      slicedData.length < Number(per_page)
-        ? [
-            ...slicedData,
-            ...Array(Number(per_page) - slicedData.length).fill(null),
-          ]
-        : slicedData;
-    setFilteredData(paddedData);
-  }, [page, per_page, filteredData, order]);
+  const renderFilterInput = (column) => {
+    const { key, filterType, options } = column;
 
+    switch (filterType) {
+      case "text":
+        return (
+          <input
+            type="text"
+            value={filters[key] || ""}
+            onChange={(e) => handleFilterChange(key, e.target.value)}
+            className="w-full h-full border text-sm font-normal text-black"
+          />
+        );
+      case "number":
+        return (
+          <input
+            type="number"
+            value={filters[key] || ""}
+            onChange={(e) => handleFilterChange(key, e.target.value)}
+            className="w-full h-full border text-sm font-normal text-black"
+          />
+        );
+      case "boolean":
+        return (
+          <select
+            value={filters[key] || ""}
+            onChange={(e) => handleFilterChange(key, e.target.value)}
+            className="w-full h-full border text-sm font-normal text-black"
+          >
+            <option value="">Select an option</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        );
+      case "select":
+        return options ? (
+          <select
+            value={filters[key] || ""}
+            onChange={(e) => handleFilterChange(key, e.target.value)}
+            className="w-full h-full border text-sm font-normal text-black"
+          >
+            <option value="">Select an option</option>
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        ) : null;
+      default:
+        return null;
+    }
+  };
+
+  const renderCellContent = (column, value) => {
+    const { filterType, nestedPath } = column;
+
+    if (nestedPath) {
+      const nestedValue = value[nestedPath];
+      return renderCellContent({ filterType }, nestedValue);
+    }
+
+    if (filterType) {
+      switch (filterType) {
+        case "boolean":
+          return value ? "True" : "False";
+        default:
+          return value;
+      }
+    }
+
+    // If no filterType or nestedPath is defined, simply return the value
+    return value;
+  };
   return (
     <div className="w-5/6 m-4">
-      <h3 className="font-bold">General Table</h3>
-      <TableContainer className="rounded-md shadow-xl">
-        <Table size="sm">
-          <Thead>
-            <Tr className="bg-[#7A72DE]">
-              {columns.map((column, index) => (
-                <Th key={column.dataKey} className="w-1/6">
-                  <button
-                    className="w-full h-full my-1 flex justify-between items-center font-bold text-black"
-                    onClick={() => orderData(index)}
-                  >
-                    <span>{column.name}</span>
-                    {order[index] === 1 && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 36 36"
+      {data && (
+        <TableContainer className="rounded-md shadow-xl">
+          <Table size="sm">
+            <Thead>
+              <Tr className="bg-[#7A72DE]">
+                {columns.map(({ label, key }, index) => (
+                  <Th key={key} className="w-1/6">
+                    {canSort && (
+                      <button
+                        className="w-full h-full my-1 flex justify-between items-center font-bold text-black"
+                        onClick={() => orderData(index)}
                       >
-                        <path
-                          fill="#6b7280"
-                          d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
-                        />
-                      </svg>
+                        <span>{label}</span>
+                        {order[index] === 1 && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="12"
+                            height="12"
+                            viewBox="0 0 36 36"
+                          >
+                            <path
+                              fill="#6b7280"
+                              d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
+                            />
+                          </svg>
+                        )}
+                        {order[index] === -1 && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="12"
+                            height="12"
+                            viewBox="0 0 36 36"
+                          >
+                            <path
+                              fill="#6b7280"
+                              d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
+                            />
+                          </svg>
+                        )}
+                      </button>
                     )}
-                    {order[index] === -1 && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 36 36"
-                      >
-                        <path
-                          fill="#6b7280"
-                          d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
-                        />
-                      </svg>
+                    {!canSort && (
+                      <span className="font-bold text-black">{label}</span>
                     )}
-                  </button>
-                </Th>
-              ))}
-            </Tr>
-            <Tr>
-              {columns.map((column) => (
-                <Th key={column.dataKey}>
-                  {column.type === "select" ? (
-                    <select
-                      value={filters[column.dataKey] || ""}
-                      onChange={(e) =>
-                        handleFilterChange(column.dataKey, e.target.value)
-                      }
-                      className="w-full h-full border text-sm font-normal text-black"
-                    >
-                      <option value="">Select an option</option>
-                      {column.options.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  ) : column.type === "boolean" ? (
-                    <select
-                      value={filters[column.dataKey] || ""}
-                      onChange={(e) =>
-                        handleFilterChange(column.dataKey, e.target.value)
-                      }
-                      className="w-full h-full border text-sm font-normal text-black"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="true">True</option>
-                      <option value="false">False</option>
-                    </select>
-                  ) : (
-                    <input
-                      type="text"
-                      value={filters[column.dataKey] || ""}
-                      onChange={(e) =>
-                        handleFilterChange(column.dataKey, e.target.value)
-                      }
-                      className="w-full h-full border text-sm font-normal text-black"
-                    />
-                  )}
-                </Th>
-              ))}
-            </Tr>
-          </Thead>
-          <Tbody className="bg-[#F6F3FA]">
-            {filteredData.map((row) => (
-              <Tr key={row.id} className="hover:bg-[#E0DFFF]">
-                {columns.map((column) => (
-                  <Td
-                    key={`${row.id}-${column.dataKey}`}
-                    className="px-4 py-2 text-left"
-                  >
-                    {row[column.dataKey]}
-                  </Td>
+                  </Th>
                 ))}
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+              {canFilter && (
+                <Tr>
+                  {columns.map(({ key, filterType, options }) => (
+                    <Th key={key}>
+                      {renderFilterInput({ key, filterType, options })}
+                    </Th>
+                  ))}
+                </Tr>
+              )}
+            </Thead>
+            <Tbody className="bg-[#F6F3FA]">
+              {slicedData.map((row, index) => (
+                <Tr
+                  key={`${row ? row[columns[0].key] : index}`}
+                  className="hover:bg-[#E0DFFF]"
+                >
+                  {row === null ? (
+                    <Td
+                      colSpan={columns.length}
+                      className="text-[#F6F3FA] hover:text-[#E0DFFF] px-4 py-2 text-left"
+                    >
+                      Null
+                    </Td>
+                  ) : (
+                    columns.map(({ key, filterType, nestedPath }) => (
+                      <Td key={key} className="px-4 py-2 text-left">
+                        {renderCellContent(
+                          { filterType, nestedPath },
+                          row[key]
+                        )}
+                      </Td>
+                    ))
+                  )}
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
       <HStack mt={4}>
         <PaginationControls
           hasNextPage={end < filteredData.length}
