@@ -2,17 +2,16 @@ export default function Politica() {
   return (
     <div className="my-8 max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h1 className="text-3xl font-bold mb-4">
-        Política de Privacidad del Chatbot "Calmy" para Tratar el Estrés y la
+        Política de Privacidad del Chatbot Calmy para Tratar el Estrés y la
         Ansiedad
       </h1>
 
       <h2 className="text-xl font-bold mb-2">INTRODUCCIÓN</h2>
       <p className="mb-4">
         La presente Política de Privacidad describe el tratamiento de los datos
-        recopilados por nuestro chatbot de inteligencia artificial "Calmy" para
-        tratar el estrés y la ansiedad (en adelante, "el Chatbot"). Esta
-        política se ajusta a las disposiciones legales de protección de datos de
-        Perú.
+        recopilados por nuestro chatbot de inteligencia artificial Calmy para
+        tratar el estrés y la ansiedad (en adelante, el Chatbot). Esta política
+        se ajusta a las disposiciones legales de protección de datos de Perú.
       </p>
 
       <h2 className="text-xl font-bold mb-2">CONTACTO</h2>
@@ -30,7 +29,7 @@ export default function Politica() {
 
       <h2 className="text-xl font-bold mb-2">RESTRICCIÓN DE USO</h2>
       <p className="mb-4">
-        El Chatbot "Calmy" solo puede ser utilizado por personas mayores de 18
+        El Chatbot Calmy solo puede ser utilizado por personas mayores de 18
         años. Si eres menor de 18 años, no estás autorizado a utilizar nuestros
         servicios.
       </p>
