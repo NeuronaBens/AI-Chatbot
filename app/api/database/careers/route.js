@@ -7,15 +7,27 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const { name, description } = await req.json();
+  const data = await req.json();
 
-  const careerPost = await prisma.career.create({
-    data: {
-      id: IdManager.careerId(),
-      name: name,
-      description: description,
-    },
-  });
+  if (Array.isArray(data)) {
+    const createdCareers = await prisma.career.createMany({
+      data: data.map((career) => ({
+        id: IdManager.careerId(),
+        name: career.name,
+        description: career.description,
+      })),
+    });
 
-  return new Response(JSON.stringify(careerPost));
+    return new Response(JSON.stringify(createdCareers));
+  } else {
+    const createdCareer = await prisma.career.create({
+      data: {
+        id: IdManager.careerId(),
+        name: data.name,
+        description: data.description,
+      },
+    });
+
+    return new Response(JSON.stringify(createdCareer));
+  }
 }

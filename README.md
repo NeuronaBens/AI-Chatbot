@@ -17,11 +17,19 @@ Also add the necessary elements to .env and .env.local
 
 #### .env
 
-DATABASE_URL =
+DATABASE_URL = "postgres://postgres...
+DIRECT_URL = "postgres://postgres...      
+NEXTAUTH_SECRET = 
+NEXTAUTH_URL = 
+NEXT_PUBLIC_SUPABASE_URL = 
+SERVICE_KEY = "ey...
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "ey...
+INVITATION_CODE =
 
 #### .env.local
 
 OPENAI_API_KEY =
+JWT_SECRET =
 
 Second, run the development server:
 

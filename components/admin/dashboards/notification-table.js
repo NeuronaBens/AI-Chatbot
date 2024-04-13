@@ -42,19 +42,19 @@ const NotificationTable = () => {
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Notification Table</h3>
-      <Table className="table-auto table-fixed bg-white">
+      <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Admin ID</Th>
-            <Th className="px-4 py-2 w-2/6 bg-orange-300">Content</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Date Sent</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Name</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Admin ID</Th>
+            <Th className="px-4 py-2 w-2/6 bg-[#7A72DE]">Content</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Date Sent</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Name</Th>
           </Tr>
         </Thead>
         <Tbody>
           {notifications.map((notification) => (
-            <Tr key={notification.id} className="hover:bg-orange-100">
+            <Tr key={notification.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{notification.id}</Td>
               <Td className="border px-4 py-2 text-left">
                 {notification.admin_id}

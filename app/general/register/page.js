@@ -10,10 +10,30 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState("");
+  const [invitationCode, setInvitationCode] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
+  const isValidEmail = (email) => {
+    // Simple email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate email
+    if (!isValidEmail(email)) {
+      alert("Por favor, ingresa una dirección de correo válida.");
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 8) {
+      alert("La contraseña debe contener al menos 8 caracteres.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/register", {
         method: "POST",
@@ -22,6 +42,7 @@ export default function Register() {
           email,
           password,
           image,
+          invitationCode,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -29,10 +50,25 @@ export default function Register() {
       });
       if (res.ok) {
         router.push("/general/login");
+      } else {
+        const data = await res.json();
+        if (data.error === "Email already exists") {
+          alert(
+            "El correo electrónico ya está siendo utilizado por otra cuenta."
+          );
+        } else if (data.error === "Invalid invitation code") {
+          alert("Código de invitación inválido.");
+        } else {
+          console.error("Error en el registro:", data.error);
+        }
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCheckboxChange = (e) => {
+    setAcceptTerms(e.target.checked);
   };
 
   return (
@@ -40,14 +76,17 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create an account
+            Crea una Cuenta
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="name" className="sr-only"> Name </label>
+              <label htmlFor="name" className="sr-only">
+                {" "}
+                Nombre{" "}
+              </label>
               <input
                 id="name"
                 name="name"
@@ -61,7 +100,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="email-address" className="sr-only"> Email address </label>
+              <label htmlFor="email-address" className="sr-only">
+                {" "}
+                Dirección de Correo Electrónico{" "}
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -75,7 +117,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only"> Password </label>
+              <label htmlFor="password" className="sr-only">
+                {" "}
+                Contraseña{" "}
+              </label>
               <input
                 id="password"
                 name="password"
@@ -89,7 +134,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="confirm-password" className="sr-only"> Confirm password </label>
+              <label htmlFor="confirm-password" className="sr-only">
+                {" "}
+                Confirmar Contraseña{" "}
+              </label>
               <input
                 id="confirm-password"
                 name="confirm-password"
@@ -103,7 +151,10 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="image" className="sr-only"> Image </label>
+              <label htmlFor="image" className="sr-only">
+                {" "}
+                Url de Image{" "}
+              </label>
               <input
                 id="image"
                 name="image"
@@ -115,11 +166,61 @@ export default function Register() {
                 placeholder="Image URL"
               />
             </div>
+            <div>
+              <label htmlFor="invitationCode" className="sr-only">
+                {" "}
+                Código de Invitación{" "}
+              </label>
+              <input
+                id="invitationCode"
+                name="invitationCode"
+                type="text"
+                autoComplete="invitationCode"
+                required
+                value={invitationCode}
+                onChange={(e) => setInvitationCode(e.target.value)}
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Invitation Code"
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="acceptTerms" className="inline-flex items-center">
+              <input
+                id="acceptTerms"
+                name="acceptTerms"
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-indigo-600"
+                checked={acceptTerms}
+                onChange={handleCheckboxChange}
+                required
+              />
+              <span className="ml-2 text-sm text-gray-600">
+                Acepto los{" "}
+                <a
+                  href="/general/legal/terminos-y-condiciones"
+                  target="_blank"
+                  className="underline text-violet-700"
+                >
+                  Términos y condiciones
+                </a>{" "}
+                y la{" "}
+                <a
+                  href="/general/legal/politica-de-privacidad"
+                  target="_blank"
+                  className="underline text-violet-700"
+                >
+                  Politica de Privacidad
+                </a>{" "}
+                de Calmy.
+              </span>
+            </label>
           </div>
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:opacity-50"
+              disabled={!acceptTerms} // Disabled based on checkbox state
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg
@@ -136,7 +237,7 @@ export default function Register() {
                   />
                 </svg>
               </span>
-              Register
+              Registrarme
             </button>
           </div>
         </form>

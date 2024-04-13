@@ -9,79 +9,446 @@ import {
   Th,
   Td,
   Button,
+  TableContainer,
   HStack,
 } from "@chakra-ui/react";
 
-const StudentTaskTable = () => {
+import PaginationControls from "@/components/general/pag-controls";
+
+const StudentTaskTable = ({ page, per_page }) => {
   const [studentTasks, setStudentTasks] = useState([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
+  const [slicedData, setSlicedData] = useState([]);
+  const [order, setOrder] = useState(Array(4).fill(0));
+  const [filteredData, setFilteredData] = useState([]);
+  const [idFilter, setIdFilter] = useState("");
+  const [completedFilter, setCompletedFilter] = useState("");
+  const [studentIdFilter, setStudentIdFilter] = useState("");
+  const [taskIdFilter, setTaskIdFilter] = useState("");
+
+  const start = (Number(page) - 1) * Number(per_page);
+  const end = start + Number(per_page);
 
   useEffect(() => {
     const fetchStudentTasks = async () => {
-      const response = await fetch(
-        `api/database/student-tasks/paginated?pageSize=${pageSize}&page=${page}`
-      );
+      const response = await fetch("/api/database/student-tasks", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
-      setStudentTasks(data.studentTasks);
-      setTotalPages(data.totalPages);
+      setStudentTasks(data);
+      setFilteredData(data);
     };
     fetchStudentTasks();
-  }, [page, pageSize]);
+  }, []);
 
-  const handlePrevPage = () => {
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  useEffect(() => {
+    const data = filteredData.slice(start, end);
+    if (data.length < parseInt(per_page) && data.length > 0) {
+      const nulosAAgregar = Array(parseInt(per_page) - data.length).fill(null);
+      const newData = [...data, ...nulosAAgregar];
+      setSlicedData(newData);
+    } else {
+      setSlicedData(data);
+    }
+  }, [page, per_page, filteredData, order]);
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
   };
 
-  const handleNextPage = () => {
-    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  const orderData = (field) => {
+    if (field == "id") {
+      const newOrder = new Array(4).fill(0);
+      newOrder[0] = order[0] == 0 ? 1 : order[0] * -1;
+      setOrder(newOrder);
+
+      if (newOrder[0] == 1 || newOrder[0] == 0) {
+        const data = filteredData.sort((a, b) => a.id.localeCompare(b.id));
+        setFilteredData(data);
+      } else if (newOrder[0] == -1) {
+        const data = filteredData.sort((a, b) => b.id.localeCompare(a.id));
+        setFilteredData(data);
+      }
+    } else if (field == "completed") {
+      const newOrder = new Array(4).fill(0);
+      newOrder[1] = order[1] == 0 ? 1 : order[1] * -1;
+      setOrder(newOrder);
+
+      if (newOrder[1] == 1 || newOrder[1] == 0) {
+        const data = filteredData.sort((a, b) =>
+          a.completed.toString().localeCompare(b.completed.toString())
+        );
+        setFilteredData(data);
+      } else if (newOrder[1] == -1) {
+        const data = filteredData.sort((a, b) =>
+          b.completed.toString().localeCompare(a.completed.toString())
+        );
+        setFilteredData(data);
+      }
+    } else if (field == "student_id") {
+      const newOrder = new Array(4).fill(0);
+      newOrder[2] = order[2] == 0 ? 1 : order[2] * -1;
+      setOrder(newOrder);
+
+      if (newOrder[2] == 1 || newOrder[2] == 0) {
+        const data = filteredData.sort((a, b) =>
+          a.student_id.localeCompare(b.student_id)
+        );
+        setFilteredData(data);
+      } else if (newOrder[2] == -1) {
+        const data = filteredData.sort((a, b) =>
+          b.student_id.localeCompare(a.student_id)
+        );
+        setFilteredData(data);
+      }
+    } else if (field == "task_id") {
+      const newOrder = new Array(4).fill(0);
+      newOrder[3] = order[3] == 0 ? 1 : order[3] * -1;
+      setOrder(newOrder);
+
+      if (newOrder[3] == 1 || newOrder[3] == 0) {
+        const data = filteredData.sort((a, b) =>
+          a.task_id.localeCompare(b.task_id)
+        );
+        setFilteredData(data);
+      } else if (newOrder[3] == -1) {
+        const data = filteredData.sort((a, b) =>
+          b.task_id.localeCompare(a.task_id)
+        );
+        setFilteredData(data);
+      }
+    }
   };
+
+  const handleFilterChange = (filterType, value) => {
+    switch (filterType) {
+      case "id":
+        setIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "completed":
+        setCompletedFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "student_id":
+        setStudentIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      case "task_id":
+        setTaskIdFilter(value);
+        debouncedApplyFilters(filterType, value);
+        break;
+      // Add cases for other filters as needed
+      default:
+        break;
+    }
+  };
+
+  const applyFilters = (filterType, filterValue) => {
+    let filteredData = studentTasks;
+
+    // Apply previous filters
+
+    if (filterType != "id" && idFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.id.toLowerCase().includes(idFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "completed" && completedFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.completed
+          .toString()
+          .toLowerCase()
+          .includes(completedFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "student_id" && studentIdFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.student_id.toLowerCase().includes(studentIdFilter.toLowerCase())
+      );
+    }
+
+    if (filterType != "task_id" && taskIdFilter != "") {
+      filteredData = filteredData.filter((row) =>
+        row.task_id.toLowerCase().includes(taskIdFilter.toLowerCase())
+      );
+    }
+
+    //Applly current filter
+
+    if (filterType === "id") {
+      filteredData = filteredData.filter((row) =>
+        row.id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "completed") {
+      filteredData = filteredData.filter((row) =>
+        row.completed
+          .toString()
+          .toLowerCase()
+          .includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "student_id") {
+      filteredData = filteredData.filter((row) =>
+        row.student_id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    if (filterType === "task_id") {
+      filteredData = filteredData.filter((row) =>
+        row.task_id.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    }
+
+    setFilteredData(filteredData);
+  };
+
+  const debouncedApplyFilters = debounce(applyFilters, 3000);
 
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Student Task Table</h3>
-      <Table className="table-auto table-fixed bg-white">
-        <Thead>
-          <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Completed</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Student ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Task ID</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {studentTasks.map((studentTask) => (
-            <Tr key={studentTask.id} className="hover:bg-orange-100">
-              <Td className="border px-4 py-2 text-left">{studentTask.id}</Td>
-              <Td className="border px-4 py-2 text-left">
-                {studentTask.completed ? "True" : "False"}
-              </Td>
-              <Td className="border px-4 py-2 text-left">
-                {studentTask.student_id}
-              </Td>
-              <Td className="border px-4 py-2 text-left">
-                {studentTask.task_id}
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-      <HStack mt={4} justifyContent="flex-end">
-        <Button
-          onClick={handlePrevPage}
-          disabled={page === 1}
-          className="bg-orange-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
-        >
-          Prev
-        </Button>
-        <Button
-          onClick={handleNextPage}
-          disabled={page === totalPages}
-          className="bg-orange-500 text-white disabled:opacity-50 rounded-md p-1 font-bold"
-        >
-          Next
-        </Button>
+      {studentTasks && (
+        <TableContainer className="rounded-md shadow-xl">
+          <Table size="sm">
+            <Thead>
+              <Tr className="bg-[#7A72DE] ">
+                <Th className="w-1/6">
+                  <button
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
+                    onClick={() => orderData("id")}
+                  >
+                    <span>ID</span>
+                    {order[0] == 1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
+                        />
+                      </svg>
+                    )}
+
+                    {order[0] == -1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </Th>
+                <Th className="w-1/6 ">
+                  <button
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
+                    onClick={() => orderData("completed")}
+                  >
+                    <span>COMPLETED</span>
+                    {order[1] == 1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
+                        />
+                      </svg>
+                    )}
+
+                    {order[1] == -1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </Th>
+                <Th className="w-1/6 ">
+                  <button
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
+                    onClick={() => orderData("student_id")}
+                  >
+                    <span>STUDENT ID</span>
+                    {order[2] == 1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
+                        />
+                      </svg>
+                    )}
+
+                    {order[2] == -1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </Th>
+                <Th className="w-1/6 ">
+                  <button
+                    class="w-full h-full my-1 flex justify-between items-center font-bold text-black"
+                    onClick={() => orderData("task_id")}
+                  >
+                    <span>TASK ID</span>
+                    {order[3] == 1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 7.639c-.63-.901-1.637-.884-2.236.038L6.09 24.323C5.491 25.245 5.9 26 7 26h23c1.1 0 1.483-.737.854-1.639L19.146 7.639z"
+                        />
+                      </svg>
+                    )}
+
+                    {order[3] == -1 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 36 36"
+                      >
+                        <path
+                          fill="#6b7280"
+                          d="M19.146 26.361c-.63.901-1.637.884-2.236-.038L6.09 9.677C5.491 8.754 5.9 8 7 8h23c1.1 0 1.483.737.854 1.639L19.146 26.361z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </Th>
+              </Tr>
+
+              <Tr>
+                <Th>
+                  <input
+                    type="text"
+                    value={idFilter}
+                    onChange={(e) => handleFilterChange("id", e.target.value)}
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
+                </Th>
+                <Th>
+                  <select
+                    value={completedFilter}
+                    onChange={(e) =>
+                      handleFilterChange("completed", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  >
+                    <option value="">Select an option</option>
+                    <option value="1">True</option>
+                    <option value="0">False</option>
+                  </select>
+                </Th>
+                <Th>
+                  <input
+                    value={studentIdFilter}
+                    onChange={(e) =>
+                      handleFilterChange("student_id", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
+                </Th>
+                <Th>
+                  <input
+                    value={taskIdFilter}
+                    onChange={(e) =>
+                      handleFilterChange("task_id", e.target.value)
+                    }
+                    className="w-full h-full border text-sm font-normal text-black"
+                  ></input>
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody className="bg-[#F6F3FA]">
+              {slicedData.map((studentTask) => (
+                <>
+                  {studentTask != null ? (
+                    <Tr key={studentTask.id} className="hover:bg-[#E0DFFF]">
+                      <Td className=" px-4 py-2 text-left">{studentTask.id}</Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.completed ? "True" : "False"}
+                      </Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.student_id}
+                      </Td>
+                      <Td className=" px-4 py-2 text-left">
+                        {studentTask.task_id}
+                      </Td>
+                    </Tr>
+                  ) : (
+                    <Tr className="hover:bg-[#E0DFFF]">
+                      <Td className="text-[#F6F3FA] hover:text-[#E0DFFF] px-4 py-2 text-left">
+                        Nulo
+                      </Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                      <Td className=" px-4 py-2 text-left"></Td>
+                    </Tr>
+                  )}
+                </>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
+      <HStack mt={4}>
+        <PaginationControls
+          hasNextPage={end < filteredData.length}
+          hasPrevPage={start > 0}
+          totalRecords={filteredData.length}
+          pageSize={per_page}
+        ></PaginationControls>
       </HStack>
     </div>
   );

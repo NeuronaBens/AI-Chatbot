@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
-import { useSession } from "next-auth/react";
 import { Button } from "@chakra-ui/react";
+import { signOut, useSession } from "next-auth/react";
+import DescriptionUpdate from "./config-dialog-components/description-update";
 
 export default function ConfigDialog({ title, onClose, showDialog }) {
   const dialogRef = useRef(null);
@@ -15,7 +17,10 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
   const [email, setEmail] = useState(session.user.email);
   const [data, setData] = useState(true);
   const [history, setHistory] = useState(false);
+  const [imageUrl, setImageUrl] = useState(session.user.image);
   //const [password, setPassword] = useState("");
+  const [updatingSession, setUpdatingSession] = useState(false);
+  const [updatingHistory, setUpdatingHistory] = useState(false);
 
   const fetchSettings = async () => {
     const res = await fetch(
@@ -47,19 +52,23 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    session.user.image = imageUrl;
+    session.user.name = name;
+
     try {
-      update({ name, email });
+      update({ name, email, image: imageUrl });
       const res = await fetch(`/api/database/users/${session.user.id}`, {
         method: "PUT",
         body: JSON.stringify({
           name: name,
           email: email,
+          image: imageUrl,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-
       if (!res.ok) {
         throw new Error(`API call failed with status: ${res.status}`);
       }
@@ -102,28 +111,35 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
             },
           }
         );
-
-        console.log(session.user.id); /////test
+        setTheme(value);
+        location.reload();
 
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
       } else if (option == "delete account") {
-        const currentTimestamp = new Date().toISOString();
-        const res = await fetch(`/api/database/users/${session.user.id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            deleted_at: currentTimestamp,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error(`API call failed with status: ${res.status}`);
+        const confirmDelete = confirm(
+          "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer. No podrás crear otra cuenta con este correo electrónico."
+        );
+        if (confirmDelete) {
+          const currentTimestamp = new Date().toISOString();
+          const res = await fetch(`/api/database/users/${session.user.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              deleted_at: currentTimestamp,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!res.ok) {
+            throw new Error(`API call failed with status: ${res.status}`);
+          } else {
+            signOut({ callbackUrl: "/" });
+          }
         }
       } else if (option == "delete history") {
+        setUpdatingHistory(true);
         const res = await fetch(
           `/api/database/students/${session.user.id}/messages/session`,
           {
@@ -137,23 +153,46 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
           }
         );
 
+        location.reload();
+
         if (!res.ok) {
           throw new Error(`API call failed with status: ${res.status}`);
         }
         setHistory(true);
+        setUpdatingHistory(false);
+      } else if (option == "new session") {
+        setUpdatingSession(true);
+        const res = await fetch(
+          `/api/database/students/${session.user.id}/messages/start-new-session`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        location.reload();
+
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
+        }
+        setUpdatingSession(false);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
+  ////////////////////////////////////////////////////////////////////////////////
+
   const dialog =
     showDialog === true ? (
       <dialog
         ref={dialogRef}
-        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50"
+        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50 bg-[#7471D9]"
       >
-        <div className="w-[600px] h-[450px] max-w-full bg-blue-500 text-white flex flex-col">
+        <div className="w-[600px] h-[450px] max-w-full text-white flex flex-col">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
             <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">
               {title}
@@ -165,7 +204,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
               x
             </button>
           </div>
-          <hr className=" bg-blue-500 mx-2 py-2"></hr>
+          <hr className=" bg-[#7471D9] mx-2 py-2"></hr>
           {status === "loading" ? (
             <div></div>
           ) : (
@@ -228,9 +267,26 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                         >
                           <img
                             className="mx-auto h-1/2 w-1/3 rounded-full"
-                            src={session.user.image}
+                            src={imageUrl}
                             alt=""
                           />
+                          <div className="rounded-md shadow-sm space-y-4 flex flex-row">
+                            <label htmlFor="image" className="w-1/5 pt-3">
+                              {" "}
+                              Image URL:{" "}
+                            </label>
+                            <input
+                              id="image"
+                              name="image"
+                              type="url"
+                              required
+                              value={imageUrl}
+                              onChange={(e) => setImageUrl(e.target.value)}
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
+                              placeholder="Image URL"
+                            />
+                          </div>
+
                           <div className="rounded-md shadow-sm space-y-4 flex flex-row">
                             <label htmlFor="name" className="w-1/5 pt-3">
                               {" "}
@@ -243,7 +299,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                               required
                               value={name}
                               onChange={(e) => setName(e.target.value)}
-                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 "
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                               placeholder="Name"
                             />
                           </div>
@@ -258,21 +314,23 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                               autoComplete="email"
                               required
                               value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 "
+                              readOnly
+                              className="w-4/5 p-1 border border-gray-300 placeholder-gray-500 placeholder:text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
                               placeholder="Email"
                             />
                           </div>
                           <div className="flex justify-center items-center py-4">
                             <Button
                               type="submit"
-                              className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white "
-                              colorScheme="facebook"
+                              className="group relative w-1/3 flex justify-center py-2 px-4 text-sm font-medium text-white"
                             >
                               Actualizar
                             </Button>
                           </div>
                         </form>
+                        <div>
+                          <DescriptionUpdate />
+                        </div>
                       </div>
                     )}
                     {showPrivacy && (
@@ -326,16 +384,27 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                           </select>
                         </div>
                         <div className="space-y-4 flex flex-row justify-between">
-                          <div className=" pt-3">
-                            {" "}
-                            Borrar historial de conversacion{" "}
+                          <div className="pt-3">
+                            Borrar historial de conversación
                           </div>
                           <Button
                             className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
                             onClick={() => handleUpdate("delete history")}
                             colorScheme="red"
+                            disabled={updatingHistory}
                           >
-                            Borrar
+                            {updatingHistory ? "Procesando..." : "Borrar"}
+                          </Button>
+                        </div>
+                        <div className="space-y-4 flex flex-row justify-between">
+                          <div className="pt-3">Reiniciar Conversación</div>
+                          <Button
+                            className="group relative w-1/5 flex justify-center py-2 px-4 text-sm font-medium text-white"
+                            onClick={() => handleUpdate("new session")}
+                            colorScheme="red"
+                            disabled={updatingSession}
+                          >
+                            {updatingSession ? "Procesando..." : "Reiniciar"}
                           </Button>
                         </div>
                       </div>

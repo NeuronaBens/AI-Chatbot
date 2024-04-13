@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
-import { Badge } from "@chakra-ui/react";
+import { Badge, Spinner } from "@chakra-ui/react";
 
 const Notifications = () => {
   const { data: session, status } = useSession();
@@ -47,29 +47,33 @@ const Notifications = () => {
 
   return (
     <div>
-      {status == "loading" ? (
-        <div></div>
+      {status === "loading" ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner size="xl" color="blue.500" />
+        </div>
       ) : (
         <div className="grid gap-8 mx-8">
           {notifications.map((value, i) => (
             <div
-              className=" rounded bg-[#AAA7F2] py-2"
+              key={i}
+              className="rounded-lg bg-gradient-to-r from-[#3A378C] to-[#6C63FF] p-4 shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
               onClick={() => updateNotification(value.id)}
             >
-              <div key={i} className=" grid grid-cols-12 grid-rows-2">
-                <div className="ml-2">
-                  <NewspaperIcon className="h-12 w-12 text-black col-span-1" />
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <NewspaperIcon className="h-12 w-12 text-white" />
                 </div>
-
-                <div className="max-w-full grid row-span-2 col-span-10">
-                  <div className="text-xl font-semibold">
+                <div className="ml-4">
+                  <div className="text-xl font-semibold text-white">
                     {value.notification.name}
                   </div>
-                  <div>{value.notification.content}</div>
+                  <div className="mt-1 text-gray-100">
+                    {value.notification.content}
+                  </div>
                 </div>
-                {value.read == false && (
-                  <div className="ml-8">
-                    <Badge ml="1" colorScheme="green" className="col-span-1">
+                {!value.read && (
+                  <div className="ml-auto">
+                    <Badge colorScheme="green" fontSize="sm">
                       New
                     </Badge>
                   </div>

@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { PuzzlePieceIcon } from "@heroicons/react/24/outline";
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box, Text, Button, Flex } from "@chakra-ui/react";
 
 const Tasks = () => {
   const { data: session, status } = useSession();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (status != "loading") {
+    if (status !== "loading") {
       fetch(`/api/database/students/${session.user.id}/tasks`)
         .then((response) => response.json())
         .then((data) => {
@@ -20,9 +20,8 @@ const Tasks = () => {
   }, [status]);
 
   const completeTask = async (index) => {
-    // Make a copy of the tasks array to modify the completed task
     const updatedTasks = [...tasks];
-    updatedTasks[index].completed = true; // Assuming you have a 'completed' property in your task object
+    updatedTasks[index].completed = 1;
 
     try {
       const response = await fetch(
@@ -32,75 +31,107 @@ const Tasks = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ completed: true }), // Assuming 'true' represents completion
+          body: JSON.stringify({ completed: 1 }),
         }
       );
 
       if (response.ok) {
-        // Task updated successfully
         const updatedTask = await response.json();
-        console.log("Task updated:", updatedTask);
-        // You can handle further actions if needed after successful completion update
       } else {
-        // Handle error scenarios
         console.error("Failed to update task:", response.statusText);
-        // Handle error scenarios as required
       }
     } catch (error) {
       console.error("Error updating task:", error);
-      // Handle any unexpected errors
     }
 
-    // Update state to reflect the completion
     setTasks(updatedTasks);
   };
 
   return (
-    <div>
+    <Box>
       {status === "loading" ? (
         <div></div>
       ) : (
-        <div className="grid gap-8 mx-8">
+        <Flex flexWrap="wrap" gap={8} mx={8}>
           {tasks.map((value, i) => (
-            <div
+            <Box
               key={i}
-              className={`rounded ${
-                value.completed
-                  ? "bg-white border-2 border-purple-500"
-                  : "bg-[#AAA7F2]"
-              } py-2`}
+              position="relative"
+              borderRadius="lg"
+              overflow="hidden"
+              bg={
+                value.completed === 0
+                  ? "linear-gradient(to right, #7471D9, #805AD5)"
+                  : "gray.300"
+              }
+              p="2px"
             >
-              <div className="grid grid-cols-12 grid-rows-2">
-                <div className="ml-2">
-                  <PuzzlePieceIcon className="h-12 w-12 text-black col-span-1" />
-                </div>
-
-                <div className="max-w-full grid row-span-2 col-span-10">
-                  <div className="text-xl font-semibold">
-                    {value.task.name}{" "}
-                    {!value.completed && (
-                      <button
-                        onClick={() => completeTask(i)}
-                        className="ml-2 bg-purple-500 text-white py-1 px-2 mr-4 rounded"
-                      >
-                        Completar
-                      </button>
-                    )}
-                  </div>
-
-                  <div>{value.task.content}</div>
-                </div>
-                <div className="ml-8">
-                  <Badge ml="1" colorScheme="green" className="col-span-1">
+              <Box
+                bg="white"
+                borderRadius="lg"
+                p={4}
+                position="relative"
+                overflow="hidden"
+              >
+                {value.completed === 0 && (
+                  <Badge
+                    bgGradient="linear(to-r, #7471D9, #805AD5)"
+                    color="white"
+                    position="absolute"
+                    top={2}
+                    right={2}
+                  >
                     New
                   </Badge>
-                </div>
-              </div>
-            </div>
+                )}
+                <Flex alignItems="center" gap={4}>
+                  <PuzzlePieceIcon
+                    className={`h-12 w-12 ${
+                      value.completed === 0
+                        ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
+                        : "text-gray-500"
+                    }`}
+                  />
+                  <Box>
+                    <Text
+                      fontSize="xl"
+                      fontWeight="bold"
+                      className={
+                        value.completed === 0
+                          ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
+                          : "text-gray-800"
+                      }
+                    >
+                      {value.task.name}
+                      {value.completed === 0 && (
+                        <Button
+                          ml={2}
+                          bgGradient="linear(to-r, #7471D9, #805AD5)"
+                          color="white"
+                          size="sm"
+                          onClick={() => completeTask(i)}
+                        >
+                          Complete
+                        </Button>
+                      )}
+                    </Text>
+                    <Text
+                      className={
+                        value.completed === 0
+                          ? "text-gray-600"
+                          : "text-gray-500"
+                      }
+                    >
+                      {value.task.content}
+                    </Text>
+                  </Box>
+                </Flex>
+              </Box>
+            </Box>
           ))}
-        </div>
+        </Flex>
       )}
-    </div>
+    </Box>
   );
 };
 

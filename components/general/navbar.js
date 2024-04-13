@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
 import Logo from "./logo";
-import { Children } from "react";
 
 function Navbar({ children }) {
   return (

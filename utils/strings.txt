@@ -1,0 +1,2 @@
+"bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
+

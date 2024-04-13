@@ -41,19 +41,19 @@ const ComplaintTable = () => {
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Complaints Table</h3>
-      <Table className="table-auto table-fixed bg-white">
+      <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">ID</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Content</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Message Id</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Message Text</Th>
-            <Th className="px-4 py-2 w-1/6 bg-orange-300">Date</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">ID</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Content</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Message Id</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Message Text</Th>
+            <Th className="px-4 py-2 w-1/6 bg-[#7A72DE]">Date</Th>
           </Tr>
         </Thead>
         <Tbody>
           {complaints.map((complaint) => (
-            <Tr key={complaint.id} className="hover:bg-orange-100">
+            <Tr key={complaint.id} className="hover:bg-[#E0DFFF]">
               <Td className="border px-4 py-2 text-left">{complaint.id}</Td>
               <Td className="border px-4 py-2 text-left">
                 {complaint.content}

@@ -18,7 +18,7 @@ export default function ConversationHistory() {
   const { data: session, status } = useSession();
 
   const fetchMessages = () => {
-    fetch(`/api/database/students/${session.user.id}/messages/current-session`)
+    fetch(`/api/database/students/${session.user.id}/messages`)
       .then((response) => response.json())
       .then((data) => {
         setMessages(data);
@@ -40,7 +40,6 @@ export default function ConversationHistory() {
     Object.entries(groupedMessages).map(([day, values]) => {
       groups.push([day, values]);
     });
-    console.log(groups);
     return groups;
   };
 

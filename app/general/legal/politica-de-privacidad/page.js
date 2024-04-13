@@ -2,15 +2,15 @@ export default function Politica() {
   return (
     <div className="my-8 max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h1 className="text-3xl font-bold mb-4">
-        Política de Privacidad del Chatbot "Calmbot" para Tratar el Estrés y la
+        Política de Privacidad del Chatbot "Calmy" para Tratar el Estrés y la
         Ansiedad
       </h1>
 
       <h2 className="text-xl font-bold mb-2">INTRODUCCIÓN</h2>
       <p className="mb-4">
         La presente Política de Privacidad describe el tratamiento de los datos
-        recopilados por nuestro chatbot de inteligencia artificial "Calmbot"
-        para tratar el estrés y la ansiedad (en adelante, "el Chatbot"). Esta
+        recopilados por nuestro chatbot de inteligencia artificial "Calmy" para
+        tratar el estrés y la ansiedad (en adelante, "el Chatbot"). Esta
         política se ajusta a las disposiciones legales de protección de datos de
         Perú.
       </p>
@@ -20,17 +20,17 @@ export default function Politica() {
         Para cualquier consulta relacionada con esta Política de Privacidad,
         puedes contactarnos a través del siguiente correo electrónico:{" "}
         <a
-          href="mailto:calmbot45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          calmbot45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         .
       </p>
 
       <h2 className="text-xl font-bold mb-2">RESTRICCIÓN DE USO</h2>
       <p className="mb-4">
-        El Chatbot "Calmbot" solo puede ser utilizado por personas mayores de 18
+        El Chatbot "Calmy" solo puede ser utilizado por personas mayores de 18
         años. Si eres menor de 18 años, no estás autorizado a utilizar nuestros
         servicios.
       </p>
@@ -70,6 +70,31 @@ export default function Politica() {
         exigidos por la legislación vigente.
       </p>
 
+      <h2 className="text-xl font-bold mb-2">
+        ANÁLISIS DE MENSAJES Y GESTIÓN DE RIESGOS
+      </h2>
+      <p className="mb-4">
+        Con el fin de salvaguardar la integridad y seguridad de los usuarios, el
+        Chatbot implementará mecanismos de análisis de los mensajes
+        intercambiados durante las conversaciones. En caso de detectar indicios
+        de riesgo de autolesión o daño hacia el usuario o terceros, el Chatbot
+        podrá adoptar las medidas pertinentes, que incluyen, pero no se limitan
+        a:
+      </p>
+      <ul className="list-disc list-inside mb-4">
+        <li>Notificar al usuario a través de su cuenta registrada.</li>
+        <li>
+          Compartir la información necesaria con las autoridades competentes, en
+          cumplimiento de las obligaciones legales vigentes.
+        </li>
+      </ul>
+      <p className="mb-4">
+        El Chatbot podrá utilizar la información obtenida a través del análisis
+        de mensajes únicamente con el propósito de prevenir daños y brindar
+        asistencia adecuada al usuario, de acuerdo con los protocolos y
+        procedimientos establecidos por la empresa.
+      </p>
+
       <h2 className="text-xl font-bold mb-2">EJERCICIO DE DERECHOS ARCO</h2>
       <p className="mb-4">
         El usuario tiene derecho a ejercitar sus derechos de Información,
@@ -78,10 +103,10 @@ export default function Politica() {
         de protección de datos de Perú. Para ello, puede contactarnos a través
         de:{" "}
         <a
-          href="mailto:calmbot45639@gmail.com"
+          href="mailto:calmy.chatbot35@gmail.com"
           className="text-blue-500 hover:underline"
         >
-          calmbot45639@gmail.com
+          calmy.chatbot35@gmail.com
         </a>
         , adjuntando la solicitud correspondiente y una copia de su documento de
         identidad.
@@ -92,8 +117,9 @@ export default function Politica() {
       </h2>
       <p className="mb-4">
         Nos reservamos el derecho de modificar esta Política de Privacidad para
-        cumplir con los cambios legales vigentes. Se recomienda al usuario
-        revisar esta política regularmente.
+        cumplir con los cambios legales vigentes y actualizaciones de
+        funcionalidad. Se recomienda al usuario revisar esta política
+        regularmente.
       </p>
     </div>
   );

@@ -108,7 +108,7 @@ const NotificacionesForm = ({ session }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-white rounded-md shadow-md">
+    <div className="max-w-md mx-auto p-8  rounded-md shadow-md">
       <input
         type="text"
         value={name}
@@ -143,7 +143,7 @@ const NotificacionesForm = ({ session }) => {
       )}
       <button
         onClick={handleSubmit}
-        className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        className="bg-[#7A72DE] text-white px-4 py-2 rounded-md hover:bg-[#E0DFFF]"
       >
         Submit
       </button>
