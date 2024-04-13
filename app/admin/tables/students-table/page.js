@@ -18,13 +18,6 @@ export default function StudentsTable({ searchParams }) {
     },
     {
       key: "user",
-      label: "NAME",
-      filterType: "text",
-      options: null,
-      nestedPath: "name",
-    },
-    {
-      key: "user",
       label: "EMAIL",
       filterType: "text",
       options: null,
@@ -71,7 +64,7 @@ export default function StudentsTable({ searchParams }) {
           per_page={per_page}
           canSort
           canFilter
-          columnsWidth={["1/6", "1/6", "1/6", "1/6", "1/6", "1/6"]}
+          columnsWidth={["1/6", "1/6", "1/6", "1/6", "1/6"]}
           route={"admin/tables/students-table"}
         ></GeneralTable>
       )}

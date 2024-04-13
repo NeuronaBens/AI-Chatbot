@@ -63,7 +63,7 @@ const GeneralTable = ({
       if (key !== columnKey && value !== "") {
         newFilteredData = newFilteredData.filter((row) => {
           const cellValue = column.nestedPath
-            ? column.nestedPath.split(".").reduce((obj, key) => obj?.[key], row)
+            ? row[key][column.nestedPath]
             : row[key];
           return cellValue
             .toString()
@@ -78,7 +78,7 @@ const GeneralTable = ({
       const column = columns.find((col) => col.key === columnKey);
       newFilteredData = newFilteredData.filter((row) => {
         const cellValue = column.nestedPath
-          ? column.nestedPath.split(".").reduce((obj, key) => obj?.[key], row)
+          ? row[columnKey][column.nestedPath]
           : row[columnKey];
         return cellValue
           .toString()
