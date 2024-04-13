@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const SidebarAdmin = ({ children }) => {
   const [closed, setClosed] = useState(false);
-  const [dashboards, setDashboards] = useState(false);
+  const [tables, setTables] = useState(false);
   const [notificaciones, setNotificaciones] = useState(false);
   const [complaints, setComplaints] = useState(true);
   const [showTables, setShowTables] = useState(false);
@@ -26,7 +26,7 @@ const SidebarAdmin = ({ children }) => {
   }
 
   const setAllFalse = () => {
-    setDashboards(false);
+    setTables(false);
     setNotificaciones(false);
     setComplaints(false);
     setShowTables(false);
@@ -43,29 +43,38 @@ const SidebarAdmin = ({ children }) => {
 
   const handleOptionClick = (option) => {
     setAllFalse();
-    if (option == "Dashboards") {
-      setDashboards(true);
+    if (option == "Tables") {
+      setTables(true);
     } else if (option == "Notificaciones") {
       setNotificaciones(true);
     } else if (option == "Complaints") {
       setComplaints(true);
     } else if (option == "Students") {
+      setTables(true);
       setTableStudents(true);
     } else if (option == "Messages") {
+      setTables(true);
       setTableMessages(true);
     } else if (option == "Anxiety") {
+      setTables(true);
       setTableAnxiety(true);
     } else if (option == "Stress") {
+      setTables(true);
       setTableStress(true);
     } else if (option == "ComplaintsTable") {
+      setTables(true);
       setTableComplaints(true);
     } else if (option == "Tasks") {
+      setTables(true);
       setTableTasks(true);
     } else if (option == "StudentsTasks") {
+      setTables(true);
       setTableStudentsTasks(true);
     } else if (option == "Careers") {
+      setTables(true);
       setTableCareers(true);
     } else if (option == "Sexes") {
+      setTables(true);
       setTableSexes(true);
     }
   };
@@ -136,20 +145,19 @@ const SidebarAdmin = ({ children }) => {
               <button
                 className="w-full"
                 onClick={() => {
-                  handleOptionClick("Dashboards");
                   setShowTables(!showTables);
                 }}
               >
                 <p
                   className={`p-2 mx-2 my-1 rounded text-left flex items-center ${
-                    dashboards
+                    tables
                       ? "bg-[#7471D9] hover:bg-[#7471D9]"
                       : "hover:bg-[#7471D9]"
                   }`}
                 >
-                  <b>Dashboards</b>
+                  <b>Tables</b>
                   <svg
-                    class="w-3 h-3 ml-2"
+                    class="w-3 h-3 ml-4"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
