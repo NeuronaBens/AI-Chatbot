@@ -8,6 +8,8 @@ import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";
 import TextBubble from "./text-bubble";
 
+import { checkIfMessageIsRisky, displayNotification } from "./notice-utils";
+
 export default function AIChat(session) {
   const supabase = createClient();
   const [student, setStudent] = useState(null);
@@ -49,6 +51,8 @@ export default function AIChat(session) {
     }
   };
 
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Runs at Start to get the user
   const fetchData = async () => {
     try {
       if (student) {
@@ -126,6 +130,8 @@ export default function AIChat(session) {
     }
   };
 
+  /////////////////////////////////////////////////////////////////////////////////////
+  // adds the message when sent
   const handleAddMessage = async (text, sender) => {
     try {
       const res = await fetch("/api/database/messages", {
@@ -197,12 +203,24 @@ export default function AIChat(session) {
 
   async function onOk() {}
 
+  /////////////////////////////////////////////////////////////////////////////////////
+  //  responsible for handling the form submission event, preventing the default behavior,
+  // updating some state variables (lastResComplete, position, and input), and calling the
+  // handleSubmit function to process the submitted data.
   const customHandleSubmit = async (e) => {
     e.preventDefault();
     setLastResComplete(false);
     handleSubmit(e);
     setPosition(position + 2);
     setInput("");
+
+    ////////////////////////////////
+    // Check if the message is risky (imported functionality)
+    const isRisky = await checkIfMessageIsRisky(input);
+    if (isRisky) {
+      // Display the notification
+      displayNotification("Te hemos enviado una notificación importante");
+    }
   };
 
   const updateLastMessage = async () => {
@@ -271,6 +289,10 @@ export default function AIChat(session) {
     };
   }, [session, student, chatSession]);
 
+  /////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  //Return on null student
   if (student == null && !isloadingStudent)
     return (
       <div className="grow">
@@ -288,6 +310,7 @@ export default function AIChat(session) {
       </div>
     );
 
+  //Return on correct student
   return (
     <div className="grow">
       <ChatWelcome />

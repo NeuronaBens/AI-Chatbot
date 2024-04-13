@@ -88,7 +88,7 @@ const Tasks = () => {
                   <PuzzlePieceIcon
                     className={`h-12 w-12 ${
                       value.completed === 0
-                        ? "bg-gradient-to-r from-[#7471D9] to-purple-700 text-transparent bg-clip-text"
+                        ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
                         : "text-gray-500"
                     }`}
                   />
@@ -98,7 +98,7 @@ const Tasks = () => {
                       fontWeight="bold"
                       className={
                         value.completed === 0
-                          ? "bg-gradient-to-r from-[#7471D9] to-purple-700 text-transparent bg-clip-text"
+                          ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
                           : "text-gray-800"
                       }
                     >

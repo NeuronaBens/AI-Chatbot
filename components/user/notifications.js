@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NewspaperIcon } from "@heroicons/react/24/outline";
-import { Badge } from "@chakra-ui/react";
+import { Badge, Spinner } from "@chakra-ui/react";
 
 const Notifications = () => {
   const { data: session, status } = useSession();
@@ -56,7 +56,7 @@ const Notifications = () => {
           {notifications.map((value, i) => (
             <div
               key={i}
-              className="rounded-lg bg-gradient-to-r from-[#7471D9] to-purple-700 p-4 shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
+              className="rounded-lg bg-gradient-to-r from-[#3A378C] to-[#6C63FF] p-4 shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
               onClick={() => updateNotification(value.id)}
             >
               <div className="flex items-center">

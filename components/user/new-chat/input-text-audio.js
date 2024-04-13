@@ -52,7 +52,7 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
         value={input}
         onChange={handleInputChange}
         placeholder="Escribe un mensaje..."
-        className="text-black flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="text-black flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
       <button
         type="button"
@@ -87,7 +87,7 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
       </button>
       <button
         type="submit"
-        className="px-4 py-2 mx-2 bg-[#7471D9] text-white hover:bg-blue-600 rounded-r-md focus:outline-none"
+        className="px-4 py-2 mx-2 bg-[#7471D9] text-white hover:bg-purple-600 rounded-r-md focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
