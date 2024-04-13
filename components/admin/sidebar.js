@@ -7,9 +7,9 @@ import { useState } from "react";
 
 const SidebarAdmin = ({ children }) => {
   const [closed, setClosed] = useState(false);
-  const [dashboards, setDashboards] = useState(true);
+  const [dashboards, setDashboards] = useState(false);
   const [notificaciones, setNotificaciones] = useState(false);
-  const [complaints, setComplaints] = useState(false);
+  const [complaints, setComplaints] = useState(true);
   const [showTables, setShowTables] = useState(false);
   const [tableStudents, setTableStudents] = useState(false);
   const [tableMessages, setTableMessages] = useState(false);
@@ -107,6 +107,31 @@ const SidebarAdmin = ({ children }) => {
         </div>
         {!closed && (
           <div className="h-2/4">
+            <Link href="/admin" onClick={() => handleOptionClick("Complaints")}>
+              <p
+                className={`p-2 mx-2 my-1 rounded ${
+                  complaints
+                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                    : "hover:bg-[#7471D9]"
+                }`}
+              >
+                Complaints
+              </p>
+            </Link>
+            <Link
+              href="/admin/notificaciones"
+              onClick={() => handleOptionClick("Notificaciones")}
+            >
+              <p
+                className={`p-2 mx-2 my-1 rounded ${
+                  notificaciones
+                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
+                    : "hover:bg-[#7471D9]"
+                }`}
+              >
+                Notificaciones
+              </p>
+            </Link>
             <div>
               <button
                 className="w-full"
@@ -289,35 +314,6 @@ const SidebarAdmin = ({ children }) => {
                 </ul>
               )}
             </div>
-
-            <Link
-              href="/admin/notificaciones"
-              onClick={() => handleOptionClick("Notificaciones")}
-            >
-              <p
-                className={`p-2 mx-2 my-1 rounded ${
-                  notificaciones
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
-                }`}
-              >
-                Notificaciones
-              </p>
-            </Link>
-            <Link
-              href="/admin/complaints"
-              onClick={() => handleOptionClick("Complaints")}
-            >
-              <p
-                className={`p-2 mx-2 my-1 rounded ${
-                  complaints
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
-                }`}
-              >
-                Complaints
-              </p>
-            </Link>
           </div>
         )}
         {!closed && (
