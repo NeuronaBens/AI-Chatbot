@@ -72,6 +72,7 @@ export default function StudentsTable({ searchParams }) {
           canSort
           canFilter
           columnsWidth={["1/6", "1/6", "1/6", "1/6", "1/6", "1/6"]}
+          route={"admin/tables/students-table"}
         ></GeneralTable>
       )}
     </div>

@@ -72,6 +72,7 @@ export default function StressTable({ searchParams }) {
           canSort
           canFilter
           columnsWidth={["w-2/12", "w-2/12", "w-2/12", "w-5/12", "w-1/12"]}
+          route={"admin/tables/complaints-table"}
         ></GeneralTable>
       )}
     </div>

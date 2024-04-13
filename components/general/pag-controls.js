@@ -7,6 +7,7 @@ const PaginationControls = ({
   hasPrevPage,
   totalRecords,
   pageSize,
+  route,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,7 +25,7 @@ const PaginationControls = ({
             disabled={!hasPrevPage}
             onClick={() => {
               router.push(
-                `/admin/?page=${Number(page) - 1}&per_page=${per_page}`
+                `/${route}/?page=${Number(page) - 1}&per_page=${per_page}`
               );
             }}
             class="flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]"
@@ -52,7 +53,7 @@ const PaginationControls = ({
             <li>
               <button
                 onClick={() => {
-                  router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                  router.push(`/${route}/?page=${p}&per_page=${per_page}`);
                 }}
                 className={`${
                   page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -70,7 +71,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -89,7 +92,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -107,7 +112,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -128,7 +135,9 @@ const PaginationControls = ({
                     <li>
                       <button
                         onClick={() => {
-                          router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                          router.push(
+                            `/${route}/?page=${p}&per_page=${per_page}`
+                          );
                         }}
                         className={`${
                           page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -147,7 +156,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -165,7 +176,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -184,7 +197,9 @@ const PaginationControls = ({
                   <li>
                     <button
                       onClick={() => {
-                        router.push(`/admin/?page=${p}&per_page=${per_page}`);
+                        router.push(
+                          `/${route}/?page=${p}&per_page=${per_page}`
+                        );
                       }}
                       className={`${
                         page == p.toString() ? "bg-[#7A72DE]" : ""
@@ -203,7 +218,7 @@ const PaginationControls = ({
             disabled={!hasNextPage}
             onClick={() => {
               router.push(
-                `/admin/?page=${Number(page) + 1}&per_page=${per_page}`
+                `/${route}/?page=${Number(page) + 1}&per_page=${per_page}`
               );
             }}
             class="flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300 hover:bg-[#7A72DE]"

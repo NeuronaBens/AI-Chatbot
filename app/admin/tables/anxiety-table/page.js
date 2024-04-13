@@ -65,6 +65,7 @@ export default function AnxietyTable({ searchParams }) {
           canSort
           canFilter
           columnsWidth={["w-1/6", "w-1/6", "w-1/6", "w-1/6"]}
+          route={"admin/tables/anxiety-table"}
         ></GeneralTable>
       )}
     </div>

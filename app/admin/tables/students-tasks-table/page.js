@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import GeneralTable from "@/components/general/table";
 
-export default function StressTable({ searchParams }) {
+export default function StudentsTasksTable({ searchParams }) {
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "10";
-  const [stressLevels, setStressLevels] = useState([]);
+  const [studentsTasks, setStudentsTasks] = useState([]);
 
   const columns = [
     {
@@ -17,17 +17,10 @@ export default function StressTable({ searchParams }) {
       nestedPath: null,
     },
     {
-      key: "stress",
-      label: "STRESS",
-      filterType: "number",
-      options: null,
-      nestedPath: null,
-    },
-    {
-      key: "date",
-      label: "DATE",
-      filterType: "text",
-      options: null,
+      key: "completed",
+      label: "COMPLETED",
+      filterType: "select",
+      options: [0, 1],
       nestedPath: null,
     },
     {
@@ -37,35 +30,42 @@ export default function StressTable({ searchParams }) {
       options: null,
       nestedPath: null,
     },
+    {
+      key: "task_id",
+      label: "TASK ID",
+      filterType: "text",
+      options: null,
+      nestedPath: null,
+    },
   ];
 
   useEffect(() => {
-    const fetchStressLevels = async () => {
-      const response = await fetch("/api/database/stress-levels", {
+    const fetchStudentsTasks = async () => {
+      const response = await fetch("/api/database/student-tasks", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await response.json();
-      setStressLevels(data);
+      setStudentsTasks(data);
     };
-    fetchStressLevels();
+    fetchStudentsTasks();
   }, []);
 
   return (
     <div>
-      <h3 className="font-bold">Stress Levels Table</h3>
-      {stressLevels && (
+      <h3 className="font-bold">Student's Tasks Table</h3>
+      {studentsTasks && (
         <GeneralTable
-          data={stressLevels}
+          data={studentsTasks}
           columns={columns}
           page={page}
           per_page={per_page}
           canSort
           canFilter
-          columnsWidth={["w-1/6", "w-1/6", "w-1/6", "w-1/6"]}
-          route={"admin/tables/stress-table"}
+          columnsWidth={["w-1/6", "w-1/12", "w-1/6", "w-1/6"]}
+          route={"admin/tables/students-tasks-table"}
         ></GeneralTable>
       )}
     </div>

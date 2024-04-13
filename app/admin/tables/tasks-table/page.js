@@ -58,6 +58,7 @@ export default function TasksTable({ searchParams }) {
           canSort
           canFilter
           columnsWidth={["w-1/6", "w-1/3", "w-1/2"]}
+          route={"admin/tables/tasks-table"}
         ></GeneralTable>
       )}
     </div>

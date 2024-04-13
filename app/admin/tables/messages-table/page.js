@@ -94,6 +94,7 @@ export default function MessagesTable({ searchParams }) {
             "w-2/12",
             "w-3/12",
           ]}
+          route={"admin/tables/messages-table"}
         ></GeneralTable>
       )}
     </div>

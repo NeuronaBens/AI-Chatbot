@@ -21,6 +21,7 @@ const GeneralTable = ({
   canSort = true,
   canFilter = true,
   columnsWidth,
+  route,
 }) => {
   const [filteredData, setFilteredData] = useState(data);
   const [slicedData, setSlicedData] = useState([]);
@@ -282,6 +283,7 @@ const GeneralTable = ({
           hasPrevPage={start > 0}
           totalRecords={filteredData.length}
           pageSize={per_page}
+          route={route}
         ></PaginationControls>
       </HStack>
     </div>
