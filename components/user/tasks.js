@@ -25,7 +25,7 @@ const Tasks = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/database/student-tasks/${updatedTasks[index].id}`,
+        `/api/database/student-tasks/${updatedTasks[index].id}`,
         {
           method: "PUT",
           headers: {

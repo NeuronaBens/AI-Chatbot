@@ -18,16 +18,13 @@ const NotificacionesForm = ({ session }) => {
 
     try {
       // Create the Notification record
-      const notificationResponse = await fetch(
-        "http://localhost:3000/api/database/notifications",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(notificationData),
-        }
-      );
+      const notificationResponse = await fetch("/api/database/notifications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(notificationData),
+      });
 
       if (!notificationResponse.ok) {
         throw new Error("Failed to create notification");
@@ -38,7 +35,7 @@ const NotificacionesForm = ({ session }) => {
       if (recipient === "all") {
         // Send notification to all users
         const allUsersResponse = await fetch(
-          "http://localhost:3000/api/database/students/get-all-ids"
+          "/api/database/students/get-all-ids"
         );
 
         if (!allUsersResponse.ok) {
@@ -55,7 +52,7 @@ const NotificacionesForm = ({ session }) => {
           };
 
           const studentNotificationResponse = await fetch(
-            "http://localhost:3000/api/database/student-notifications",
+            "/api/database/student-notifications",
             {
               method: "POST",
               headers: {
@@ -83,7 +80,7 @@ const NotificacionesForm = ({ session }) => {
         };
 
         const studentNotificationResponse = await fetch(
-          "http://localhost:3000/api/database/student-notifications",
+          "/api/database/student-notifications",
           {
             method: "POST",
             headers: {
