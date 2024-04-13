@@ -23,7 +23,7 @@ export default function Terminos() {
       <h2 className="text-xl font-bold mb-2">2. Términos y Condiciones</h2>
       <p className="mb-4">
         Estos términos y condiciones regulan la relación entre Calmy y las
-        personas que utilizan sus servicios ("Personas Usuarias"). Las Personas
+        personas que utilizan sus servicios (Personas Usuarias). Las Personas
         Usuarias aceptan estos Términos y Condiciones desde el momento en que
         utilizan los servicios de Calmy.
       </p>

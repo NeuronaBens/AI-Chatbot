@@ -283,7 +283,7 @@ const SidebarAdmin = ({ children }) => {
                             : "hover:bg-[#7471D9]"
                         }`}
                       >
-                        Student's Tasks Table
+                        Students Tasks Table
                       </p>
                     </Link>
                   </li>

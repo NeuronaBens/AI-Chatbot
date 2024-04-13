@@ -20,7 +20,7 @@ const PaginationControls = ({
   return (
     <nav className="bg-[#3A378C]">
       <ul class="flex items-center -space-x-px h-8 text-sm">
-        <li>
+        <li key="prev">
           <button
             disabled={!hasPrevPage}
             onClick={() => {
@@ -50,7 +50,7 @@ const PaginationControls = ({
         </li>
         {pages.length <= 20 ? (
           pages.map((p) => (
-            <li>
+            <li key={p}>
               <button
                 onClick={() => {
                   router.push(`/${route}/?page=${p}&per_page=${per_page}`);
@@ -68,7 +68,7 @@ const PaginationControls = ({
             {parseInt(page) <= 5 && (
               <div class="flex items-center -space-x-px h-8 text-sm">
                 {pages.slice(0, 7).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -83,13 +83,13 @@ const PaginationControls = ({
                     </button>
                   </li>
                 ))}
-                <li>
+                <li key="dots1">
                   <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
                     ...
                   </button>
                 </li>
                 {pages.slice(total_pages - 3, total_pages).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -109,7 +109,7 @@ const PaginationControls = ({
             {parseInt(page) > 5 && parseInt(page) < total_pages - 5 && (
               <div class="flex items-center -space-x-px h-8 text-sm">
                 {pages.slice(0, 3).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -124,7 +124,7 @@ const PaginationControls = ({
                     </button>
                   </li>
                 ))}
-                <li>
+                <li key="dots2">
                   <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
                     ...
                   </button>
@@ -132,7 +132,7 @@ const PaginationControls = ({
                 {pages
                   .slice(parseInt(page) - 2, parseInt(page) + 2)
                   .map((p) => (
-                    <li>
+                    <li key={p}>
                       <button
                         onClick={() => {
                           router.push(
@@ -147,13 +147,13 @@ const PaginationControls = ({
                       </button>
                     </li>
                   ))}
-                <li>
+                <li key="dots3">
                   <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
                     ...
                   </button>
                 </li>
                 {pages.slice(total_pages - 3, total_pages).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -173,7 +173,7 @@ const PaginationControls = ({
             {parseInt(page) >= total_pages - 5 && (
               <div class="flex items-center -space-x-px h-8 text-sm">
                 {pages.slice(0, 3).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -188,13 +188,13 @@ const PaginationControls = ({
                     </button>
                   </li>
                 ))}
-                <li>
+                <li key="dots4">
                   <button className=" flex items-center justify-center px-3 h-8 leading-tight text-white border border-gray-300">
                     ...
                   </button>
                 </li>
                 {pages.slice(total_pages - 7, total_pages).map((p) => (
-                  <li>
+                  <li key={p}>
                     <button
                       onClick={() => {
                         router.push(
@@ -213,7 +213,7 @@ const PaginationControls = ({
             )}
           </div>
         )}
-        <li>
+        <li key="next">
           <button
             disabled={!hasNextPage}
             onClick={() => {
