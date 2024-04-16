@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OptionsMenu from "./options-menu";
 import Dialog from "@/components/general/modal";
+import { displayNotification } from "./notice-utils";
 
 const TextBubble = ({
   chatMessage,
@@ -58,7 +59,10 @@ const TextBubble = ({
     setShowDialogComplaint(false);
   }
 
-  async function onOk() {}
+  async function onOk() {
+    setShowDialogComplaint(false);
+    displayNotification("Denuncia realizada con éxito");
+  }
 
   const handleOptionClick = async (option) => {
     if (option === "Eliminar") {
