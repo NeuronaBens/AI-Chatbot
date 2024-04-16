@@ -4,6 +4,8 @@ import Logo from "./logo";
 function Navbar({ children }) {
   return (
     <nav className="pb-4">
+      {/* Background gradient */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#3A378C] to-[#6C63FF] z-[-1]"></div>
       <div className="max-w-full mx-auto px-4 flex items-center justify-between px-10">
         <Link href="/">
           <Logo size={40} />
