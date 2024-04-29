@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
 import UserProfile from "../general/profile";
+import { Badge } from "@chakra-ui/react";
 
 const SidebarUser = ({ children, session }) => {
   const [closed, setClosed] = useState(false);
@@ -14,6 +15,7 @@ const SidebarUser = ({ children, session }) => {
   const [actividades, setActividades] = useState(false);
   const [ayuda, setAyuda] = useState(false);
   const [theme, setTheme] = useState("Claro");
+  const [numNoti, setNumNoti] = useState(0);
 
   useEffect(() => {
     const fetchTheme = async () => {
@@ -37,6 +39,21 @@ const SidebarUser = ({ children, session }) => {
       }
     };
 
+    const fetchNumNoti = async () => {
+      try {
+        if (session && session.user) {
+          const response = await fetch(
+            `/api/database/students/${session.user.id}/notifications/count`
+          );
+          const data = await response.json();
+          setNumNoti(data.id);
+        }
+      } catch (error) {
+        console.error("Error fetching theme:", error);
+      }
+    };
+
+    fetchNumNoti();
     fetchTheme();
   }, [session]);
 
@@ -171,18 +188,24 @@ const SidebarUser = ({ children, session }) => {
               </p>
             </Link>
             <Link
+              className=""
               href="/user/notificaciones"
               onClick={() => handleOptionClick("notificaciones")}
             >
-              <p
-                className={`p-2 m-2 rounded ${
+              <div
+                className={`p-2 m-2 rounded flex flex-row items-center${
                   notificaciones
                     ? "bg-[#7471D9] hover:bg-[#7471D9]"
                     : "hover:bg-[#7471D9]"
                 }`}
               >
-                Notificaciones
-              </p>
+                <p>Notificaciones</p>
+                {numNoti > 0 && (
+                  <div className="rounded-full ml-4 bg-red-600 text-center text-sm w-6 h-6">
+                    {numNoti}
+                  </div>
+                )}
+              </div>
             </Link>
             <Link
               href="/user/actividades"
