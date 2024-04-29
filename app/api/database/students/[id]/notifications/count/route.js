@@ -13,7 +13,5 @@ export async function GET(req, { params }) {
     },
   });
 
-  console.log(notifications._count);
-
   return Response.json(notifications._count);
 }

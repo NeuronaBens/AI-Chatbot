@@ -8,13 +8,7 @@ import { createClient } from "@/utils/supabase/client";
 const SidebarUser = ({ children, session }) => {
   const supabase = createClient();
   const [closed, setClosed] = useState(false);
-  const [chat, setChat] = useState(true);
-  const [historial, setHistorial] = useState(false);
-  const [marcadores, setMarcadores] = useState(false);
-  const [tests, setTests] = useState(false);
-  const [notificaciones, setNotificaciones] = useState(false);
-  const [actividades, setActividades] = useState(false);
-  const [ayuda, setAyuda] = useState(false);
+  const [optionMenu, setOptionMenu] = useState("");
   const [theme, setTheme] = useState("Claro");
   const [newNoti, setNewNot] = useState(false);
   const [readNoti, setReadNot] = useState(false);
@@ -30,6 +24,7 @@ const SidebarUser = ({ children, session }) => {
 
   useEffect(() => {
     const fetchTheme = async () => {
+      setClosed(window.innerWidth < 768);
       try {
         if (session && session.user) {
           const userId = session.user.id;
@@ -66,6 +61,14 @@ const SidebarUser = ({ children, session }) => {
 
     fetchNumNoti();
     fetchTheme();
+
+    const storedOption = sessionStorage.getItem("optionMenu");
+
+    if (storedOption !== null) {
+      setOptionMenu(storedOption);
+    } else {
+      setOptionMenu("chat");
+    }
   }, [session]);
 
   useEffect(() => {
@@ -100,33 +103,9 @@ const SidebarUser = ({ children, session }) => {
     setClosed(!closed);
   }
 
-  const setAllFalse = () => {
-    setChat(false);
-    setHistorial(false);
-    setMarcadores(false);
-    setTests(false);
-    setNotificaciones(false);
-    setActividades(false);
-    setAyuda(false);
-  };
-
   const handleOptionClick = (option) => {
-    setAllFalse();
-    if (option == "chat") {
-      setChat(true);
-    } else if (option == "historial") {
-      setHistorial(true);
-    } else if (option == "marcadores") {
-      setMarcadores(true);
-    } else if (option == "tests") {
-      setTests(true);
-    } else if (option == "notificaciones") {
-      setNotificaciones(true);
-    } else if (option == "actividades") {
-      setActividades(true);
-    } else if (option == "ayuda") {
-      setAyuda(true);
-    }
+    setOptionMenu(option);
+    sessionStorage.setItem("optionMenu", option);
   };
 
   return (
@@ -178,10 +157,8 @@ const SidebarUser = ({ children, session }) => {
           <div className="h-2/4">
             <Link href="/user" onClick={() => handleOptionClick("chat")}>
               <p
-                className={`p-2 m-2 rounded ${
-                  chat
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "chat" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 <b>Chat</b>
@@ -192,10 +169,8 @@ const SidebarUser = ({ children, session }) => {
               onClick={() => handleOptionClick("historial")}
             >
               <p
-                className={`p-2 m-2 rounded ${
-                  historial
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "historial" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 Historial
@@ -206,10 +181,8 @@ const SidebarUser = ({ children, session }) => {
               onClick={() => handleOptionClick("marcadores")}
             >
               <p
-                className={`p-2 m-2 rounded ${
-                  marcadores
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "marcadores" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 Marcadores
@@ -217,23 +190,20 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link href="/user/tests" onClick={() => handleOptionClick("tests")}>
               <p
-                className={`p-2 m-2 rounded ${
-                  tests
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "tests" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 Tests
               </p>
             </Link>
             <Link
-              className=""
               href="/user/notificaciones"
               onClick={() => handleOptionClick("notificaciones")}
             >
               <div
                 className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#7471D9] ${
-                  notificaciones ? "bg-[#7471D9]" : ""
+                  optionMenu == "notificaciones" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 <p>Notificaciones</p>
@@ -249,10 +219,8 @@ const SidebarUser = ({ children, session }) => {
               onClick={() => handleOptionClick("actividades")}
             >
               <p
-                className={`p-2 m-2 rounded ${
-                  actividades
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "actividades" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 Actividades
@@ -260,10 +228,8 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link href="/user/ayuda" onClick={() => handleOptionClick("ayuda")}>
               <p
-                className={`p-2 m-2 rounded ${
-                  ayuda
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
+                  optionMenu == "ayuda" ? "bg-[#7471D9]" : ""
                 }`}
               >
                 Ayuda
