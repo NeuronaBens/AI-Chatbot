@@ -213,7 +213,10 @@ export default function Dialog({ props, children }) {
           )}
 
           {props.type == "questions" && (
-            <form className="mt-8 space-y-6 text-xs" onSubmit={handleSubmit}>
+            <form
+              className="mt-8 space-y-6 text-xs overflow-x-auto"
+              onSubmit={handleSubmit}
+            >
               <div className="px-2 py-2 text-xs">
                 <table className="w-full border-collapse">
                   <tbody>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "ai/react";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ChatWelcome from "./chat-welcome";
 import Dialog from "@/components/general/modal";
 import TextInput from "./input-text-audio";
@@ -16,6 +16,7 @@ import {
 
 export default function AIChat(session) {
   const supabase = createClient();
+  const scrollRef = useRef(null);
   const [student, setStudent] = useState(null);
   const [isloadingStudent, setIsLoadingStudent] = useState(true);
   const [chatSession, setChatSession] = useState(1);
@@ -293,6 +294,10 @@ export default function AIChat(session) {
     };
   }, [session, student, chatSession]);
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   /////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////
 
@@ -376,6 +381,7 @@ export default function AIChat(session) {
           </div>
         </div>
       </div>
+      <div ref={scrollRef} />
     </div>
   );
 }
