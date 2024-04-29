@@ -1,12 +1,9 @@
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
 import { IdManager } from "@/utils/IdManager";
-import { createClient } from "@supabase/supabase-js";
+import { createServerClient } from "@/utils/supabase/client";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+const supabase = createServerClient();
 const config = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
 const openai = new OpenAIApi(config);
 export const runtime = "edge";
@@ -79,19 +76,23 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
 
   // Llamar al endpoint de check-risk-cases después de guardar el mensaje
   if (sender) {
-    const response = await fetch(`/api/database/messages/check-risk-cases`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: text,
-        student_id: student_id,
-        message_id: data[0].id,
-      }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/database/messages/check-risk-cases`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+          student_id: student_id,
+          message_id: data[0].id,
+        }),
+      }
+    );
 
     const isRisky = await response.json();
+    console.log("HOOOOOOOOOOOOOOOOOOOOOOOLAAAAAAAAAAAAAAAAAA " + isRisky);
   }
 
   return data;

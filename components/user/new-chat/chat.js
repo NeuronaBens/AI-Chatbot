@@ -8,7 +8,11 @@ import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";
 import TextBubble from "./text-bubble";
 
-import { checkIfMessageIsRisky, displayNotification } from "./notice-utils";
+import {
+  checkIfMessageIsRisky,
+  displayNotification,
+  isRisky,
+} from "./notice-utils";
 
 export default function AIChat(session) {
   const supabase = createClient();
@@ -216,8 +220,8 @@ export default function AIChat(session) {
 
     ////////////////////////////////
     // Check if the message is risky (imported functionality)
-    const isRisky = await checkIfMessageIsRisky(input);
-    if (isRisky) {
+    //const isRisky = await checkIfMessageIsRisky(input);
+    if (isRisky(input)) {
       // Display the notification
       displayNotification("Te hemos enviado una notificación importante");
     }
