@@ -1,7 +1,7 @@
+import { prisma } from "@/lib/prisma";
 import { IdManager } from "@/utils/IdManager";
-import { createServerClient } from "@/utils/supabase/client";
 
-const supabase = createServerClient();
+// route: app\api\database\messages\check-risk-cases\route.js
 
 export async function POST(req) {
   const { text, student_id, message_id } = await req.json();
@@ -24,29 +24,35 @@ export async function POST(req) {
 
     if (notification) {
       // Create a new complaint for the message
-      const { data: dataCom, error: errorCom } = await supabase
-        .from("Complaint")
-        .insert({
+      const complaint = await prisma.complaint.create({
+        data: {
           id: IdManager.complaintId(),
           content: "El usuario ha enviado un mensaje riegoso",
-          message_id: message_id,
-        })
-        .select();
+          message: {
+            connect: {
+              id: message_id,
+            },
+          },
+        },
+      });
 
       // Create a new student notification linking the notification to the student
-      const { data: dataStask, error: errorStask } = await supabase
-        .from("StudentNotification")
-        .insert({
+      const studentNotification = await prisma.studentNotification.create({
+        data: {
           id: IdManager.studentNotificationId(),
           read: false,
-          student_id: student_id,
-          notification_id: notification.id,
-        })
-        .select();
-
-      if (errorCom || errorStask) {
-        return Response.json(false);
-      }
+          student: {
+            connect: {
+              student_id: student_id,
+            },
+          },
+          notification: {
+            connect: {
+              id: notification.id,
+            },
+          },
+        },
+      });
     }
     return Response.json(true);
   }

@@ -77,7 +77,7 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
   // Llamar al endpoint de check-risk-cases después de guardar el mensaje
   if (sender) {
     const response = await fetch(
-      `http://localhost:3000/api/database/messages/check-risk-cases`,
+      `${process.env.BASE_URL}/api/database/messages/check-risk-cases`,
       {
         method: "POST",
         headers: {
@@ -92,7 +92,7 @@ const SaveToDatabase = async (text, session, position, sender, student_id) => {
     );
 
     const isRisky = await response.json();
-    console.log("HOOOOOOOOOOOOOOOOOOOOOOOLAAAAAAAAAAAAAAAAAA " + isRisky);
+    console.log(isRisky);
   }
 
   return data;

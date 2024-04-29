@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "../general/logo";
 import UserProfile from "../general/profile";
-import { Badge } from "@chakra-ui/react";
+import { createClient } from "@/utils/supabase/client";
 
 const SidebarUser = ({ children, session }) => {
+  const supabase = createClient();
   const [closed, setClosed] = useState(false);
   const [chat, setChat] = useState(true);
   const [historial, setHistorial] = useState(false);
@@ -15,7 +16,17 @@ const SidebarUser = ({ children, session }) => {
   const [actividades, setActividades] = useState(false);
   const [ayuda, setAyuda] = useState(false);
   const [theme, setTheme] = useState("Claro");
-  const [numNoti, setNumNoti] = useState(0);
+  const [newNoti, setNewNot] = useState(false);
+  const [readNoti, setReadNot] = useState(false);
+  const [numNoti, setNumNoti] = useState(-1);
+
+  const addNoti = (payload) => {
+    if (payload.eventType == "INSERT") {
+      setNewNot(true);
+    } else if (payload.eventType == "UPDATE") {
+      setReadNot(true);
+    }
+  };
 
   useEffect(() => {
     const fetchTheme = async () => {
@@ -56,6 +67,34 @@ const SidebarUser = ({ children, session }) => {
     fetchNumNoti();
     fetchTheme();
   }, [session]);
+
+  useEffect(() => {
+    if (newNoti == true) {
+      setNumNoti(numNoti + 1);
+      setNewNot(false);
+    } else if (readNoti == true) {
+      setNumNoti(numNoti - 1);
+      setReadNot(false);
+    }
+
+    const notisSubscription = supabase
+      .channel("StudentNotification")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "StudentNotification",
+          filter: `student_id=eq.${session.user.id}`,
+        },
+        addNoti
+      )
+      .subscribe();
+
+    return () => {
+      notisSubscription.unsubscribe();
+    };
+  }, [newNoti, readNoti]);
 
   function toggle() {
     setClosed(!closed);
@@ -193,15 +232,13 @@ const SidebarUser = ({ children, session }) => {
               onClick={() => handleOptionClick("notificaciones")}
             >
               <div
-                className={`p-2 m-2 rounded flex flex-row items-center${
-                  notificaciones
-                    ? "bg-[#7471D9] hover:bg-[#7471D9]"
-                    : "hover:bg-[#7471D9]"
+                className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#7471D9] ${
+                  notificaciones ? "bg-[#7471D9]" : ""
                 }`}
               >
                 <p>Notificaciones</p>
                 {numNoti > 0 && (
-                  <div className="rounded-full ml-4 bg-red-600 text-center text-sm w-6 h-6">
+                  <div className="rounded-full ml-2 bg-red-600 text-center text-sm w-6 h-6">
                     {numNoti}
                   </div>
                 )}
