@@ -45,10 +45,13 @@ export default function Home() {
         </div>
       </section>
       {/* Features section */}
-      <section className="w-full h-full bg-cover py-16 px-16 bg-gradient-to-r from-[#6C63FF] to-[#3A378C]">
+      <section
+        id="funcionalidades"
+        className="w-full h-full bg-cover py-16 px-16 bg-gradient-to-r from-[#6C63FF] to-[#3A378C]"
+      >
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold mb-12 text-center text-white">
-            Funcionalidades
+            <a href="#top">Funcionalidades</a>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard
@@ -79,9 +82,12 @@ export default function Home() {
         </div>
       </section>
       {/* Information section */}
-      <section className="w-full h-full bg-cover container mx-auto px-16 py-16 bg-white">
+      <section
+        id="informacion"
+        className="w-full h-full bg-cover container mx-auto px-16 py-16 bg-white"
+      >
         <h2 className="mb-8 text-4xl font-bold mb-12 text-center text-[#3A378C]">
-          Información
+          <a href="#top">Información</a>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <InformationCard
@@ -99,12 +105,13 @@ export default function Home() {
 
       {/* Download app section */}
       <section
+        id="descargar"
         className="py-20 bg-cover bg-center w-full"
         style={{ backgroundImage: 'url("/traquil-lake.jpg")' }}
       >
         <div className="container mx-auto px-4 w-full">
           <h2 className="text-4xl font-bold mb-8 text-center text-white">
-            Comienza tu camino hacia la tranquilidad
+            <a href="#top">Comienza tu camino hacia la tranquilidad</a>
           </h2>
           <p className="text-lg text-center text-white mb-8">
             Descarga nuestra app y empieza a mejorar tu bienestar emocional hoy

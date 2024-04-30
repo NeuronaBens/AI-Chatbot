@@ -1,17 +1,22 @@
 "use client";
 
 import { useChat } from "ai/react";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ChatWelcome from "./chat-welcome";
 import Dialog from "@/components/general/modal";
 import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";
 import TextBubble from "./text-bubble";
 
-import { checkIfMessageIsRisky, displayNotification } from "./notice-utils";
+import {
+  checkIfMessageIsRisky,
+  displayNotification,
+  isRisky,
+} from "./notice-utils";
 
 export default function AIChat(session) {
   const supabase = createClient();
+  const scrollRef = useRef(null);
   const [student, setStudent] = useState(null);
   const [isloadingStudent, setIsLoadingStudent] = useState(true);
   const [chatSession, setChatSession] = useState(1);
@@ -216,8 +221,8 @@ export default function AIChat(session) {
 
     ////////////////////////////////
     // Check if the message is risky (imported functionality)
-    const isRisky = await checkIfMessageIsRisky(input);
-    if (isRisky) {
+    //const isRisky = await checkIfMessageIsRisky(input);
+    if (isRisky(input)) {
       // Display the notification
       displayNotification("Te hemos enviado una notificación importante");
     }
@@ -288,6 +293,10 @@ export default function AIChat(session) {
       messagesSubscription.unsubscribe();
     };
   }, [session, student, chatSession]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   /////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////
@@ -372,6 +381,7 @@ export default function AIChat(session) {
           </div>
         </div>
       </div>
+      <div ref={scrollRef} />
     </div>
   );
 }

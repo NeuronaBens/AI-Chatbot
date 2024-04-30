@@ -34,34 +34,64 @@ const NavbarContentAuthentication = () => {
       {/* Navigation Links */}
       <div
         className={`${
-          isOpen ? "block" : "hidden"
-        } md:flex items-center space-x-2`}
+          isOpen ? "flex flex-col p-2 space-y-2 md:hidden" : "hidden"
+        } md:flex md:items-center md:space-x-2`}
       >
         <Link href="/user">
-          <p className="p-4 rounded hover:bg-[#7471D9]">
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
             <b>Chat</b>
-          </p>
+          </button>
         </Link>
         <Link href="#inicio">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Inicio</p>
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Inicio
+          </button>
         </Link>
         <Link href="#funcionalidades">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Funcionalidades</p>
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Funcionalidades
+          </button>
         </Link>
-        <Link href="#como">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Como Funciona</p>
+        <Link href="#informacion">
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Información
+          </button>
         </Link>
-        <Link href="#enfoque">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Nuestro Enfoque</p>
-        </Link>
-        <Link href="#contacto">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Contacto</p>
+        <Link href="#descargar">
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Descargar
+          </button>
         </Link>
         <Link href="/general/register">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Registro</p>
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Registro
+          </button>
         </Link>
         <Link href="/general/login">
-          <p className="p-4 rounded hover:bg-[#7471D9]">Login</p>
+          <button
+            className="p-4 rounded hover:bg-[#7471D9]"
+            onClick={() => setIsOpen(false)}
+          >
+            Login
+          </button>
         </Link>
       </div>
     </div>

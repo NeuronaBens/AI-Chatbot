@@ -1,5 +1,21 @@
 // notificationUtils.js
 
+export const isRisky = (message) => {
+  // Define the list of sensitive words to check for
+  const sensitiveWords = ["morir", "matar", "suicidar", "suicidio"];
+
+  // Check if the message contains any sensitive words
+  const containsSensitiveWords = sensitiveWords.some((word) =>
+    message.toLowerCase().includes(word)
+  );
+
+  if (containsSensitiveWords) {
+    console.log("is risky");
+    return true;
+  }
+  return false;
+};
+
 export const checkIfMessageIsRisky = async (message) => {
   try {
     const response = await fetch("/api/database/messages/is-risky", {
