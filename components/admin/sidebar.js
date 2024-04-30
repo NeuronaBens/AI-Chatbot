@@ -325,7 +325,7 @@ const SidebarAdmin = ({ children }) => {
           </div>
         )}
         {!closed && (
-          <div className="mt-24">
+          <div className="mt-16 md:mt-24">
             <UserProfile></UserProfile>
           </div>
         )}

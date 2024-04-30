@@ -1,6 +1,6 @@
 export default function Politica() {
   return (
-    <div className="my-8 max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="bg-white my-8 max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h1 className="text-3xl font-bold mb-4">
         Política de Privacidad del Chatbot Calmy para Tratar el Estrés y la
         Ansiedad

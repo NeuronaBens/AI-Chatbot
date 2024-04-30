@@ -23,17 +23,22 @@ const Notifications = () => {
     }
   }, [status]);
 
-  const updateNotification = async (id) => {
+  const updateNotification = async (value) => {
+    if (value.read == true) return;
+
     try {
-      const res = await fetch(`/api/database/student-notifications/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          read: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `/api/database/student-notifications/${value.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            read: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`API call failed with status: ${res.status}`);
@@ -57,7 +62,7 @@ const Notifications = () => {
             <div
               key={i}
               className="rounded-lg bg-gradient-to-r from-[#3A378C] to-[#6C63FF] p-4 shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
-              onClick={() => updateNotification(value.id)}
+              onClick={() => updateNotification(value)}
             >
               <div className="flex items-center">
                 <div className="flex-shrink-0">
