@@ -50,9 +50,23 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
               </h1>
             </div>
             <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
-              <h3 className="mb-3 font-bold text-xl">
+              {level.anxiety >= 0 && level.anxiety < 5 && (
+                <h3 className="mb-3 font-bold text-xl">
+                  No se aprecia ansiedad
+                </h3>
+              )}
+              {level.anxiety >= 5 && level.anxiety < 10 && (
+                <h3 className="mb-3 font-bold text-xl">Ansiedad Leve</h3>
+              )}
+              {level.anxiety >= 10 && level.anxiety < 15 && (
+                <h3 className="mb-3 font-bold text-xl">Ansiedad Moderada</h3>
+              )}
+              {level.anxiety >= 15 && level.anxiety < 22 && (
+                <h3 className="mb-3 font-bold text-xl">Ansiedad Severa</h3>
+              )}
+              <p className="text-sm leading-snug tracking-wide text-opacity-100">
                 Nivel de Ansiedad: {level.anxiety}
-              </h3>
+              </p>
               <p className="text-sm leading-snug tracking-wide text-opacity-100">
                 Fecha: {new Date(level.date).toLocaleString()}
               </p>
@@ -80,9 +94,29 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
               </h1>
             </div>
             <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-6 py-4 text-white">
-              <h3 className="mb-3 font-bold text-xl">
+              {level.stress >= 0 && level.stress < 15 && (
+                <h3 className="mb-3 font-bold text-xl">
+                  Casi nunca o nunca está estresado
+                </h3>
+              )}
+              {level.stress >= 15 && level.stress < 29 && (
+                <h3 className="mb-3 font-bold text-xl">
+                  De vez en cuando está estresado
+                </h3>
+              )}
+              {level.stress >= 29 && level.stress < 43 && (
+                <h3 className="mb-3 font-bold text-xl">
+                  A menudo está estresado
+                </h3>
+              )}
+              {level.stress >= 43 && level.stress < 57 && (
+                <h3 className="mb-3 font-bold text-xl">
+                  Muy a menudo está estresado
+                </h3>
+              )}
+              <p className="text-sm leading-snug tracking-wide text-opacity-100">
                 Nivel de estrés: {level.stress}
-              </h3>
+              </p>
               <p className="text-sm leading-snug tracking-wide text-opacity-100">
                 Fecha: {new Date(level.date).toLocaleString()}
               </p>
