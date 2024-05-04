@@ -369,7 +369,7 @@ export default function AIChat(session) {
         <div className="w-full resize-none">
           <div className="fixed bottom-0 w-full ">
             <div className="flex">
-              <div className="w-2/3 pb-4 ml-20">
+              <div className="w-5/6 md:w-2/3 pb-4 ml-10 md:ml-20">
                 <TextInput
                   handleSubmit={customHandleSubmit}
                   handleInputChange={handleInputChange}

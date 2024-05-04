@@ -111,15 +111,15 @@ const TextBubble = ({
   };
 
   return (
-    <div className="w-5/6 mx-auto relative">
+    <div className="md:w-5/6 text-sm md:text-base mx-auto relative">
       <div
         key={index}
-        className={`w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex justify-between items-center`}
+        className={`w-[75%] md:w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex justify-between items-center`}
       >
         <p>{chatMessage.content}</p>
         {chatMessage.role === "assistant" &&
           (messagesLength - 1 == index ? lastResComplete : true) && (
-            <div>
+            <div className="flex items-center">
               <button
                 type="button"
                 onClick={() => handleGetAudio(chatMessage.content)}
@@ -154,25 +154,27 @@ const TextBubble = ({
                   </svg>
                 )}
               </button>
-              <button
-                className={`${buttonColor} focus:outline-none`}
-                onClick={() => setShowOptions(!showOptions)}
-              >
-                <span className="text-3xl ml-4">...</span>
-              </button>
-              {showOptions && (
-                <OptionsMenu handleOptionClick={handleOptionClick} />
-              )}
+              <div className="flex flex-col">
+                <button
+                  className={`${buttonColor} focus:outline-none`}
+                  onClick={() => setShowOptions(!showOptions)}
+                >
+                  <span className="text-xl font-semibold">&#8942;</span>
+                </button>
+                {showOptions && (
+                  <OptionsMenu handleOptionClick={handleOptionClick} />
+                )}
+              </div>
             </div>
           )}
 
         {chatMessage.role === "user" && (
-          <div>
+          <div className="flex flex-col">
             <button
               className={`${buttonColor} focus:outline-none`}
               onClick={() => setShowOptions(!showOptions)}
             >
-              <span className="text-3xl ml-4">...</span>
+              <span className="text-xl font-semibold">&#8942;</span>
             </button>
             {showOptions && (
               <OptionsMenu handleOptionClick={handleOptionClick} />

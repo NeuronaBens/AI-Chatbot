@@ -57,7 +57,7 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
       <button
         type="button"
         onClick={isListening ? handleStopListening : handleStartListening}
-        className="px-4 py-2 mx-2 rounded-l-md focus:outline-none"
+        className="px-2 md:px-4 py-2 mx-1 md:mx-2 rounded-l-md focus:outline-none"
       >
         {isListening ? (
           <svg
@@ -87,7 +87,7 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
       </button>
       <button
         type="submit"
-        className="px-4 py-2 mx-2 bg-[#7471D9] text-white hover:bg-purple-600 rounded-r-md focus:outline-none"
+        className="px-2 md:px-4 py-2 mx-1 md:mx-2 bg-[#7471D9] text-white hover:bg-purple-600 rounded-r-md focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
