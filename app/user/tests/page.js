@@ -31,7 +31,7 @@ export default function TestPage() {
           "Acá podrás realizar los tests para medir tus niveles de ansiedad y estrés."
         }
       ></Greeting>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 pl-6">
         <Card
           props={{
             title: "Cuestionario GAD-7",
