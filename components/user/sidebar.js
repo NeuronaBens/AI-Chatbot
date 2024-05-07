@@ -140,14 +140,14 @@ const SidebarUser = ({ children, session }) => {
         </svg>
       </div>
       <div
-        className={
+        className={`${
           closed
-            ? "md:w-[7.5%] text-white fixed z-50 h-screen bg-[#3A378C] "
-            : "md:w-[11.5%] text-white fixed shadow-lg h-screen bg-[#3A378C] z-50"
-        }
+            ? "w-[0%] md:w-[7.5%] transition-all duration-200 ease-in-out"
+            : "w-[43%] md:w-[11.5%] transition-all duration-200 ease-in-out shadow-lg"
+        } text-white fixed z-50 h-screen bg-[#3A378C]`}
       >
         <div className="h-1/4 flex">
-          <Link href="/" className={closed ? "hidden md:block" : ""}>
+          <Link href="/">
             <div className="m-4">
               <Logo size={40} />
             </div>
@@ -155,7 +155,13 @@ const SidebarUser = ({ children, session }) => {
         </div>
         {!closed && (
           <div className="h-2/4">
-            <Link href="/user" onClick={() => handleOptionClick("chat")}>
+            <Link
+              href="/user"
+              onClick={() => {
+                handleOptionClick("chat");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
+            >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
                   optionMenu == "chat" ? "bg-[#7471D9]" : ""
@@ -166,7 +172,10 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link
               href="/user/historial"
-              onClick={() => handleOptionClick("historial")}
+              onClick={() => {
+                handleOptionClick("historial");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
             >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
@@ -178,7 +187,10 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link
               href="/user/marcadores"
-              onClick={() => handleOptionClick("marcadores")}
+              onClick={() => {
+                handleOptionClick("marcadores");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
             >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
@@ -188,7 +200,13 @@ const SidebarUser = ({ children, session }) => {
                 Marcadores
               </p>
             </Link>
-            <Link href="/user/tests" onClick={() => handleOptionClick("tests")}>
+            <Link
+              href="/user/tests"
+              onClick={() => {
+                handleOptionClick("tests");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
+            >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
                   optionMenu == "tests" ? "bg-[#7471D9]" : ""
@@ -199,7 +217,10 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link
               href="/user/notificaciones"
-              onClick={() => handleOptionClick("notificaciones")}
+              onClick={() => {
+                handleOptionClick("notificaciones");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
             >
               <div
                 className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#7471D9] ${
@@ -216,7 +237,10 @@ const SidebarUser = ({ children, session }) => {
             </Link>
             <Link
               href="/user/actividades"
-              onClick={() => handleOptionClick("actividades")}
+              onClick={() => {
+                handleOptionClick("actividades");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
             >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
@@ -226,7 +250,13 @@ const SidebarUser = ({ children, session }) => {
                 Actividades
               </p>
             </Link>
-            <Link href="/user/ayuda" onClick={() => handleOptionClick("ayuda")}>
+            <Link
+              href="/user/ayuda"
+              onClick={() => {
+                handleOptionClick("ayuda");
+                if (window.innerWidth < 768) setClosed(!closed);
+              }}
+            >
               <p
                 className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
                   optionMenu == "ayuda" ? "bg-[#7471D9]" : ""

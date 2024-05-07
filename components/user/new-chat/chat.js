@@ -8,11 +8,7 @@ import TextInput from "./input-text-audio";
 import { createClient } from "@/utils/supabase/client";
 import TextBubble from "./text-bubble";
 
-import {
-  checkIfMessageIsRisky,
-  displayNotification,
-  isRisky,
-} from "./notice-utils";
+import { displayNotification, isRisky } from "./notice-utils";
 
 export default function AIChat(session) {
   const supabase = createClient();
@@ -21,7 +17,7 @@ export default function AIChat(session) {
   const [isloadingStudent, setIsLoadingStudent] = useState(true);
   const [chatSession, setChatSession] = useState(1);
   const [position, setPosition] = useState(0);
-  const [lastResComplete, setLastResComplete] = useState(true);
+  const [lastMessageProcessing, setlastMessageProcessing] = useState(false);
   const [editLastMessage, setEditLastMessage] = useState(false);
   const [deletedMessage, setDeletedMessage] = useState(null);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
@@ -40,6 +36,10 @@ export default function AIChat(session) {
       student_id: session.user.id,
       session: chatSession,
       position: position,
+    },
+    onFinish: (message) => {
+      console.log(message);
+      setlastMessageProcessing(false);
     },
   });
 
@@ -214,11 +214,10 @@ export default function AIChat(session) {
   // handleSubmit function to process the submitted data.
   const customHandleSubmit = async (e) => {
     e.preventDefault();
-    setLastResComplete(false);
+    setlastMessageProcessing(true);
     handleSubmit(e);
     setPosition(position + 2);
     setInput("");
-
     ////////////////////////////////
     // Check if the message is risky (imported functionality)
     //const isRisky = await checkIfMessageIsRisky(input);
@@ -251,7 +250,6 @@ export default function AIChat(session) {
       position >= messages.length - 1
     ) {
       setEditLastMessage(true);
-      setLastResComplete(true);
     }
   };
 
@@ -359,9 +357,11 @@ export default function AIChat(session) {
                   key={index}
                   chatMessage={message}
                   onDelete={deleteMessage}
-                  messagesLength={messages.length}
                   index={index}
-                  lastResComplete={lastResComplete}
+                  showOptionsLastMessage={
+                    (!lastMessageProcessing && index == messages.length - 2) ||
+                    index != messages.length - 2
+                  }
                 />
               ))
           )}
@@ -369,12 +369,13 @@ export default function AIChat(session) {
         <div className="w-full resize-none">
           <div className="fixed bottom-0 w-full ">
             <div className="flex">
-              <div className="w-2/3 pb-4 ml-20">
+              <div className="w-5/6 md:w-2/3 pb-4 ml-10 md:ml-20">
                 <TextInput
                   handleSubmit={customHandleSubmit}
                   handleInputChange={handleInputChange}
                   input={input}
                   setInput={setInput}
+                  disabled={lastMessageProcessing}
                 ></TextInput>
               </div>
             </div>
