@@ -21,6 +21,7 @@ const TextBubble = ({
     chatMessage.role == "assistant" ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
   const [showDialogComplaint, setShowDialogComplaint] = useState(false);
+  const [audioIsPlaying, setAudioIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGetAudio = async (messageText) => {
@@ -48,6 +49,10 @@ const TextBubble = ({
       const audioUrl = URL.createObjectURL(blob);
       const audio = new Audio(audioUrl);
       audio.play();
+      setAudioIsPlaying(true);
+      audio.onended = () => {
+        setAudioIsPlaying(false);
+      };
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -131,7 +136,10 @@ const TextBubble = ({
             </div>
             <button
               type="button"
-              onClick={() => handleGetAudio(chatMessage.content)}
+              onClick={() => {
+                if (audioIsPlaying || isLoading) return;
+                handleGetAudio(chatMessage.content);
+              }}
             >
               {isLoading ? (
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
