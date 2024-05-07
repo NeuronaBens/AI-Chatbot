@@ -2,7 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 
-const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
+const TextInput = ({
+  handleSubmit,
+  handleInputChange,
+  input,
+  setInput,
+  disabled,
+}) => {
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
 
@@ -46,8 +52,15 @@ const TextInput = ({ handleSubmit, handleInputChange, input, setInput }) => {
   }, [recognition]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <form
+      onSubmit={async (e) => {
+        handleStopListening();
+        await handleSubmit(e);
+      }}
+      className="flex items-center"
+    >
       <input
+        disabled={disabled}
         type="text"
         value={input}
         onChange={handleInputChange}
