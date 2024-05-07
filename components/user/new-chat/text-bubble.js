@@ -113,11 +113,22 @@ const TextBubble = ({
     <div className="md:w-5/6 text-sm md:text-base mx-auto relative">
       <div
         key={index}
-        className={`w-[75%] md:w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex justify-between items-center`}
+        className={`w-[75%] md:w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex items-start relative`}
       >
-        <p>{chatMessage.content}</p>
+        <p className="flex-grow">{chatMessage.content}</p>
         {chatMessage.role === "assistant" && showOptionsLastMessage && (
-          <div className="flex items-center">
+          <div className="flex flex-col items-center ml-2">
+            <div>
+              <button
+                className={`${buttonColor} focus:outline-none`}
+                onClick={() => setShowOptions(!showOptions)}
+              >
+                <span className="text-xl font-semibold">&#8942;</span>
+              </button>
+              {showOptions && (
+                <OptionsMenu handleOptionClick={handleOptionClick} />
+              )}
+            </div>
             <button
               type="button"
               onClick={() => handleGetAudio(chatMessage.content)}
@@ -141,8 +152,8 @@ const TextBubble = ({
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 898 1026"
                 >
                   <path
@@ -152,22 +163,11 @@ const TextBubble = ({
                 </svg>
               )}
             </button>
-            <div className="flex flex-col">
-              <button
-                className={`${buttonColor} focus:outline-none`}
-                onClick={() => setShowOptions(!showOptions)}
-              >
-                <span className="text-xl font-semibold">&#8942;</span>
-              </button>
-              {showOptions && (
-                <OptionsMenu handleOptionClick={handleOptionClick} />
-              )}
-            </div>
           </div>
         )}
 
         {chatMessage.role === "user" && (
-          <div className="flex flex-col">
+          <div className="absolute top-0 right-0 mr-2">
             <button
               className={`${buttonColor} focus:outline-none`}
               onClick={() => setShowOptions(!showOptions)}
