@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const NotificacionesForm = ({ session }) => {
+const NotificacionesForm = (session) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [sendToAll, setSendToAll] = useState(false);
