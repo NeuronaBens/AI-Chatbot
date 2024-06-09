@@ -14,6 +14,4 @@ export default async function NotificationPage() {
       <StudentNotificationTable></StudentNotificationTable>
     </div>
   );
-};
-
-
+}
