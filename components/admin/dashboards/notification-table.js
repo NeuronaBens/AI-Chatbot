@@ -17,6 +17,7 @@ const NotificationTable = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [shouldReload, setShouldReload] = useState(false);
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -29,7 +30,7 @@ const NotificationTable = () => {
       setTotalPages(data.totalPages);
     };
     fetchNotifications();
-  }, [page, pageSize]);
+  }, [page, pageSize, shouldReload]);
 
   const handlePrevPage = () => {
     setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -42,6 +43,12 @@ const NotificationTable = () => {
   return (
     <div className="w-5/6 m-4">
       <h3 className="font-bold">Notification Table</h3>
+      <Button
+        onClick={() => setShouldReload(!shouldReload)}
+        className="mb-4 bg-orange-500 text-white rounded-md p-1 font-bold"
+      >
+        🔄
+      </Button>
       <Table className="table-auto table-fixed ">
         <Thead>
           <Tr>
