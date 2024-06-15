@@ -7,13 +7,14 @@ const Footer = () => {
         <div className="h-10"></div>
         <div className="px-8 py-4">
           <p className="mb-4 mt-4">
-            Esta página se editó por última vez el 23 may 2023 a las 01:00.
+            Esta página se editó por última vez el 15 de junio de 2024 a las
+            01:00.
           </p>
           <p className="mb-4">
-            El texto está disponible bajo la Licencia Creative Commons
-            Atribución Compartir Igual 4.0; pueden aplicarse cláusulas
-            adicionales. Al usar este sitio, usted acepta nuestros términos de
-            uso y nuestra política de privacidad.
+            El contenido de esta página está disponible bajo la Licencia
+            Creative Commons Atribución 4.0 Internacional (CC BY 4.0), aunque
+            pueden aplicarse términos adicionales. Al utilizar este sitio, usted
+            acepta nuestros términos de uso y nuestra política de privacidad.
           </p>
         </div>
         <div className="px-8 py-4">

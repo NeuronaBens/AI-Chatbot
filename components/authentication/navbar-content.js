@@ -12,7 +12,7 @@ const NavbarContentAuthentication = () => {
   };
 
   return (
-    <div className="flex items-center justify-between text-white">
+    <div className="flex items-center justify-between text-[#261039]">
       {/* Hamburger Icon */}
       <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
         <svg
