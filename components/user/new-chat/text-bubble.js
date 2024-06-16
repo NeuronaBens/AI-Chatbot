@@ -135,11 +135,9 @@ const TextBubble = ({
         key={index}
         className={`w-[75%] md:w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex items-start relative`}
       >
-        <div className="pr-2">
-          <p>{chatMessage.content}</p>
-        </div>
+        <p className="flex-grow">{chatMessage.content}</p>
         {chatMessage.role === "assistant" && showOptionsLastMessage && (
-          <div className="absolute top-0 right-0 mr-2">
+          <div className="flex flex-col items-center ml-2">
             <div ref={options}>
               <button
                 className={`${buttonColor} focus:outline-none`}
@@ -148,9 +146,7 @@ const TextBubble = ({
                 <span className="text-xl font-semibold">&#8942;</span>
               </button>
               {showOptions && (
-                <div className="flex flex-row-reverse md:flex-row absolute bottom-36 md:bottom-7">
-                  <OptionsMenu handleOptionClick={handleOptionClick} />
-                </div>
+                <OptionsMenu handleOptionClick={handleOptionClick} />
               )}
             </div>
             <button
@@ -202,9 +198,7 @@ const TextBubble = ({
               <span className="text-xl font-semibold">&#8942;</span>
             </button>
             {showOptions && (
-              <div className="flex flex-row-reverse md:flex-row absolute bottom-32 md:bottom-0">
-                <OptionsMenu handleOptionClick={handleOptionClick} />
-              </div>
+              <OptionsMenu handleOptionClick={handleOptionClick} />
             )}
           </div>
         )}
