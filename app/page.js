@@ -84,12 +84,12 @@ export default function Home() {
       {/* Information section */}
       <section
         id="informacion"
-        className="w-full h-full bg-cover container mx-auto px-16 py-16 bg-white"
+        className="w-full h-full bg-cover container px-12 md:px-16 py-16 bg-white"
       >
-        <h2 className="mb-8 text-4xl font-bold mb-12 text-center text-[#3A378C]">
+        <h2 className="mb-4 md:mb-8 text-4xl font-bold mb-12 text-center text-[#3A378C]">
           <a href="#top">Información</a>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
           <InformationCard
             image="/Man-feeling-calm.jpg"
             title="Cómo Funciona"
