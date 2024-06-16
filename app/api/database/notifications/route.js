@@ -9,6 +9,14 @@ export async function GET() {
 export async function POST(req) {
   const { content, name, admin_id } = await req.json();
 
+  const old_noti = await prisma.notification.findUnique({
+    where: { name: name },
+  });
+
+  if (old_noti != null) {
+    return Response.json(old_noti);
+  }
+
   const notification = await prisma.notification.create({
     data: {
       id: IdManager.notificationId(),
