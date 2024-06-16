@@ -9,7 +9,7 @@ export async function GET() {
 export async function POST(req) {
   const { content, name, admin_id } = await req.json();
 
-  const old_noti = await prisma.notification.findUnique({
+  const old_noti = await prisma.notification.findFirst({
     where: { name: name },
   });
 
