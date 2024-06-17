@@ -117,8 +117,8 @@ const SidebarUser = ({ children, session }) => {
       <div
         className={`${
           closed
-            ? "left-4 md:left-20 text-black md:text-white"
-            : "left-32 text-white"
+            ? "left-4 md:left-16 text-black md:text-[#261039]"
+            : "left-32 text-[#261039]"
         } fixed top-4 z-[100]`}
       >
         <svg
@@ -143,8 +143,8 @@ const SidebarUser = ({ children, session }) => {
         className={`${
           closed
             ? "w-[0%] md:w-[7.5%] transition-all duration-200 ease-in-out"
-            : "w-[43%] md:w-[11.5%] transition-all duration-200 ease-in-out shadow-lg"
-        } text-white fixed z-50 h-screen bg-[#3A378C]`}
+            : "w-[43%] md:w-[13%] transition-all duration-200 ease-in-out shadow-lg"
+        } text-[#261039] fixed z-50 h-screen bg-[#F9F9FF]`}
       >
         <div className="h-1/4 flex">
           <Link href="/">
@@ -163,8 +163,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "chat" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "chat" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 <b>Chat</b>
@@ -178,8 +178,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "historial" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "historial" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 Historial
@@ -193,8 +193,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "marcadores" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "marcadores" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 Marcadores
@@ -208,8 +208,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "tests" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "tests" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 Tests
@@ -223,8 +223,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <div
-                className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#7471D9] ${
-                  optionMenu == "notificaciones" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#F7F7F7] ${
+                  optionMenu == "notificaciones" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 <p>Notificaciones</p>
@@ -243,8 +243,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "actividades" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "actividades" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 Actividades
@@ -258,8 +258,8 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#7471D9] ${
-                  optionMenu == "ayuda" ? "bg-[#7471D9]" : ""
+                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                  optionMenu == "ayuda" ? "text-[#7A72DE]" : ""
                 }`}
               >
                 Ayuda
