@@ -55,78 +55,44 @@ const Tasks = () => {
         <Flex flexWrap="wrap" gap={8} mx={8}>
           {tasks.map((value, i) => (
             <Box
-              key={i}
-              position="relative"
+              bg="white"
               borderRadius="lg"
+              p={4}
+              position="relative"
               overflow="hidden"
-              bg={
-                value.completed === 0
-                  ? "linear-gradient(to right, #7471D9, #805AD5)"
-                  : "gray.300"
-              }
-              p="2px"
+              border="1px solid #E1E1E1"
+              key={i}
             >
-              <Box
-                bg="white"
-                borderRadius="lg"
-                p={4}
-                position="relative"
-                overflow="hidden"
-              >
-                {value.completed === 0 && (
-                  <Badge
-                    bgGradient="linear(to-r, #7471D9, #805AD5)"
-                    color="white"
-                    position="absolute"
-                    top={2}
-                    right={2}
-                  >
-                    New
-                  </Badge>
-                )}
-                <Flex alignItems="center" gap={4}>
-                  <PuzzlePieceIcon
-                    className={`h-12 w-12 ${
-                      value.completed === 0
-                        ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
-                        : "text-gray-500"
-                    }`}
-                  />
-                  <Box>
-                    <Text
-                      fontSize="xl"
-                      fontWeight="bold"
-                      className={
-                        value.completed === 0
-                          ? "bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text"
-                          : "text-gray-800"
-                      }
-                    >
-                      {value.task.name}
-                      {value.completed === 0 && (
-                        <Button
-                          ml={2}
-                          bgGradient="linear(to-r, #7471D9, #805AD5)"
-                          color="white"
-                          size="sm"
-                          onClick={() => completeTask(i)}
-                        >
-                          Complete
-                        </Button>
-                      )}
-                    </Text>
-                    <Text
-                      className={
-                        value.completed === 0
-                          ? "text-gray-600"
-                          : "text-gray-500"
-                      }
-                    >
-                      {value.task.content}
-                    </Text>
-                  </Box>
-                </Flex>
-              </Box>
+              {value.completed === 0 && (
+                <Badge
+                  bg="#7A72DE"
+                  color="white"
+                  position="absolute"
+                  top={2}
+                  right={2}
+                >
+                  New
+                </Badge>
+              )}
+              <Flex alignItems="center" gap={4}>
+                <Box>
+                  <Text fontSize="xl" fontWeight="bold">
+                    {value.task.name}
+                    {value.completed === 0 && (
+                      <Button
+                        ml={2}
+                        bg="#7A72DE"
+                        color="white"
+                        size="sm"
+                        onClick={() => completeTask(i)}
+                      >
+                        Complete
+                      </Button>
+                    )}
+                  </Text>
+                  <Text>{value.task.content}</Text>
+                </Box>
+              </Flex>
             </Box>
           ))}
         </Flex>
