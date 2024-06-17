@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { PuzzlePieceIcon } from "@heroicons/react/24/outline";
 import { Badge, Box, Text, Button, Flex } from "@chakra-ui/react";
 
 const Tasks = () => {
