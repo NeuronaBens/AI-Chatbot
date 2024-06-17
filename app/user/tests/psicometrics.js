@@ -49,7 +49,7 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-3 md:px-6 py-4 text-white">
+            <div className="order-1 rounded-sm shadow-xl w-5/12 px-3 md:px-6 py-4">
               {level.anxiety >= 0 && level.anxiety < 5 && (
                 <h3 className="mb-3 font-bold md:text-xl">
                   No se aprecia ansiedad
@@ -93,7 +93,7 @@ const StudentPsicometrics = ({ refreshPsicometrics }) => {
                 {index + 1}
               </h1>
             </div>
-            <div className="order-1 bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-lg shadow-xl w-5/12 px-3 md:px-6 py-4 text-white">
+            <div className="order-1 rounded-sm shadow-xl w-5/12 px-3 md:px-6 py-4">
               {level.stress >= 0 && level.stress < 15 && (
                 <h3 className="mb-3 font-bold md:text-xl">
                   Casi nunca o nunca está estresado

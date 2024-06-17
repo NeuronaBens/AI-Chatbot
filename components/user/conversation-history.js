@@ -61,7 +61,7 @@ export default function ConversationHistory() {
         <Accordion allowToggle className="mr-10 space-y-8">
           {messageDays.map((value, i1) => (
             <AccordionItem key={i1}>
-              <h2 className="py-2 bg-[#F2F0F2]">
+              <h2 className="py-2 bg-[#F9F9FF]">
                 <AccordionButton>
                   <Box as="span" flex="1" textAlign="left">
                     Día {value[0]}
