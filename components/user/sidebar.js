@@ -111,7 +111,7 @@ const SidebarUser = ({ children, session }) => {
   return (
     <div
       className={`flex ${
-        theme === "Oscuro" ? "bg-gray-800 text-white" : " text-black"
+        theme === "Oscuro" ? "bg-gray-800 text-white" : " text-[#261039]"
       }`}
     >
       <div

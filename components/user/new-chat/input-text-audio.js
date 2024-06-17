@@ -65,7 +65,7 @@ const TextInput = ({
         value={input}
         onChange={handleInputChange}
         placeholder="Escribe un mensaje..."
-        className="text-black flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="text-black flex-1 px-4 py-2 border border-[#D5D1E5] rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#7A72DE]"
       />
       <button
         type="button"
@@ -80,7 +80,7 @@ const TextInput = ({
             viewBox="0 0 56 56"
           >
             <path
-              fill="#9333ea"
+              fill="#7A72DE"
               d="M28 51.906c13.055 0 23.906-10.828 23.906-23.906c0-13.055-10.875-23.906-23.93-23.906C14.899 4.094 4.095 14.945 4.095 28c0 13.078 10.828 23.906 23.906 23.906m0-3.984C16.937 47.922 8.1 39.062 8.1 28c0-11.04 8.813-19.922 19.876-19.922c11.039 0 19.921 8.883 19.945 19.922c.023 11.063-8.883 19.922-19.922 19.922m-6.422-11.04h2.227c1.101 0 1.617-.609 1.617-1.5v-14.74c0-.891-.516-1.5-1.617-1.5h-2.227c-1.148 0-1.664.609-1.664 1.5v14.742c0 .89.516 1.5 1.664 1.5m10.594 0h2.226c1.125 0 1.641-.609 1.641-1.5V20.642c0-.891-.516-1.5-1.64-1.5h-2.227c-1.102 0-1.64.609-1.64 1.5v14.742c0 .89.538 1.5 1.64 1.5"
             />
           </svg>
@@ -92,7 +92,7 @@ const TextInput = ({
             viewBox="0 0 24 24"
           >
             <path
-              fill="#9333ea"
+              fill="#7A72DE"
               d="M12 15a4 4 0 0 0 4-4V5a4 4 0 0 0-8 0v6a4 4 0 0 0 4 4ZM10 5a2 2 0 0 1 4 0v6a2 2 0 0 1-4 0Zm10 6a1 1 0 0 0-2 0a6 6 0 0 1-12 0a1 1 0 0 0-2 0a8 8 0 0 0 7 7.93V21H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-2.07A8 8 0 0 0 20 11Z"
             />
           </svg>
@@ -100,7 +100,7 @@ const TextInput = ({
       </button>
       <button
         type="submit"
-        className="px-2 md:px-4 py-2 mx-1 md:mx-2 bg-[#7471D9] text-white hover:bg-purple-600 rounded-r-md focus:outline-none"
+        className="px-2 md:px-4 py-2 mx-1 md:mx-2 bg-[#7A72DE] text-white rounded-r-md focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -2,10 +2,7 @@ const ChatWelcome = () => {
   return (
     <div className="w-5/6 mx-auto justify-center items-center">
       <h1 className="mt-5 text-4xl text-center font-bold">
-        Bienvenido a{" "}
-        <span className="bg-gradient-to-r from-[#3A378C] to-[#6C63FF] text-transparent bg-clip-text">
-          Calmy!
-        </span>
+        Bienvenido a <span className="text-[#7A72DE] bg-clip-text">Calmy!</span>
       </h1>
       <p className="text-center text-lg my-4">
         Tu chatbot de autoayuda y manejo del estrés y la ansiedad.
