@@ -138,8 +138,6 @@ export default function Home() {
             <div className="mx-8"></div>
             <a
               href="/general/register"
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-3 text-[#261039] bg-[#FFFFFF] rounded-full hover:shadow-lg transition-all duration-300 text-lg"
             >
               <svg

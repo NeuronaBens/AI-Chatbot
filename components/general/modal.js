@@ -126,21 +126,19 @@ export default function Dialog({ props, children }) {
     props.showDialog === true && status === "authenticated" ? (
       <dialog
         ref={dialogRef}
-        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50"
+        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-md backdrop:bg-gray-800/50"
       >
-        <div
-          className={`w-[${props.width}] max-w-full bg-gray-200 flex flex-col`}
-        >
-          <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-[#3A378C]">
-            <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">
+        <div className={`w-[${props.width}] max-w-full flex flex-col`}>
+          <div className="flex flex-row justify-between mb-4 pt-2 px-5">
+            <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium">
               {props.title}
             </h1>
             {props.type != "form" && (
               <button
                 onClick={closeDialog}
-                className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold bg-red-600 text-white"
+                className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold text-4xl font-normal"
               >
-                x
+                ×
               </button>
             )}
           </div>
