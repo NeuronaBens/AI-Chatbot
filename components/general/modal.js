@@ -130,7 +130,7 @@ export default function Dialog({ props, children }) {
       >
         <div className={`w-[${props.width}] max-w-full flex flex-col`}>
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
-            <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium">
+            <h1 className="group relative justify-center mt-4 text-xl font-medium whitespace-pre-wrap">
               {props.title}
             </h1>
             {props.type != "form" && (
@@ -143,7 +143,7 @@ export default function Dialog({ props, children }) {
             )}
           </div>
           {props.type == "complaint" && (
-            <form className="mt-8 space-y-6 text-xs" onSubmit={handleSubmit}>
+            <form className="space-y-6 text-xs" onSubmit={handleSubmit}>
               <div className="rounded-md shadow-sm space-y-4 px-4">
                 <div>
                   <label htmlFor="description" className="sr-only">
@@ -159,17 +159,17 @@ export default function Dialog({ props, children }) {
                     required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 placeholder:text-xs text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 "
+                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-[#E1E1E1] placeholder-[#C7C7C7] placeholder:text-xs text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 resize-none"
                     placeholder="Agrega una descripción de tu denuncia"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-center items-center py-4">
+              <div className="flex justify-center items-center pb-4">
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
+                  className={`group relative w-full flex justify-center mx-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
                     isLoading
                       ? "bg-indigo-400 cursor-not-allowed"
                       : "bg-[#7471D9] hover:bg-[#7471D9]"

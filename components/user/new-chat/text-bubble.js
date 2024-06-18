@@ -188,12 +188,12 @@ const TextBubble = ({
       </div>
       <Dialog
         props={{
-          title: "¿Deseas denunciar este mensaje?",
+          title: "¿Deseas denunciar este \n mensaje?",
           type: "complaint",
           showDialog: showDialogComplaint,
           onClose: onClose,
           onOk: onOk,
-          width: "500px",
+          width: "200px",
           message_id: chatMessage.id,
         }}
       />
