@@ -14,7 +14,9 @@ const TextBubble = ({
       ? "text-gray-500 hover:text-gray-700"
       : "text-gray-500 hover:text-gray-700";
   const bubbleColor =
-    chatMessage.role == "assistant" ? "bg-[#F7F7F7]" : "bg-[#F9F9FF]";
+    chatMessage.role == "assistant"
+      ? "bg-[#DFDFDF] bg-opacity-25"
+      : "bg-[#E7E7FF] bg-opacity-25";
   const bubblePosition =
     chatMessage.role == "assistant" ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);

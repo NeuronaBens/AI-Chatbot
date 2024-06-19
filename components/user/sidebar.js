@@ -69,7 +69,7 @@ const SidebarUser = ({ children, session }) => {
     } else {
       setOptionMenu("chat");
     }
-  }, [session]);
+  }, [session, optionMenu]);
 
   useEffect(() => {
     if (newNoti == true) {
@@ -144,7 +144,7 @@ const SidebarUser = ({ children, session }) => {
           closed
             ? "w-[0%] md:w-[7.5%] transition-all duration-200 ease-in-out"
             : "w-[43%] md:w-[13%] transition-all duration-200 ease-in-out shadow-lg"
-        } text-[#261039] fixed z-50 h-screen bg-[#F9F9FF]`}
+        } fixed z-50 h-screen bg-[#E7E7FF] bg-opacity-25`}
       >
         <div className="h-1/4 flex">
           <Link href="/">
@@ -163,7 +163,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "chat" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -178,7 +178,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "historial" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -193,7 +193,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "marcadores" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -208,7 +208,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "tests" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -223,7 +223,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <div
-                className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded flex flex-row items-center hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "notificaciones" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -243,7 +243,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "actividades" ? "text-[#7A72DE]" : ""
                 }`}
               >
@@ -258,7 +258,7 @@ const SidebarUser = ({ children, session }) => {
               }}
             >
               <p
-                className={`p-2 m-2 rounded hover:bg-[#F7F7F7] ${
+                className={`p-2 m-2 rounded hover:bg-[#DFDFDF] hover:bg-opacity-25 ${
                   optionMenu == "ayuda" ? "text-[#7A72DE]" : ""
                 }`}
               >

@@ -54,7 +54,6 @@ const Tasks = () => {
         <Flex flexWrap="wrap" gap={8} mx={8}>
           {tasks.map((value, i) => (
             <Box
-              bg="white"
               borderRadius="lg"
               p={4}
               position="relative"
