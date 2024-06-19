@@ -192,7 +192,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
         ref={dialogRef}
         className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10 backdrop:bg-gray-800/50"
       >
-        <div className="w-[600px] h-[450px] max-w-full flex flex-col">
+        <div className="w-[600px] h-[450px] max-w-full flex flex-col ">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
             <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium">
               {title}
