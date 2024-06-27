@@ -18,7 +18,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center">
             <div className="animate-slideleft w-full md:w-1/2 mb-10 md:mb-0 md:pr-10">
               <h1 className="text-4xl font-bold text-[#261039] text-center mb-8">
-                Bienvenido a tu Chatbot de Salud Mental con IA!
+                Bienvenido a <span className="text-[#3A378C]">Calmy</span>, tu
+                Chatbot de Salud Mental con IA!
               </h1>
               <p className="text-lg text-center text-[#261039]">
                 Nuestro chatbot está diseñado para ayudarte a gestionar la
@@ -79,26 +80,23 @@ export default function Home() {
         </div>
       </section>
       {/* Information section */}
-      <section
-        id="informacion"
-        className="w-full h-full bg-cover container px-12 md:px-16 py-16 bg-white"
-      >
-
-        <h2 className="mb-8 text-4xl font-bold mb-12 text-center text-[#261039]">
-
-          <a href="#top">Información</a>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
-          <InformationCard
-            image="/Man-feeling-calm.jpg"
-            title="Cómo Funciona"
-            description="Nuestro chatbot está basado en inteligencia artificial y utiliza ejercicios basados en evidencia y recursos para ayudarte a manejar tu ansiedad y estrés. Está diseñado para mantener conversaciones naturales y puede guiarte en el manejo de tus emociones, ayudarte a desafiar pensamientos negativos, sugerir herramientas y recursos, y utilizar técnicas terapéuticas comprobadas, incluyendo un seguimiento de tu estado de ánimo y bienestar emocional."
-          />
-          <InformationCard
-            image="/Woman-feeling-calm.jpg"
-            title="Nuestro Enfoque"
-            description="Nuestro chatbot ha sido diseñado como una herramienta complementaria a los servicios profesionales de apoyo, no como un reemplazo de la terapia en persona. Está capacitado para ayudar a moderar los síntomas de estrés y ansiedad porque creemos que todos merecen acceso al apoyo psicológico."
-          />
+      <section id="informacion" className="w-full bg-white py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-12 text-center text-[#261039]">
+            <a href="#top">Información</a>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <InformationCard
+              image="/Man-feeling-calm.jpg"
+              title="Cómo Funciona"
+              description="Nuestro chatbot está basado en inteligencia artificial y utiliza ejercicios basados en evidencia y recursos para ayudarte a manejar tu ansiedad y estrés. Está diseñado para mantener conversaciones naturales y puede guiarte en el manejo de tus emociones, ayudarte a desafiar pensamientos negativos, sugerir herramientas y recursos, y utilizar técnicas terapéuticas comprobadas, incluyendo un seguimiento de tu estado de ánimo y bienestar emocional."
+            />
+            <InformationCard
+              image="/Woman-feeling-calm.jpg"
+              title="Nuestro Enfoque"
+              description="Nuestro chatbot ha sido diseñado como una herramienta complementaria a los servicios profesionales de apoyo, no como un reemplazo de la terapia en persona. Está capacitado para ayudar a moderar los síntomas de estrés y ansiedad porque creemos que todos merecen acceso al apoyo psicológico."
+            />
+          </div>
         </div>
       </section>
 
