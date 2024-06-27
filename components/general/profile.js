@@ -56,7 +56,9 @@ const UserProfile = () => {
             </div>
           </button>
           {showMenu && (
+
             <div className="absolute bottom-10 left-0 z-10 w-36 px-2 py-4 bg-[#DFDFDF] rounded-md shadow-lg">
+
               <button
                 className="block text-sm text-gray-700 py-2 hover:bg-gray-100"
                 onClick={() => setShowDialog(true)}

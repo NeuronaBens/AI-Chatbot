@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import OptionsMenu from "./options-menu";
 import Dialog from "@/components/general/modal";
 import { displayNotification } from "./notice-utils";
@@ -23,6 +23,21 @@ const TextBubble = ({
   const [showDialogComplaint, setShowDialogComplaint] = useState(false);
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const options = useRef(null);
+
+  useEffect(() => {
+    const handleOutSideClick = (event) => {
+      if (options.current && !options.current?.contains(event.target)) {
+        setShowOptions(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [options]);
 
   const handleGetAudio = async (messageText) => {
     setIsLoading(true);
@@ -123,7 +138,7 @@ const TextBubble = ({
         <p className="flex-grow">{chatMessage.content}</p>
         {chatMessage.role === "assistant" && showOptionsLastMessage && (
           <div className="flex flex-col items-center ml-2">
-            <div>
+            <div ref={options}>
               <button
                 className={`${buttonColor} focus:outline-none`}
                 onClick={() => setShowOptions(!showOptions)}
@@ -175,7 +190,7 @@ const TextBubble = ({
         )}
 
         {chatMessage.role === "user" && (
-          <div className="absolute top-0 right-0 mr-2">
+          <div ref={options} className="absolute top-0 right-0 mr-2">
             <button
               className={`${buttonColor} focus:outline-none`}
               onClick={() => setShowOptions(!showOptions)}
