@@ -51,14 +51,12 @@ const UserProfile = () => {
               src={session.user.image}
               alt=""
             />
-            <div className="font-medium dark:text-white w-4/5">
+            <div className="font-medium w-4/5">
               <div>{session.user.name}</div>
             </div>
           </button>
           {showMenu && (
-
             <div className="absolute bottom-10 left-0 z-10 w-36 px-2 py-4 bg-[#DFDFDF] rounded-md shadow-lg">
-
               <button
                 className="block text-sm text-gray-700 py-2 hover:bg-gray-100"
                 onClick={() => setShowDialog(true)}
