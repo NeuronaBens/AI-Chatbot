@@ -35,7 +35,6 @@ const MarcadoresContainer = () => {
           <div className="w-11/12 mx-auto">
             {marcadores.map((marcador) => (
               <MarcadoresBubble
-                className="bg-[#AAA7F2]"
                 key={marcador.id}
                 mensaje={marcador}
                 eraseMarcador={async (id) => {

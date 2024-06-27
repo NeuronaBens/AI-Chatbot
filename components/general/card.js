@@ -1,6 +1,6 @@
 export default function Card({ props, children }) {
   return (
-    <div className="max-w-xs rounded-lg shadow-md border border-gray-200">
+    <div className="max-w-xs rounded-sm bg-[#DFDFDF] bg-opacity-25 shadow-md border">
       <img
         className="rounded-t-lg w-full object-cover"
         src={props.image}

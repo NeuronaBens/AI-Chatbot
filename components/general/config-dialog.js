@@ -190,21 +190,20 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
     showDialog === true ? (
       <dialog
         ref={dialogRef}
-        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10  rounded-xl backdrop:bg-gray-800/50 bg-[#7471D9]"
+        className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10 backdrop:bg-gray-800/50"
       >
-        <div className="w-[600px] h-[450px] max-w-full text-white flex flex-col">
+        <div className="w-[600px] h-[450px] max-w-full flex flex-col ">
           <div className="flex flex-row justify-between mb-4 pt-2 px-5">
-            <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium text-white">
+            <h1 className="group relative w-full flex justify-center py-2 px-4 text-lg font-medium">
               {title}
             </h1>
             <button
               onClick={closeDialog}
-              className="mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold bg-red-600 text-white"
+              className="mb-2 py-1 px-2 cursor-pointer border-none w-8 h-8 text-3xl"
             >
-              x
+              ×
             </button>
           </div>
-          <hr className=" bg-[#7471D9] mx-2 py-2"></hr>
           {status === "loading" ? (
             <div></div>
           ) : (
@@ -216,7 +215,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                       href="#"
                       className={
                         showProfile
-                          ? "bg-black rounded-lg my-2 p-2"
+                          ? "bg-black rounded-lg my-2 p-2 text-white"
                           : "p-2 my-2"
                       }
                       onClick={() => {
@@ -231,7 +230,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                       href="#"
                       className={
                         showPrivacy
-                          ? "bg-black rounded-lg my-2 p-2"
+                          ? "bg-black rounded-lg my-2 p-2 text-white"
                           : "p-2 my-2"
                       }
                       onClick={() => {
@@ -246,7 +245,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                       href="#"
                       className={
                         showGeneral
-                          ? "bg-black rounded-lg my-2 p-2"
+                          ? "bg-black rounded-lg my-2 p-2 text-white"
                           : "p-2 my-2"
                       }
                       onClick={() => {
@@ -348,7 +347,7 @@ export default function ConfigDialog({ title, onClose, showDialog }) {
                               onChange={() => handleUpdate("data")}
                               checked={data}
                             />
-                            <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                            <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 dark:peer-focus:ring-[#7471D9] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#7471D9]"></div>
                           </label>
                         </div>
                         <div className="space-y-4 flex flex-row justify-between">

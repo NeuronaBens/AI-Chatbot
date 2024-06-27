@@ -12,7 +12,7 @@ const NavbarContentAuthentication = () => {
   };
 
   return (
-    <div className="flex items-center justify-between text-white">
+    <div className="flex items-center justify-between text-[#261039]">
       {/* Hamburger Icon */}
       <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
         <svg
@@ -39,7 +39,7 @@ const NavbarContentAuthentication = () => {
       >
         <Link href="/user">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             <b>Chat</b>
@@ -47,7 +47,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="#inicio">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Inicio
@@ -55,7 +55,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="#funcionalidades">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Funcionalidades
@@ -63,7 +63,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="#informacion">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Información
@@ -71,7 +71,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="#descargar">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Descargar
@@ -79,7 +79,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="/general/register">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Registro
@@ -87,7 +87,7 @@ const NavbarContentAuthentication = () => {
         </Link>
         <Link href="/general/login">
           <button
-            className="p-4 rounded hover:bg-[#7471D9]"
+            className="p-4 rounded hover:bg-[#F9F9FF]"
             onClick={() => setIsOpen(false)}
           >
             Login
