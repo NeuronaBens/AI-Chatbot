@@ -11,12 +11,12 @@ const TextBubble = ({
 }) => {
   const buttonColor =
     chatMessage.role == "assistant"
-      ? "text-white hover:text-gray-200"
+      ? "text-gray-500 hover:text-gray-700"
       : "text-gray-500 hover:text-gray-700";
   const bubbleColor =
     chatMessage.role == "assistant"
-      ? "bg-[#7471D9] text-white"
-      : "bg-gray-300 text-black";
+      ? "bg-[#DFDFDF] bg-opacity-25"
+      : "bg-[#E7E7FF] bg-opacity-25";
   const bubblePosition =
     chatMessage.role == "assistant" ? "mr-auto" : "ml-auto";
   const [showOptions, setShowOptions] = useState(false);
@@ -133,7 +133,7 @@ const TextBubble = ({
     <div className="md:w-5/6 text-sm md:text-base mx-auto relative">
       <div
         key={index}
-        className={`w-[75%] md:w-2/3 rounded-xl my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex items-start relative`}
+        className={`w-[75%] md:w-2/3 my-2 mx-5 px-4 py-2 ${bubbleColor} ${bubblePosition} flex items-start relative`}
       >
         <p className="flex-grow">{chatMessage.content}</p>
         {chatMessage.role === "assistant" && showOptionsLastMessage && (
@@ -180,7 +180,7 @@ const TextBubble = ({
                   viewBox="0 0 898 1026"
                 >
                   <path
-                    fill="#ffffff"
+                    fill="#6b7280"
                     d="m62.397 8l819 467q16 9 16 39.5t-16 37.5l-819 467q-12 8-30 5.5t-32-17.5V22q31-34 62-14z"
                   />
                 </svg>
@@ -205,12 +205,12 @@ const TextBubble = ({
       </div>
       <Dialog
         props={{
-          title: "¿Deseas denunciar este mensaje?",
+          title: "¿Deseas denunciar este \n mensaje?",
           type: "complaint",
           showDialog: showDialogComplaint,
           onClose: onClose,
           onOk: onOk,
-          width: "500px",
+          width: "200px",
           message_id: chatMessage.id,
         }}
       />

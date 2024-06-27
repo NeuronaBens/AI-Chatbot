@@ -13,17 +13,14 @@ export default function Home() {
         <NavbarContentAuthentication></NavbarContentAuthentication>
       </Navbar>
       {/* Hero section */}
-      <section
-        id="inicio"
-        className="py-32 bg-gradient-to-r from-[#3A378C] to-[#6C63FF]"
-      >
+      <section id="inicio" className="py-32 bg-[#FFFFFF]">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center">
             <div className="animate-slideleft w-full md:w-1/2 mb-10 md:mb-0 md:pr-10">
-              <h1 className="text-4xl font-bold text-white text-center mb-8">
+              <h1 className="text-4xl font-bold text-[#261039] text-center mb-8">
                 Bienvenido a tu Chatbot de Salud Mental con IA!
               </h1>
-              <p className="text-lg text-center text-white">
+              <p className="text-lg text-center text-[#261039]">
                 Nuestro chatbot está diseñado para ayudarte a gestionar la
                 ansiedad y el estrés, y mejorar tu salud mental en general. Como
                 estudiantes entendemos que es posible que enfrentes muchos
@@ -47,10 +44,10 @@ export default function Home() {
       {/* Features section */}
       <section
         id="funcionalidades"
-        className="w-full h-full bg-cover py-16 px-16 bg-gradient-to-r from-[#6C63FF] to-[#3A378C]"
+        className="w-full h-full bg-cover py-16 px-16 bg-[#FFFFFF]"
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-white">
+          <h2 className="text-4xl font-bold mb-12 text-center text-[#261039]">
             <a href="#top">Funcionalidades</a>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -86,7 +83,9 @@ export default function Home() {
         id="informacion"
         className="w-full h-full bg-cover container px-12 md:px-16 py-16 bg-white"
       >
-        <h2 className="mb-4 md:mb-8 text-4xl font-bold mb-12 text-center text-[#3A378C]">
+
+        <h2 className="mb-8 text-4xl font-bold mb-12 text-center text-[#261039]">
+
           <a href="#top">Información</a>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
@@ -122,7 +121,7 @@ export default function Home() {
               href="https://play.google.com/store/apps"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-3 text-white bg-gradient-to-r from-[#3A378C] to-[#6C63FF] rounded-full hover:shadow-lg transition-all duration-300 text-lg"
+              className="inline-flex items-center px-8 py-3 text-[#261039] bg-[#FFFFFF] rounded-full hover:shadow-lg transition-all duration-300 text-lg"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,6 +136,25 @@ export default function Home() {
                 />
               </svg>
               Descargar App
+            </a>
+            <div className="mx-8"></div>
+            <a
+              href="/general/register"
+              className="inline-flex items-center px-8 py-3 text-[#261039] bg-[#FFFFFF] rounded-full hover:shadow-lg transition-all duration-300 text-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Iniciar Ahora
             </a>
           </div>
         </div>

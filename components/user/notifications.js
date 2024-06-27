@@ -61,20 +61,18 @@ const Notifications = () => {
           {notifications.map((value, i) => (
             <div
               key={i}
-              className="rounded-lg bg-gradient-to-r from-[#3A378C] to-[#6C63FF] p-4 shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
+              className="p-4 rounded border-[#E1E1E1] border-[1px] transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
               onClick={() => updateNotification(value)}
             >
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <NewspaperIcon className="h-12 w-12 text-white" />
+                  <NewspaperIcon className="h-12 w-12" />
                 </div>
                 <div className="ml-4">
-                  <div className="text-xl font-semibold text-white">
+                  <div className="text-xl font-semibold">
                     {value.notification.name}
                   </div>
-                  <div className="mt-1 text-gray-100">
-                    {value.notification.content}
-                  </div>
+                  <div className="mt-1">{value.notification.content}</div>
                 </div>
                 {!value.read && (
                   <div className="ml-auto">
