@@ -21,6 +21,7 @@ export default function AIChat(session) {
   const [editLastMessage, setEditLastMessage] = useState(false);
   const [deletedMessage, setDeletedMessage] = useState(null);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
 
   const {
     messages,
@@ -261,6 +262,10 @@ export default function AIChat(session) {
     setDeletedMessage(index);
   };
 
+  /////////////////////////////////////////////////////////////////////////////////////
+  ////////////////// USE EFFECTS //////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     if (editLastMessage) {
       updateLastMessage();
@@ -296,7 +301,17 @@ export default function AIChat(session) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    console.log(messages); //debug erase
+    if (messages.length > 2) {
+      setShowWelcome(false);
+    } else {
+      setShowWelcome(true);
+    }
+  }, [messages]);
+
   /////////////////////////////////////////////////////////////////////////////////////
+  ////////////////// HTMX TEMPLATES ///////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////
 
   //Return on null student
@@ -320,7 +335,13 @@ export default function AIChat(session) {
   //Return on correct student
   return (
     <div className="grow">
-      <ChatWelcome />
+      <div
+        className={`transition-opacity duration-500 ${
+          showWelcome ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <ChatWelcome />
+      </div>
       <div>
         <div className="h-5/6 mb-32">
           {isLoadingMessages ? (
