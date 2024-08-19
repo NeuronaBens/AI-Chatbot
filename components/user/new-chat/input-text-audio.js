@@ -57,7 +57,7 @@ const TextInput = ({
         handleStopListening();
         await handleSubmit(e);
       }}
-      className="flex items-center"
+      className="flex items-center w-full max-w-screen-md mx-auto px-4"
     >
       <input
         disabled={disabled}
@@ -70,14 +70,15 @@ const TextInput = ({
       <button
         type="button"
         onClick={isListening ? handleStopListening : handleStartListening}
-        className="px-2 md:px-4 py-2 mx-1 md:mx-2 rounded-l-md focus:outline-none"
+        className="p-2 focus:outline-none"
       >
         {isListening ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
+            width="24"
+            height="24"
             viewBox="0 0 56 56"
+            className="w-6 h-6"
           >
             <path
               fill="#7A72DE"
@@ -90,6 +91,7 @@ const TextInput = ({
             width="24"
             height="24"
             viewBox="0 0 24 24"
+            className="w-6 h-6"
           >
             <path
               fill="#7A72DE"
@@ -100,13 +102,14 @@ const TextInput = ({
       </button>
       <button
         type="submit"
-        className="px-2 md:px-4 py-2 mx-1 md:mx-2 bg-[#7A72DE] text-white rounded-r-md focus:outline-none"
+        className="p-2 bg-[#7A72DE] text-white rounded-r-md focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
           viewBox="0 0 512 512"
+          className="w-6 h-6"
         >
           <path
             fill="currentColor"
