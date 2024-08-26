@@ -4,7 +4,7 @@ const Logo = ({ size }) => {
   return (
     <div className={`h-${size} w-${size} mt-8`}>
       <Image
-        src="/logo.svg"
+        src="/Logo_and_naming.svg"
         alt="Logo"
         width={size}
         height={size}

@@ -148,8 +148,8 @@ const SidebarUser = ({ children, session }) => {
       >
         <div className="h-1/4 flex">
           <Link href="/">
-            <div className="m-4">
-              <Logo size={40} />
+            <div className="">
+              <Logo size={240} />
             </div>
           </Link>
         </div>

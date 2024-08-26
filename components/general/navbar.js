@@ -8,7 +8,7 @@ function Navbar({ children }) {
       <div className="absolute top-0 left-0 w-full h-full bg-[#FFFFFF] z-[-1]"></div>
       <div className="max-w-full mx-auto px-4 flex items-center justify-between px-10">
         <Link href="/">
-          <Logo size={40} />
+          <Logo size={180} />
         </Link>
         {children}
       </div>
